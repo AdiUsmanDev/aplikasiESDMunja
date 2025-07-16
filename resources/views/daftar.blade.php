@@ -81,7 +81,7 @@
                 <div class="w-3/12 max-w-full px-1 ml-auto flex-0">
                 </div>
                 <div class="w-3/12 max-w-full px-1 flex-0">
-                  <a class="inline-block w-full px-5 py-2.5 mb-4 font-bold text-center text-gray-200 uppercase align-middle transition-all bg-transparent border border-gray-200 border-solid rounded-lg shadow-none cursor-pointer hover:-translate-y-px leading-pro text-xs ease-in tracking-tight-rem bg-150 bg-x-25 hover:bg-transparent hover:opacity-75" href="javascript:;">
+                  <a class="inline-block w-full px-5 py-2.5 mb-4 font-bold text-center text-gray-200 uppercase align-middle transition-all bg-transparent border border-gray-200 border-solid rounded-lg shadow-none cursor-pointer hover:-translate-y-px leading-pro text-xs ease-in tracking-tight-rem bg-150 bg-x-25 hover:bg-transparent hover:opacity-75" href="{{ url('auth/google') }}">
                     <svg width="24px" height="32px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                       <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                         <g transform="translate(3.000000, 2.000000)" fill-rule="nonzero">
@@ -103,28 +103,29 @@
                 </div>
               </div>
               <div class="flex-auto p-6">
-                <form role="form text-left">
+                <form role="form text-left" action="{{ route('daftarmanual') }}" method="POST">
+                  <input type="hidden" name="_token" value="{{ csrf_token() }}">
                   <div class="mb-4">
-                    <input type="text" class="placeholder:text-gray-500 text-sm focus:shadow-primary-outline leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-blue-500 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow" placeholder="Nama" aria-label="Nama" aria-describedby="nama-addon" />
+                    <input type="text" name="nama" class="placeholder:text-gray-500 text-sm focus:shadow-primary-outline leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-blue-500 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow" placeholder="Nama" aria-label="Nama" aria-describedby="nama-addon" />
                   </div>
                   <div class="mb-4">
-                    <input type="email" class="placeholder:text-gray-500 text-sm focus:shadow-primary-outline leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-blue-500 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow" placeholder="Email" aria-label="Email" aria-describedby="email-addon" />
+                    <input type="email" name="email" class="placeholder:text-gray-500 text-sm focus:shadow-primary-outline leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-blue-500 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow" placeholder="Email" aria-label="Email" aria-describedby="email-addon" />
                   </div>
                   <div class="mb-4">
-                    <input type="password" class="placeholder:text-gray-500 text-sm focus:shadow-primary-outline leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-blue-500 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow" placeholder="Kata Sandi" aria-label="Kata Sandi" aria-describedby="password-addon" />
+                    <input type="password" name="password" class="placeholder:text-gray-500 text-sm focus:shadow-primary-outline leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-blue-500 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow" placeholder="Kata Sandi" aria-label="Kata Sandi" aria-describedby="password-addon" />
                   </div>
                   <div class="min-h-6 pl-7 mb-0.5 block">
                     <input class="w-4.8 h-4.8 ease -ml-7 rounded-1.4 checked:bg-gradient-to-tl checked:from-blue-500 checked:to-violet-500 after:text-xxs after:font-awesome after:duration-250 after:ease-in-out duration-250 relative float-left mt-1 cursor-pointer appearance-none border border-solid border-slate-200 bg-white bg-contain bg-center bg-no-repeat align-top transition-all after:absolute after:flex after:h-full after:w-full after:items-center after:justify-center after:text-white after:opacity-0 after:transition-all after:content-['\f00c'] checked:border-0 checked:border-transparent checked:bg-transparent checked:after:opacity-100" type="checkbox" value="" checked />
                     <label class="mb-2 ml-1 font-normal cursor-pointer text-sm text-slate-500" for="flexCheckDefault"> Saya menyetujui <a href="javascript:;" class=" font-normal text-slate-500">terhadap data yang saya input</a> </label>
                   </div>
                   <div class="text-center">
-                    <a href="/profile"
+                   <button type="submit"> <a
                       class="inline-block w-full px-5 py-2.5 mt-6 mb-2 font-bold text-center text-white align-middle transition-all 
     bg-blue-500 hover:bg-blue-600 border-0 rounded-lg cursor-pointer 
     active:opacity-85 hover:-translate-y-px hover:shadow-xs leading-normal 
     text-sm ease-in tracking-tight-rem shadow-md bg-150 bg-x-25">
                       Daftarkan Akun
-                    </a>
+                    </a></button>
                   </div>
 
 

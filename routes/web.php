@@ -1,6 +1,28 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\GoogleController;
+use App\Http\Controllers\AuthControllermanual;
+use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Middleware\CekProfilLengkap;
+use App\Http\Middleware\Authenticate;
+
+Route::middleware([CekProfilLengkap::class])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});
+
+Route::get('/lengkapi-profil', [ProfilController::class, 'form'])->name('profil.lengkapi');
+Route::post('/lengkapi-profil', [ProfilController::class, 'simpan'])->name('profil.simpan');
+
+
+Route::get('auth/google', [GoogleController::class, 'redirectToGoogle']);
+Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
+
+Route::post('/daftarmanual', [AuthControllermanual::class, 'register'])->name('daftarmanual');
+Route::post('/loginmanual', [AuthControllermanual::class, 'login'])->name('loginmanual');
+Route::get('/logoutmanual', [AuthControllermanual::class, 'logout'])->name('logoutmanual');
+
 
 Route::get('/', function () {
     return view('index');
@@ -65,3 +87,7 @@ Route::get('/suratterbituser', function () {
     return view('suratterbituser');
 })->name('suratterbituser');
 
+Route::get('/logout', function () {
+    Auth::logout();
+    return redirect('/daftar'); 
+})->name('logout');

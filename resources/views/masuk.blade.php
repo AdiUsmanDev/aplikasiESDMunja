@@ -16,7 +16,16 @@
   <link href=" {{ asset('assets/css/nucleo-svg.css') }}" rel="stylesheet" />
   <!-- Main Styling -->
   <link href="{{ asset('assets/css/argon-dashboard-tailwind.css?v=1.0.1') }}" rel="stylesheet" />
+
+<link rel="stylesheet" href="https://unpkg.com/tippy.js@6/themes/light.css" />
+
+<!-- Tambahkan sebelum </body> -->
+<script src="https://unpkg.com/@popperjs/core@2"></script>
+<script src="https://unpkg.com/tippy.js@6"></script>
+
 </head>
+
+
 
 <body class="m-0 font-sans antialiased font-normal bg-white text-start text-base leading-default text-slate-500">
   <div class="container sticky top-0 z-sticky">
@@ -91,26 +100,49 @@
                         <h4 class="font-bold">Masuk</h4>
                         <p class="mb-0">Masukan Email dan Kata Sandi Anda </p>
                       </div>
+
                       <div class="flex-auto p-6">
-                        <form role="form">
+                        <form  id="formLogin" role="form" action="{{ route('loginmanual') }}" method="POST">
+                           <input type="hidden" name="_token" value="{{ csrf_token() }}">
                           <div class="mb-4">
-                            <input type="email" placeholder="Email" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none" />
+                            <input type="email" name="email" placeholder="Email" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none" />
                           </div>
-                          <div class="mb-4">
-                            <input type="password" placeholder="Kata Sandi" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none" />
+                          <div class="mb-4 relative">
+                            <input type="password" name="password" id="password" placeholder="Kata Sandi" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none" />
+                              <button
+                              type="button"
+                              id="togglePassword"
+                              class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-blue-600 underline focus:outline-none">
+                              Tampilkan
+                            </button>
                           </div>
                           <div class="flex items-center pl-12 mb-0.5 text-left min-h-6">
                             <input id="rememberMe" class="mt-0.5 rounded-10 duration-250 ease-in-out after:rounded-circle after:shadow-2xl after:duration-250 checked:after:translate-x-5.3 h-5 relative float-left -ml-12 w-10 cursor-pointer appearance-none border border-solid border-gray-200 bg-zinc-700/10 bg-none bg-contain bg-left bg-no-repeat align-top transition-all after:absolute after:top-px after:h-4 after:w-4 after:translate-x-px after:bg-white after:content-[''] checked:border-blue-500/95 checked:bg-blue-500/95 checked:bg-none checked:bg-right" type="checkbox" />
                             <label class="ml-2 font-normal cursor-pointer select-none text-sm text-slate-700" for="rememberMe">Ingat saya</label>
                           </div>
                           <div class="text-center">
-                            <button type="button" onclick="window.location.href='/profile'"
+                            <button type="submit"
                               class="inline-block w-full px-16 py-3.5 mt-6 mb-0 font-bold leading-normal text-center text-white align-middle transition-all bg-blue-500 border-0 rounded-lg cursor-pointer hover:-translate-y-px active:opacity-85 hover:shadow-xs text-sm ease-in tracking-tight-rem shadow-md bg-150 bg-x-25">
                               Masuk
                             </button>
                           </div>
 
                         </form>
+
+             @if ($errors->has('email'))
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function () {
+                                    tippy('#formLogin', {
+                                        content: @json($errors->first('email')),
+                                        theme: 'light',
+                                        placement: 'top',
+                                        trigger: 'manual',
+                                        showOnCreate: true,
+                                    });
+                                });
+                            </script>
+               @endif
+
                       </div>
                       <div class="border-black/12.5 rounded-b-2xl border-t-0 border-solid p-6 text-center pt-0 px-1 sm:px-6">
                         <p class="mx-auto mb-6 leading-normal text-sm">Belum punya akun? <a href="{{ route('daftar') }}" class="font-semibold text-transparent bg-clip-text bg-gradient-to-tl from-blue-500 to-violet-500">Daftar akun</a></p>
@@ -136,6 +168,46 @@
         <footer class="py-12">
         </footer>
 </body>
+
+
+<script>
+  function loginBerhasil() {
+    const rememberCheckbox = document.getElementById("rememberMe");
+
+    if (rememberCheckbox.checked) {
+      localStorage.setItem("rememberMe", "true");
+    } else {
+      localStorage.removeItem("rememberMe");
+    }
+  }
+
+  window.onload = function () {
+    const checkbox = document.getElementById("rememberMe");
+    if (localStorage.getItem("rememberMe") === "true") {
+      checkbox.checked = true;
+    } else {
+      checkbox.checked = false;
+    }
+  };
+ 
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const passwordInput = document.getElementById('password');
+    const iconPassword = document.getElementById('iconPassword');
+    const toggleBtn = document.getElementById('togglePassword');
+
+    toggleBtn.addEventListener('click', () => {
+      const isPassword = passwordInput.type === 'password';
+      passwordInput.type = isPassword ? 'text' : 'password';
+
+      iconPassword.src = isPassword
+        ? 'https://www.svgrepo.com/show/500228/eye-off.svg'
+        : 'https://www.svgrepo.com/show/500227/eye.svg';
+    });
+  });
+
+</script>
+
 
 <!-- plugin for scrollbar  -->
 <script src="../assets/js/plugins/perfect-scrollbar.min.js" async></script>
