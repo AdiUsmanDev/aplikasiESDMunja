@@ -8,6 +8,7 @@ class Kernel extends HttpKernel
 {
     /**
      * Global HTTP middleware stack.
+     * Middleware yang akan dipanggil untuk setiap request.
      */
     protected array $middleware = [
         \Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests::class,
@@ -20,7 +21,7 @@ class Kernel extends HttpKernel
     ];
 
     /**
-     * The application's route middleware groups.
+     * Middleware groups (web & api).
      */
     protected array $middlewareGroups = [
         'web' => [
@@ -40,20 +41,19 @@ class Kernel extends HttpKernel
     ];
 
     /**
-     * Route middleware aliases.
+     * Middleware aliases (sebelumnya routeMiddleware).
+     * Gunakan alias ini untuk di route seperti 'auth', 'cek.profil', dll.
      */
     protected array $middlewareAliases = [
         'auth' => \App\Http\Middleware\Authenticate::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'cek.profil' => \App\Http\Middleware\CekProfilLengkap::class, 
+        'cek.profil' => \App\Http\Middleware\CekProfilLengkap::class, // ⬅️ Middleware custom kamu
     ];
 
-
-    public function __construct(...$args)
+    public function handle($request)
 {
-    dd('✅ Kernel ini aktif dan dipakai Laravel');
-    parent::__construct(...$args);
+    dd('✔ Kernel aktif dan digunakan.');
 }
 
 }

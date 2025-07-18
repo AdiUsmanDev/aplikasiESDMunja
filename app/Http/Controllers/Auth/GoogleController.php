@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Socialite;
 use App\Models\Pengguna;
 use Illuminate\Support\Facades\Auth;
+use App\Models\IdentitasPengguna;
 
 class GoogleController extends Controller
 {
@@ -18,7 +19,7 @@ class GoogleController extends Controller
     public function handleGoogleCallback()
     {
         $googleUser = Socialite::driver('google')->user();
-        $role = 'admin';
+        $role = 'pengguna';
 
         $user = Pengguna::firstOrCreate(
             [ 'provider' => 'google', 'provider_id' => $googleUser->id ],
@@ -31,9 +32,31 @@ class GoogleController extends Controller
                 'role' => $role
             ]
         );
+        
+        $this->createDefaultIdentitas($user);
 
         Auth::login($user);
 
-        return redirect('/dashboard');
+        return redirect('/dashboarduser');
+    }
+
+     protected function createDefaultIdentitas($user)
+    {
+        if (!$user->identitas) {
+            IdentitasPengguna::create([
+                'pengguna_id' => $user->id,
+                'nama' => $user->name ?? 'Belum diisi',
+                'email' => $user->email,
+                'nama_perusahaan' => '',
+                'email_perusahaan' => '',
+                'penanggung_jawab' => '',
+                'kode_kbli' => '',
+                'judul_kbli' => '',
+                'nomorhp' => '',
+                'alamatusaha' => '',
+                'nomor_induk_berusaha' => '',
+                'nomor_pokok_wajib_pajak' => '',
+            ]);
+        }
     }
 }

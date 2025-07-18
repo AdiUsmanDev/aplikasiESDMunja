@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Pengguna;
+use App\Models\IdentitasPengguna; // ✅ Pastikan ini di-import
 
 class AuthControllermanual extends Controller
 {
@@ -16,7 +17,7 @@ class AuthControllermanual extends Controller
             'email'    => 'required|email|unique:pengguna,email',
             'password' => 'required|string|min:6',
         ],[
-        'email.unique' => 'Email sudah terdaftar.', 
+            'email.unique' => 'Email sudah terdaftar.', 
         ]);
 
         $user = Pengguna::create([
@@ -25,11 +26,15 @@ class AuthControllermanual extends Controller
             'password'     => bcrypt($request->password),
             'provider'     => null,
             'provider_id'  => null,
-            'role'         => 'admin', 
+            'role'         => 'pengguna', 
         ]);
 
         Auth::login($user);
-        return redirect('/dashboard');
+
+        // ✅ Buat identitas_pengguna default setelah login
+        $this->createDefaultIdentitas($user);
+
+        return redirect('/dashboarduser');
     }
 
     public function login(Request $request)
@@ -43,7 +48,12 @@ class AuthControllermanual extends Controller
             'email' => $request->email,
             'password' => $request->password
         ])) {
-            return redirect('/dashboard');
+            $user = Auth::user();
+
+            // ✅ Buat identitas_pengguna default setelah login
+            $this->createDefaultIdentitas($user);
+
+            return redirect('/dashboarduser');
         }
 
         return back()->withErrors(['email' => 'Email atau password salah.']);
@@ -53,5 +63,26 @@ class AuthControllermanual extends Controller
     {
         Auth::logout();
         return redirect('/login');
+    }
+
+    // ✅ Fungsi reusable untuk membuat identitas default
+    protected function createDefaultIdentitas($user)
+    {
+        if (!$user->identitas) {
+            IdentitasPengguna::create([
+                'pengguna_id' => $user->id,
+                'nama' => $user->name ?? 'Belum diisi',
+                'email' => $user->email,
+                'nama_perusahaan' => '',
+                'email_perusahaan' => '',
+                'penanggung_jawab' => '',
+                'kode_kbli' => '',
+                'judul_kbli' => '',
+                'nomorhp' => '',
+                'alamatusaha' => '',
+                'nomor_induk_berusaha' => '',
+                'nomor_pokok_wajib_pajak' => '',
+            ]);
+        }
     }
 }

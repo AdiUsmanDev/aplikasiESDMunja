@@ -7,14 +7,15 @@ use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Middleware\CekProfilLengkap;
 use App\Http\Middleware\Authenticate;
+use App\Http\Controllers\PengajuanController;
 
-Route::middleware([CekProfilLengkap::class])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::post('/pengajuan/store', [PengajuanController::class, 'store'])->name('pengajuan.store');
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfilController::class, 'form'])->name('profile');
+    Route::post('/profile', [ProfilController::class, 'simpan'])->name('profile.simpan');
 });
-
-Route::get('/lengkapi-profil', [ProfilController::class, 'form'])->name('profil.lengkapi');
-Route::post('/lengkapi-profil', [ProfilController::class, 'simpan'])->name('profil.simpan');
-
 
 Route::get('auth/google', [GoogleController::class, 'redirectToGoogle']);
 Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
@@ -36,9 +37,11 @@ Route::get('/daftar', function () {
     return view('daftar');
 })->name('daftar');
 
-Route::get('/dashboarduser', function () {
-    return view('baseuser');
-})->name('dashboarduser');
+Route::middleware(['auth', 'cek.profil'])->group(function () {
+    Route::get('/dashboarduser', function () {
+        return view('baseuser');
+    });
+});
 
 Route::get('/dashboardadmin', function () {
     return view('baseadmin');
@@ -51,11 +54,6 @@ Route::get('/dashboardver', function () {
 Route::get('/verbase', function () {
     return view('verbase');
 })->name('verbase');
-
-
-Route::get('/profile', function () {
-    return view('profile');
-})->name('profile');
 
 Route::get('/profilevalidator', function () {
     return view('profilevalidator');

@@ -9,31 +9,36 @@ use App\Models\IdentitasPengguna;
 class ProfilController extends Controller
 {
     public function form()
-    {
-        return view('profil.lengkapi');
-    }
+{
+    $user = Auth::user();
+    $identitas = IdentitasPengguna::where('pengguna_id', $user->id)->first();
+    return view('profile', compact('identitas'));
+ 
+}
 
-    public function simpan(Request $request)
-    {
-        $request->validate([
-            'nama' => 'required',
-            'nama_perusahaan' => 'required',
-            'email_perusahaan' => 'required|email',
-            'penanggung_jawab' => 'required',
-            'kode_kbli' => 'required',
-            'judul_kbli' => 'required',
-            'nomorhp' => 'required',
-            'alamatusaha' => 'required',
-            'nomor_induk_berusaha' => 'required',
-            'nomor_pokok_wajib_pajak' => 'required',
-        ]);
+public function simpan(Request $request)
+{
+    
+    $user = Auth::user();
+    $request->validate([
+        'nama' => 'required|string|max:255',
+        'nama_perusahaan' => 'required|string|max:255',
+        'email_perusahaan' => 'required|email',
+        'penanggung_jawab' => 'required|string',
+        'kode_kbli' => 'required|string',
+        'judul_kbli' => 'required|string',
+        'nomorhp' => 'required|string',
+        'alamatusaha' => 'required|string',
+        'nomor_induk_berusaha' => 'required|string',
+        'nomor_pokok_wajib_pajak' => 'required|string',
+    ]);
 
-        $user = Auth::user();
 
-        IdentitasPengguna::create([
-            'pengguna_id' => $user->id,
+$user->identitas()->updateOrCreate(
+        ['pengguna_id' => $user->id],
+        [
             'nama' => $request->nama,
-            'email' => $user->email,
+            'email' => $request->email,
             'nama_perusahaan' => $request->nama_perusahaan,
             'email_perusahaan' => $request->email_perusahaan,
             'penanggung_jawab' => $request->penanggung_jawab,
@@ -43,8 +48,10 @@ class ProfilController extends Controller
             'alamatusaha' => $request->alamatusaha,
             'nomor_induk_berusaha' => $request->nomor_induk_berusaha,
             'nomor_pokok_wajib_pajak' => $request->nomor_pokok_wajib_pajak,
-        ]);
+        ]
+    );
 
-        return redirect()->route('dashboard')->with('success', 'Profil berhasil dilengkapi.');
-    }
+    return redirect()->route('profile')->with('success', 'Profil berhasil disimpan.');
+}
+
 }

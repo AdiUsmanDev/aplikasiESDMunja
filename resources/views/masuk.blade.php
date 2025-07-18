@@ -109,10 +109,11 @@
                           </div>
                           <div class="mb-4 relative">
                             <input type="password" name="password" id="password" placeholder="Kata Sandi" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none" />
-                              <button
+                            <br>  
+                            <button
                               type="button"
                               id="togglePassword"
-                              class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-blue-600 underline focus:outline-none">
+                              class="absolute right-5 top-1/2 -translate-y-1/2 text-xs text-blue-600 underline focus:outline-none">
                               Tampilkan
                             </button>
                           </div>
@@ -129,18 +130,50 @@
 
                         </form>
 
+              <div class="text-center mb-4">
+ <p>
+
+  <div class="flex justify-center">
+    <a href="{{ url('auth/google') }}"
+       class="flex items-center gap-2 px-5 py-2.5 text-white font-semibold uppercase bg-white border border-gray-300 rounded-lg shadow-md hover:shadow-lg hover:-translate-y-0.5 transition transform duration-200 ease-in-out">
+
+      <svg class="w-6 h-6" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" fill="none">
+        <g fill-rule="nonzero">
+          <path d="M57.81 30.15c0-2.43-.2-4.2-.62-6.03H29.5v10.95h16.26c-.33 2.72-2.1 6.82-6.05 9.58l-.06.37 8.76 6.78.61.06c5.57-5.15 8.77-12.72 8.77-21.71z" fill="#4285F4"/>
+          <path d="M29.5 58.99c7.96 0 14.65-2.62 19.54-7.14l-9.31-7.21c-2.49 1.72-5.84 2.91-10.23 2.91-7.8 0-14.42-5.15-16.8-12.23l-.35.03-9.1 7.05-.12.33C8 52.37 17.96 58.99 29.5 58.99z" fill="#34A853"/>
+          <path d="M12.72 35.33a17.46 17.46 0 0 1-.98-5.83c0-2.03.36-3.99.97-5.83l-.02-.39-9.22-7.16-.3.14A29.48 29.48 0 0 0 0 29.5c0 4.75 1.15 9.24 3.14 13.22l9.58-7.39z" fill="#FBBC05"/>
+          <path d="M29.5 11.4c5.54 0 9.3 2.4 11.43 4.4l8.32-8.13C44.1 2.92 37.46 0 29.5 0 17.96 0 8 6.62 3.15 16.26l9.53 7.41C15.08 16.55 21.7 11.4 29.5 11.4z" fill="#EB4335"/>
+        </g>
+      </svg>
+    </a>
+  </div>
+</div>
+
+
+                    
+
              @if ($errors->has('email'))
                             <script>
-                                document.addEventListener('DOMContentLoaded', function () {
-                                    tippy('#formLogin', {
-                                        content: @json($errors->first('email')),
-                                        theme: 'light',
-                                        placement: 'top',
-                                        trigger: 'manual',
-                                        showOnCreate: true,
-                                    });
-                                });
-                            </script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const formLogin = document.querySelector('#formLogin');
+        const errorMessage = @json($errors->first('email'));
+
+        if (formLogin && errorMessage) {
+            tippy(formLogin, {
+                content: errorMessage,
+                theme: 'custom-error',
+                placement: 'top',
+                trigger: 'manual',
+                showOnCreate: true,
+                animation: 'scale',
+                duration: [200, 150],
+                inertia: true,
+                maxWidth: 300,
+            });
+        }
+    });
+</script>
+
                @endif
 
                       </div>
