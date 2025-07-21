@@ -53,12 +53,64 @@
     box-sizing: border-box;
   }
 
+  table#table-nonSurya th:first-child,
+  table#table-nonSurya td:first-child,
+  table#table-surya th:first-child,
+  table#table-surya td:first-child {
+    width: 250px;
+    /* Sesuaikan ukuran sesuai kebutuhan */
+    text-align: left;
+    white-space: nowrap;
+    vertical-align: top;
+  }
+
+  #imageModal {
+    cursor: zoom-out;
+  }
+
+
   @media screen and (max-width: 768px) {
     .overflow-scroll {
       width: 100%;
       display: block;
     }
   }
+
+    @keyframes slideOutUp {
+        0% { opacity: 1; transform: translateY(0); }
+        100% { opacity: 0; transform: translateY(-30px); }
+    }
+
+    .floating-alert {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 9999;
+        padding: 15px 20px;
+        border-left: 5px solid;
+        border-radius: 5px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: opacity 0.5s ease-in-out;
+        font-family: sans-serif;
+    }
+
+    .floating-alert.success {
+        background-color: #d4edda;
+        color: #155724;
+        border-left-color: #28a745;
+    }
+
+    .floating-alert.warning {
+        background-color: #f8d7da;
+        color: #721c24;
+        border-left-color: #f44336;
+    }
+
+    .slide-out {
+        animation: slideOutUp 0.8s forwards;
+    }
+
+
 </style>
 
 <body
@@ -123,87 +175,6 @@
                 aria-expanded="false">
                 <i class="cursor-pointer fa fa-bell"></i>
               </a>
-
-              <ul dropdown-menu
-                class="text-sm transform-dropdown before:font-awesome before:leading-default before:duration-350 before:ease lg:shadow-3xl duration-250 min-w-44 before:sm:right-8 before:text-5.5 pointer-events-none absolute right-0 top-0 z-50 origin-top list-none rounded-lg border-0 border-solid border-transparent dark:shadow-dark-xl dark:bg-slate-850 bg-white bg-clip-padding px-2 py-4 text-left text-slate-500 opacity-0 transition-all before:absolute before:right-2 before:left-auto before:top-0 before:z-50 before:inline-block before:font-normal before:text-white before:antialiased before:transition-all before:content-['\f0d8'] sm:-mr-6 lg:absolute lg:right-0 lg:left-auto lg:mt-2 lg:block lg:cursor-pointer">
-                <!-- add show class on dropdown open js -->
-                <li class="relative mb-2">
-                  <a class="dark:hover:bg-slate-900 ease py-1.2 clear-both block w-full whitespace-nowrap rounded-lg bg-transparent px-4 duration-300 hover:bg-gray-200 hover:text-slate-700 lg:transition-colors"
-                    href="javascript:;">
-                    <div class="flex py-1">
-                      <div class="my-auto">
-                        <img src="../assets/img/team-2.jpg"
-                          class="inline-flex items-center justify-center mr-4 text-sm text-white h-9 w-9 max-w-none rounded-xl" />
-                      </div>
-                      <div class="flex flex-col justify-center">
-                        <h6 class="mb-1 text-sm font-normal leading-normal dark:text-white"><span
-                            class="font-semibold"> New message</span> from Laur</h6>
-                        <p class="mb-0 text-xs leading-tight text-slate-400 dark:text-white/80">
-                          <i class="mr-1 fa fa-clock"></i>
-                          13 minutes ago
-                        </p>
-                      </div>
-                    </div>
-                  </a>
-                </li>
-
-                <li class="relative mb-2">
-                  <a class="dark:hover:bg-slate-900 ease py-1.2 clear-both block w-full whitespace-nowrap rounded-lg px-4 transition-colors duration-300 hover:bg-gray-200 hover:text-slate-700"
-                    href="javascript:;">
-                    <div class="flex py-1">
-                      <div class="my-auto">
-                        <img src="../assets/img/small-logos/logo-spotify.svg"
-                          class="inline-flex items-center justify-center mr-4 text-sm text-white bg-gradient-to-tl from-zinc-800 to-zinc-700 dark:bg-gradient-to-tl dark:from-slate-750 dark:to-gray-850 h-9 w-9 max-w-none rounded-xl" />
-                      </div>
-                      <div class="flex flex-col justify-center">
-                        <h6 class="mb-1 text-sm font-normal leading-normal dark:text-white"><span
-                            class="font-semibold">New album</span> by Travis Scott</h6>
-                        <p class="mb-0 text-xs leading-tight text-slate-400 dark:text-white/80">
-                          <i class="mr-1 fa fa-clock"></i>
-                          1 day
-                        </p>
-                      </div>
-                    </div>
-                  </a>
-                </li>
-
-                <li class="relative">
-                  <a class="dark:hover:bg-slate-900 ease py-1.2 clear-both block w-full whitespace-nowrap rounded-lg px-4 transition-colors duration-300 hover:bg-gray-200 hover:text-slate-700"
-                    href="javascript:;">
-                    <div class="flex py-1">
-                      <div
-                        class="inline-flex items-center justify-center my-auto mr-4 text-sm text-white transition-all duration-200 ease-nav-brand bg-gradient-to-tl from-slate-600 to-slate-300 h-9 w-9 rounded-xl">
-                        <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1"
-                          xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                          <title>credit-card</title>
-                          <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                            <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF" fill-rule="nonzero">
-                              <g transform="translate(1716.000000, 291.000000)">
-                                <g transform="translate(453.000000, 454.000000)">
-                                  <path class="color-background"
-                                    d="M43,10.7482083 L43,3.58333333 C43,1.60354167 41.3964583,0 39.4166667,0 L3.58333333,0 C1.60354167,0 0,1.60354167 0,3.58333333 L0,10.7482083 L43,10.7482083 Z"
-                                    opacity="0.593633743"></path>
-                                  <path class="color-background"
-                                    d="M0,16.125 L0,32.25 C0,34.2297917 1.60354167,35.8333333 3.58333333,35.8333333 L39.4166667,35.8333333 C41.3964583,35.8333333 43,34.2297917 43,32.25 L43,16.125 L0,16.125 Z M19.7083333,26.875 L7.16666667,26.875 L7.16666667,23.2916667 L19.7083333,23.2916667 L19.7083333,26.875 Z M35.8333333,26.875 L28.6666667,26.875 L28.6666667,23.2916667 L35.8333333,23.2916667 L35.8333333,26.875 Z">
-                                  </path>
-                                </g>
-                              </g>
-                            </g>
-                          </g>
-                        </svg>
-                      </div>
-                      <div class="flex flex-col justify-center">
-                        <h6 class="mb-1 text-sm font-normal leading-normal dark:text-white">Payment successfully
-                          completed</h6>
-                        <p class="mb-0 text-xs leading-tight text-slate-400 dark:text-white/80">
-                          <i class="mr-1 fa fa-clock"></i>
-                          2 days
-                        </p>
-                      </div>
-                    </div>
-                  </a>
-                </li>
-              </ul>
             </li>
           </ul>
         </div>
@@ -228,8 +199,7 @@
                   </p>
                   <div class="flex flex-wrap -mx-3">
                     <div class="w-full max-w-full px-3 shrink-0 md:w-full md:flex-0">
-
-                      <label class="block text-sm font-medium text-gray-700 mb-2">
+                      <label class="block text-m font-medium text-gray-700 mb-2">
                         Jenis Pembangkit Tenaga Listrik
                       </label>
                       <select id="pembangkitSelect" class="w-full border px-4 py-2 rounded mb-4"
@@ -252,8 +222,6 @@
                             Kurangi Unit
                           </button>
                         </div>
-
-
                         <div class="overflow-scroll">
                           <table id="table-nonSurya">
                             <thead>
@@ -291,13 +259,30 @@
                                 <td>Energi Primer</td>
                                 <td><input placeholder="Contoh: Air / Biosolar / Dexlite / Pertamax / LPG / Biogas dsb" name="primer_1" data-required></td>
                               </tr>
+
                               <tr>
-                                <td>Titik Koordinat (Latitude) </td>
-                                <td><input name="titikkordinat_1" data-required></td>
+                                <td>Titik Koordinat (Latitude)</td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    name="titikkordinatla_1"
+                                    data-required
+                                    pattern="^-?\d{1,2}\.\d+$"
+                                    placeholder="-1.234567"
+                                    title="Masukkan format desimal, contoh: -1.234567">
+                                </td>
                               </tr>
                               <tr>
-                                <td>Titik Koordinat (Longitude) </td>
-                                <td><input name="titikkordinat_1" data-required></td>
+                                <td>Titik Koordinat (Longitude)</td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    name="titikkordinatlo_1"
+                                    data-required
+                                    pattern="^-?\d{1,3}\.\d+$"
+                                    placeholder="103.456789"
+                                    title="Masukkan format desimal, contoh: 103.456789">
+                                </td>
                               </tr>
                               <tr>
                                 <td>Sifat Penggunaan</td>
@@ -311,6 +296,29 @@
                                   </select>
                                 </td>
                               </tr>
+                              <tr>
+                                <td>Foto Unit</td>
+                                <td>
+                                  <input type="file" name="foto_unit_1" accept="image/*" onchange="previewGambar(this, 'preview_unit_1')" data-required>
+                                  <img id="preview_unit_1" class="mt-2 w-24 hidden border rounded" />
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>Foto Papan Nama (Name Plate) Generator</td>
+                                <td>
+                                  <input type="file" name="foto_generator_1" accept="image/*" onchange="previewGambar(this, 'preview_generator_1')" data-required>
+                                  <img id="preview_generator_1" class="mt-2 w-24 hidden border rounded" />
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>Foto Papan Nama (Name Plate) Mesin Penggerak</td>
+                                <td>
+                                  <input type="file" name="foto_mesin_1" accept="image/*" onchange="previewGambar(this, 'preview_mesin_1')" data-required>
+                                  <img id="preview_mesin_1" class="mt-2 w-24 hidden border rounded" />
+                                </td>
+                              </tr>
+
+
                             </tbody>
                           </table>
                         </div>
@@ -330,7 +338,6 @@
                             Kurangi Unit
                           </button>
                         </div>
-
                         <div class="overflow-scroll">
                           <table id="table-surya">
                             <thead>
@@ -362,22 +369,61 @@
                               </tr>
                               <tr>
                                 <td>Titik Koordinat (Latitude)</td>
-                                <td><input name="titikkordinat_1" data-required></td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    name="titikkordinatla_2"
+                                    data-required
+                                    pattern="^-?\d{1,2}\.\d+$"
+                                    placeholder="-1.234567"
+                                    title="Masukkan format desimal, contoh: -1.234567">
+                                </td>
                               </tr>
                               <tr>
-                                <td>Titik Koordinat (Longitude) </td>
-                                <td><input name="titikkordinat_1" data-required></td>
+                                <td>Titik Koordinat (Longitude)</td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    name="titikkordinatlo_2"
+                                    data-required
+                                    pattern="^-?\d{1,3}\.\d+$"
+                                    placeholder="103.456789"
+                                    title="Masukkan format desimal, contoh: 103.456789">
+                                </td>
                               </tr>
+
                               <tr>
                                 <td>Sifat Penggunaan</td>
                                 <td>
-                                  <select name="sifat_1" data-required>
+                                  <select name="sifat_2" data-required>
                                     <option value="" disabled selected hidden>-- Pilih --</option>
                                     <option value="Darurat">Utama</option>
                                     <option value="Permanen">Cadangan</option>
                                     <option value="Sementara">Darurat</option>
                                     <option value="Musiman">Sementara</option>
                                   </select>
+                                </td>
+                              </tr>
+
+                              <tr>
+                                <td>Foto Unit</td>
+                                <td>
+                                  <input type="file" name="sfoto_unit_1" accept="image/*" onchange="previewGambar(this, 'spreview_unit_1')" data-required>
+                                  <img id="spreview_unit_1" class="mt-2 w-24 hidden border rounded" />
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>Foto Papan Nama (Name Plate) Modul PLTS</td>
+                                <td>
+                                  <input type="file" name="sfoto_modul_1" accept="image/*" onchange="previewGambar(this, 'spreview_modul_1')" data-required>
+                                  <img id="spreview_modul_1" class="mt-2 w-24 hidden border rounded" />
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>Foto Papan Nama (Name Plate) Inverter PLTS</td>
+                                <td>
+                                  <input type="file" name="sfoto_inverter_1" accept="image/*" onchange="previewGambar(this, 'spreview_inverter_1')" data-required>
+                                  <img id="spreview_inverter_1" class="mt-2 w-24 hidden border rounded" />
                                 </td>
                               </tr>
                             </tbody>
@@ -436,18 +482,19 @@
                           const tbody = document.getElementById('body-' + tipe);
                           const kolomBaru = header.children.length;
 
+                          // Tambahkan header baru
                           const th = document.createElement('th');
                           th.innerText = 'UNIT ' + kolomBaru;
-
-
                           header.appendChild(th);
 
                           const rows = tbody.getElementsByTagName('tr');
+
                           for (let i = 0; i < rows.length; i++) {
                             const td = document.createElement('td');
-                            const specName = rows[i].children[0].innerText.trim().toLowerCase().replace(/\s+/g, '');
+                            const label = rows[i].children[0].innerText.trim().toLowerCase();
 
-                            if (specName === 'sifatpenggunaan') {
+                            // Sifat Penggunaan
+                            if (label.includes('sifat penggunaan')) {
                               const select = document.createElement('select');
                               select.name = prefix + 'sifat_' + kolomBaru;
                               select.required = true;
@@ -466,9 +513,79 @@
                               });
 
                               td.appendChild(select);
-                            } else {
+                            }
+
+                            // Foto Unit
+                            else if (label.includes('foto unit')) {
                               const input = document.createElement('input');
-                              input.name = prefix + specName + '_' + kolomBaru;
+                              input.type = 'file';
+                              input.accept = 'image/*';
+                              input.name = prefix + 'foto_unit_' + kolomBaru;
+                              input.required = true;
+
+                              const preview = document.createElement('img');
+                              preview.id = prefix + 'preview_unit_' + kolomBaru;
+                              preview.className = 'mt-2 w-24 hidden border rounded';
+
+                              input.addEventListener('change', function() {
+                                previewGambar(this, preview.id);
+                              });
+
+                              td.appendChild(input);
+                              td.appendChild(preview);
+                            }
+
+                            // Foto Nameplate 1: Generator (nonSurya) atau Modul PLTS (surya)
+                            else if (
+                              (tipe === 'nonSurya' && label.includes('generator')) ||
+                              (tipe === 'surya' && label.includes('modul'))
+                            ) {
+                              const input = document.createElement('input');
+                              input.type = 'file';
+                              input.accept = 'image/*';
+                              input.name = prefix + 'foto_nameplate1_' + kolomBaru;
+                              input.required = true;
+
+                              const preview = document.createElement('img');
+                              preview.id = prefix + 'preview_nameplate1_' + kolomBaru;
+                              preview.className = 'mt-2 w-24 hidden border rounded';
+
+                              input.addEventListener('change', function() {
+                                previewGambar(this, preview.id);
+                              });
+
+                              td.appendChild(input);
+                              td.appendChild(preview);
+                            }
+
+                            // Foto Nameplate 2: Mesin Penggerak (nonSurya) atau Inverter (surya)
+                            else if (
+                              (tipe === 'nonSurya' && label.includes('mesin penggerak')) ||
+                              (tipe === 'surya' && label.includes('inverter'))
+                            ) {
+                              const input = document.createElement('input');
+                              input.type = 'file';
+                              input.accept = 'image/*';
+                              input.name = prefix + 'foto_nameplate2_' + kolomBaru;
+                              input.required = true;
+
+                              const preview = document.createElement('img');
+                              preview.id = prefix + 'preview_nameplate2_' + kolomBaru;
+                              preview.className = 'mt-2 w-24 hidden border rounded';
+
+                              input.addEventListener('change', function() {
+                                previewGambar(this, preview.id);
+                              });
+
+                              td.appendChild(input);
+                              td.appendChild(preview);
+                            }
+
+                            // Input teks biasa
+                            else {
+                              const input = document.createElement('input');
+                              const nameBase = label.replace(/[()]/g, '').replace(/\s+/g, '').toLowerCase();
+                              input.name = prefix + nameBase + '_' + kolomBaru;
                               input.required = true;
                               td.appendChild(input);
                             }
@@ -476,6 +593,8 @@
                             rows[i].appendChild(td);
                           }
                         }
+
+
 
                         function kurangiKolom(tipe) {
                           const header = document.getElementById('header-' + tipe);
@@ -489,15 +608,73 @@
                             }
                           }
                         }
-                      </script>
 
+
+
+                        function tampilkanModalGambar(src) {
+  const modal = document.getElementById('imageModal');
+  const modalImage = document.getElementById('modalImage');
+  const sidebar = document.getElementById('sidebar');
+
+  modalImage.src = src;
+  modal.classList.remove('hidden');
+
+  // Sembunyikan sidebar di semua ukuran
+  if (sidebar) {
+    sidebar.classList.remove('translate-x-0');
+    sidebar.classList.remove('lg:translate-x-0');
+    sidebar.classList.add('-translate-x-full');
+  }
+}
+
+function closeImageModal() {
+  const modal = document.getElementById('imageModal');
+  const sidebar = document.getElementById('sidebar');
+
+  modal.classList.add('hidden');
+
+  // Tampilkan kembali sidebar di semua ukuran
+  if (sidebar) {
+    sidebar.classList.remove('-translate-x-full');
+    sidebar.classList.add('translate-x-0');
+    sidebar.classList.add('lg:translate-x-0');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  const closeBtn = document.getElementById('closeModalBtn');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeImageModal);
+  }
+});
+
+function previewGambar(input, previewId) {
+  const file = input.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function (e) {
+    const img = document.getElementById(previewId);
+    img.src = e.target.result;
+    img.classList.remove('hidden');
+    img.classList.add('cursor-zoom-in');
+
+    img.onclick = function () {
+      tampilkanModalGambar(e.target.result);
+    };
+  };
+  reader.readAsDataURL(file);
+}
+
+
+                      </script>
 
                       <!-- Bagian 2: Jaringan Distribusi -->
                       <div class="mb-10">
-                        <p class="leading-normal dark:text-white dark:opacity-60 text-base font-bold">Jaringan
+                        <p class="leading-normal text-lg text-gray-700 dark:text-white uppercase font-bold">Jaringan
                           Distribusi</p>
 
-                        <label for="jaringanDistribusi" class="block text-sm font-medium text-gray-700 mb-2">Apakah Ada
+                        <label for="jaringanDistribusi" class="block text-m my-2 font-medium text-gray-700 mb-2">Apakah Ada
                           Jaringan Distribusi?</label>
                         <select id="jaringanDistribusi"
                           class="w-full px-4 py-2 border rounded-lg dark:bg-slate-700 dark:text-white"
@@ -511,7 +688,7 @@
 
                         <div id="form-jaringan" class="hidden mt-4">
                           <div class="mb-4">
-                            <label for="panjangSaluran" class="block text-sm font-medium text-gray-700">Panjang Saluran (Kms)</label>
+                            <label for="panjangSaluran" class="block text-m my-2 font-medium text-gray-700">Panjang Saluran (Kms)</label>
                             <input type="text" id="panjangSaluran" name="panjang_saluran"
                               class="mt-1 w-full p-2 border rounded dark:bg-slate-700 dark:text-white"
                               placeholder="Contoh: 13,00"
@@ -521,7 +698,7 @@
                           </div>
 
                           <div class="mb-4">
-                            <label for="tegangan" class="block text-sm font-medium text-gray-700">Tegangan (Volt)</label>
+                            <label for="tegangan" class="block text-m font-medium text-gray-700">Tegangan (Volt)</label>
                             <input type="text" id="tegangan" name="tegangan"
                               class="mt-1 w-full p-2 border rounded dark:bg-slate-700 dark:text-white"
                               placeholder="Contoh: 220,00"
@@ -557,14 +734,11 @@
                           document.getElementById("tegangan").addEventListener("input", formatKomaOnly);
                         </script>
 
-
-
-
                         <!-- Bagian 3: Sambungan Listrik dari Pihak Lain -->
                         <div class="mb-6">
-                          <p class="eading-normal dark:text-white dark:opacity-60 text-base font-bold">Sambungan
+                          <p class="leading-normal text-lg my-2 text-gray-700 dark:text-white uppercase font-bold">Sambungan
                             Listrik dari Pihak Lain</p>
-                          <label for="sambunganListrik" class="block text-sm font-medium text-gray-700 mb-2">Apakah Ada
+                          <label for="sambunganListrik" class="block text-m font-medium text-gray-700 mb-2">Apakah Ada
                             Sambungan Listrik dari Pihak Lain?</label>
                           <select id="sambunganListrik"
                             class="w-full px-4 py-2 border rounded-lg dark:bg-slate-700 dark:text-white"
@@ -577,7 +751,7 @@
                           <!-- Form Tambahan Jika "Ada" -->
                           <div id="form-sambungan" class="hidden mt-4">
                             <div class="mb-4">
-                              <label for="pihakLain" class="block text-sm font-medium text-gray-700">Dari Pihak
+                              <label for="pihakLain" class="block text-m my-2 font-medium text-gray-700">Dari Pihak
                                 Lain</label>
                               <input type="text" id="pihakLain" name="pihak_lain"
                                 class="mt-1 w-full p-2 border rounded dark:bg-slate-700 dark:text-white"
@@ -585,7 +759,7 @@
                             </div>
 
                             <div class="mb-4">
-                              <label for="dayaTersambung" class="block text-sm font-medium text-gray-700">Daya Tersambung
+                              <label for="dayaTersambung" class="block text-m my-2 font-medium text-gray-700">Daya Tersambung
                                 (kVA)</label>
                               <input type="text" id="dayaTersambung" name="daya_tersambung"
                                 class="mt-1 w-full p-2 border rounded dark:bg-slate-700 dark:text-white"
@@ -608,6 +782,11 @@
                           function toggleSambunganForm() {
                             const value = document.getElementById("sambunganListrik").value;
                             const form = document.getElementById("form-sambungan");
+                            const tagihan = document.getElementById("form-tagihan");
+
+                            const isAda = value === "ada";
+                            form.classList.toggle("hidden", !isAda);
+                            tagihan.classList.toggle("hidden", !isAda);
                             form.classList.toggle("hidden", value !== "ada");
                           }
 
@@ -632,37 +811,34 @@
                             if (el) el.addEventListener("input", formatKomaOnly);
                           });
                         </script>
-
-
                         <!--Lokasi Instalasi Penyedia Tenaga Listrik-->
 
 
 
-                        <p id="toggleAlamat" class="leading-normal dark:text-white dark:opacity-60 text-base font-bold cursor-pointer">
+                        <p class="leading-normal text-lg my-2 text-gray-700 dark:text-white uppercase font-bold">
                           Lokasi Instalasi Penyediaan Tenaga Listrik
-
                         </p>
 
                         <div class="flex flex-wrap -mx-3">
                           <div class="w-full max-w-full px-3 shrink-0 md:w-full md:flex-0">
                             <div id="alamatForm" class=" mb-4">
-                              <div class="mb-4">
-                                <label for="keterangan" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80">Nama Jalan</label>
+                              <div class="mb-2">
+                                <label for="keterangan" class="inline-block mb-2 ml-1 font-bold text-m text-slate-700 dark:text-white/80">Nama Jalan</label>
                                 <textarea name="keterangan" rows="2" id="keterangan" class="w-full px-4 py-2 border rounded-lg dark:bg-slate-700 dark:text-white" data-required></textarea>
                               </div>
 
-                              <div class="mb-4">
-                                <label for="addressdes" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80">Desa / Kelurahan</label>
+                              <div class="mb-2">
+                                <label for="addressdes" class="inline-block mb-2 ml-1 font-bold text-m text-slate-700 dark:text-white/80">Desa / Kelurahan</label>
                                 <input type="text" name="addressdes" id="addressdes" class="focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm block w-full rounded-lg border border-gray-300 bg-white px-3 py-2" data-required>
                               </div>
 
-                              <div class="mb-4">
-                                <label for="addresskec" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80">Kecamatan</label>
+                              <div class="mb-2">
+                                <label for="addresskec" class="inline-block mb-2 ml-1 font-bold text-m text-slate-700 dark:text-white/80">Kecamatan</label>
                                 <input type="text" name="addresskec" id="addresskec" class="focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm block w-full rounded-lg border border-gray-300 bg-white px-3 py-2" data-required>
                               </div>
 
-                              <div class="mb-4">
-                                <label for="addresskab" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80">
+                              <div class="mb-2">
+                                <label for="addresskab" class="inline-block mb-2 ml-1 font-bold text-m text-slate-700 dark:text-white/80">
                                   Kabupaten / Kota
                                 </label>
                                 <select name="addresskab" id="addresskab"
@@ -685,8 +861,8 @@
 
 
 
-                              <div class="mb-4">
-                                <label for="addressprov" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80">
+                              <div class="mb-2">
+                                <label for="addressprov" class="inline-block mb-2 ml-1 font-bold text-m text-slate-700 dark:text-white/80">
                                   Provinsi
                                 </label>
                                 <input type="text" name="addressprov" id="addressprov"
@@ -713,65 +889,64 @@
                         </script>
 
 
-                        <p onclick="document.getElementById('alamatForm1').classList.toggle('hidden')" class="leading-normal  dark:text-white dark:opacity-60 text-base font-bold">
+                        <p class="leading-normal text-lg text-gray-700 dark:text-white uppercase font-bold">
                           Lampiran Dokumen
-
                         </p>
 
-                        <div id="alamatForm1" class="mb-4">
-                          <div class="mt-8 space-y-4">
+                        <div id="alamatForm1" class="mb-1">
+                          <div class="mt-3 space-y-4">
+
+              
+
+                
 
                             <!-- NIB -->
                             <div>
-                              <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Print Out NIB via OSS RBA (Untuk Badan Usaha)</label>
-                              <input type="file" name="nib" id="nib" onchange="previewFile(this, 'preview_nib')" class="block w-full text-sm text-gray-700 border border-gray-300 rounded-lg cursor-pointer bg-white focus:outline-none dark:bg-slate-700 dark:text-white dark:border-gray-600" data-required>
+                              <label class="block text-m font-medium text-gray-700 dark:text-white mb-1">
+                                Print Out NIB via OSS RBA (Untuk Badan Usaha)
+                              </label>
+                              <input type="file" name="nib" id="nib" onchange="previewGambar(this, 'preview_nib')"
+                                class="block w-full text-sm text-gray-700 border border-gray-300 rounded-lg cursor-pointer bg-white 
+                focus:outline-none dark:bg-slate-700 dark:text-white dark:border-gray-600" data-required>
                               <img id="preview_nib" class="mt-2 w-40 hidden border rounded" />
                             </div>
 
                             <!-- KTP -->
                             <div>
-                              <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">KTP Penanggung Jawab</label>
-                              <input type="file" name="ktp" id="ktp" onchange="previewFile(this, 'preview_ktp')" class="block w-full text-sm text-gray-700 border border-gray-300 rounded-lg cursor-pointer bg-white focus:outline-none dark:bg-slate-700 dark:text-white dark:border-gray-600" data-required>
+                              <label class="block text-m font-medium text-gray-700 dark:text-white mb-1">KTP Penanggung Jawab</label>
+                              <input type="file" name="ktp" id="ktp" onchange="previewGambar(this, 'preview_ktp')"
+                                class="block w-full text-sm text-gray-700 border border-gray-300 rounded-lg cursor-pointer bg-white 
+                focus:outline-none dark:bg-slate-700 dark:text-white dark:border-gray-600" data-required>
                               <img id="preview_ktp" class="mt-2 w-40 hidden border rounded" />
                             </div>
 
                             <!-- NPWP -->
                             <div>
-                              <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">NPWP</label>
-                              <input type="file" name="npwp" id="npwp" onchange="previewFile(this, 'preview_npwp')" class="block w-full text-sm text-gray-700 border border-gray-300 rounded-lg cursor-pointer bg-white focus:outline-none dark:bg-slate-700 dark:text-white dark:border-gray-600" data-required>
+                              <label class="block text-m font-medium text-gray-700 dark:text-white mb-1">NPWP</label>
+                              <input type="file" name="npwp" id="npwp" onchange="previewGambar(this, 'preview_npwp')"
+                                class="block w-full text-sm text-gray-700 border border-gray-300 rounded-lg cursor-pointer bg-white 
+                focus:outline-none dark:bg-slate-700 dark:text-white dark:border-gray-600" data-required>
                               <img id="preview_npwp" class="mt-2 w-40 hidden border rounded" />
                             </div>
 
                             <!-- Gambar Situasi -->
                             <div>
-                              <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Gambar Situasi / Tata Letak</label>
-                              <input type="file" name="gambar_situasi" id="gambar_situasi" onchange="previewFile(this, 'preview_situasi')" class="block w-full text-sm text-gray-700 border border-gray-300 rounded-lg cursor-pointer bg-white focus:outline-none dark:bg-slate-700 dark:text-white dark:border-gray-600" data-required>
+                              <label class="block text-m font-medium text-gray-700 dark:text-white mb-1">Gambar Situasi / Tata Letak</label>
+                              <input type="file" name="gambar_situasi" id="gambar_situasi" onchange="previewGambar(this, 'preview_situasi')"
+                                class="block w-full text-sm text-gray-700 border border-gray-300 rounded-lg cursor-pointer bg-white 
+                focus:outline-none dark:bg-slate-700 dark:text-white dark:border-gray-600" data-required>
                               <img id="preview_situasi" class="mt-2 w-40 hidden border rounded" />
                             </div>
 
                             <!-- Bukti Tagihan -->
-                            <div>
-                              <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Bukti Pembayaran Tagihan Listrik Bulan Terakhir</label>
-                              <input type="file" name="bukti_tagihan" id="bukti_tagihan" onchange="previewFile(this, 'preview_tagihan')" class="block w-full text-sm text-gray-700 border border-gray-300 rounded-lg cursor-pointer bg-white focus:outline-none dark:bg-slate-700 dark:text-white dark:border-gray-600" data-required>
+                            <div id="form-tagihan" class="hidden">
+                              <label class="block text-m font-medium text-gray-700 dark:text-white mb-1">
+                                Bukti Pembayaran Tagihan Listrik Bulan Terakhir
+                              </label>
+                              <input type="file" name="bukti_tagihan" id="bukti_tagihan" onchange="previewGambar(this, 'preview_tagihan')"
+                                class="block w-full text-m text-gray-700 border border-gray-300 rounded-lg cursor-pointer bg-white 
+                focus:outline-none dark:bg-slate-700 dark:text-white dark:border-gray-600" data-required>
                               <img id="preview_tagihan" class="mt-2 w-40 hidden border rounded" />
-                            </div>
-
-                            <!-- Foto Generator -->
-                            <div>
-                              <label for="foto_generator" id="label_generator" class="block text-sm font-medium text-gray-700 dark:text-white mb-1">
-                                Foto Papan Nama (Name Plate) Generator
-                              </label>
-                              <input type="file" name="foto_generator" id="foto_generator" onchange="previewFile(this, 'preview_generator')" class="block w-full text-sm text-gray-700 border border-gray-300 rounded-lg cursor-pointer bg-white focus:outline-none dark:bg-slate-700 dark:text-white dark:border-gray-600" data-required>
-                              <img id="preview_generator" class="mt-2 w-40 hidden border rounded" />
-                            </div>
-
-                            <!-- Foto Mesin Penggerak -->
-                            <div>
-                              <label for="foto_mesin" id="label_mesin" class="block text-sm font-medium text-gray-700 dark:text-white mb-1">
-                                Foto Papan Nama (Name Plate) Mesin Penggerak
-                              </label>
-                              <input type="file" name="foto_mesin" id="foto_mesin" onchange="previewFile(this, 'preview_mesin')" class="block w-full text-sm text-gray-700 border border-gray-300 rounded-lg cursor-pointer bg-white focus:outline-none dark:bg-slate-700 dark:text-white dark:border-gray-600" data-required>
-                              <img id="preview_mesin" class="mt-2 w-40 hidden border rounded" />
                             </div>
 
                           </div>
@@ -780,7 +955,7 @@
                         <!-- Persetujuan -->
                         <div class="mt-4 flex items-start">
                           <input type="checkbox" id="persetujuan" class="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500" data-required>
-                          <label for="persetujuan" class="ml-2 text-sm text-gray-700 dark:text-white leading-relaxed">
+                          <label for="persetujuan" class="ml-2 text-m text-gray-700 dark:text-white leading-relaxed">
                             Dengan ini menyatakan bahwa saya bertanggung jawab sepenuhnya atas data yang telah disampaikan.
                             Apabila dikemudian hari ditemukan bahwa data tersebut tidak benar dan mengakibatkan konsekuensi hukum,
                             maka saya atau Badan Usaha / Instansi yang saya wakili bersedia menerima segala bentuk sanksi sesuai dengan ketentuan peraturan perundang-undangan yang berlaku.
@@ -788,31 +963,14 @@
                         </div>
 
                         <!-- JavaScript untuk Preview -->
-                        <script>
-                          function previewFile(input, previewId) {
-                            const file = input.files[0];
-                            const preview = document.getElementById(previewId);
 
-                            if (file && file.type.startsWith("image/")) {
-                              const reader = new FileReader();
-                              reader.onload = function(e) {
-                                preview.src = e.target.result;
-                                preview.style.display = "block";
-                              };
-                              reader.readAsDataURL(file);
-                            } else {
-                              preview.src = "";
-                              preview.style.display = "none";
-                            }
-                          }
-                        </script>
 
                         <hr
                           class="h-px mx-0 my-4 bg-transparent border-0 opacity-25 bg-gradient-to-r from-transparent via-black/40 to-transparent dark:bg-gradient-to-r dark:from-transparent dark:via-white dark:to-transparent " />
                       </div>
 
                       <div class="w-full flex justify-center my-4 ">
-                        <button type="submit" id="submitkirim"
+                        <button type="submit" id="submitkirim" 
                           class=" bg-blue-400 from-blue-500 to-violet-500 text-white px-6 py-2 rounded-full shadow hover:opacity-90">
                           Kirim
                         </button>
@@ -822,6 +980,44 @@
 
 
                 </form>
+
+
+<script>
+async function handleSubmitForm(event) {
+  event.preventDefault();
+
+  const form = document.querySelector("form");
+  const formData = new FormData(form);
+  const jsonData = {};
+  const fileFields = [
+    'sfoto_unit_1', 'sfoto_modul_1', 'sfoto_inverter_1',
+    'nib', 'ktp', 'npwp', 'gambar_situasi', 'bukti_tagihan'
+  ];
+
+  for (const field of fileFields) {
+    const file = formData.get(field);
+    if (file && file.name) {
+      const uploadedUrl = await uploadFileDummy(file);
+      jsonData[field] = uploadedUrl;
+    }
+  }
+
+  const inputs = form.querySelectorAll("input, select, textarea");
+  inputs.forEach(input => {
+    if (!fileFields.includes(input.name) && input.type !== "file") {
+      if (input.type === "checkbox") {
+        jsonData[input.name] = input.checked;
+      } else {
+        jsonData[input.name] = input.value;
+      }
+    }
+  });
+
+  // Tampilkan di browser
+  document.getElementById("json-preview").textContent = JSON.stringify(jsonData, null, 2);
+}
+
+</script>
 
               </div>
             </div>
@@ -858,8 +1054,25 @@
   </div>
   </div>
   </div>
+
+  <!-- Modal untuk preview gambar -->
+  <div id="imageModal" class="fixed hidden inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+    <div class="relative">
+      <!-- Tombol close -->
+      <button id="closeModalBtn" class="absolute top-2 right-2 bg-white text-black text-xl font-bold rounded-full w-8 h-8 hover:bg-red-500 hover:text-white flex items-center justify-center z-50">
+        &times;
+      </button>
+      <!-- Gambar ditampilkan di sini -->
+      <img id="modalImage" class="max-w-screen-md max-h-screen border-4 border-white rounded shadow-lg" />
+    </div>
+  </div>
+
+
+
+
+
   <script>
-    document.getElementById("suratpengajuan").addEventListener("submit", function(e) {
+    document.getElementById("suratpengajuan").addEventListener("submit", async function(e) {
       e.preventDefault();
 
       const alamatForm1 = document.getElementById("alamatForm1");
@@ -883,7 +1096,60 @@
       const isValid = validateForm();
 
       if (isValid) {
-        form.submit();
+       // form.submit();
+  const form = e.target;
+  const formData = new FormData(form);
+  const jsonData = {};
+  let jenis ='';
+
+  const jenisPembangkit = document.getElementById('pembangkitSelect')?.value;
+  if (jenisPembangkit) {
+    jsonData['jenis_pembangkit'] = jenisPembangkit;
+    jenis =jenisPembangkit;
+  }
+  const url = jenis === "surya" 
+      ? "/pengajuan/surya" 
+      : "/pengajuan/non-surya";
+
+  for (const [key, value] of formData.entries()) {
+    // Jika file kosong (tidak dipilih), skip
+    if (value instanceof File && value.name === '') continue;
+
+    // Jika string kosong, skip
+    if (typeof value === 'string' && value.trim() === '') continue;
+
+    jsonData[key] = value instanceof File ? value.name : value;
+  }
+
+  console.log("Form Data JSON:", JSON.stringify(jsonData, null, 2));
+
+
+
+const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+      credentials: "include",
+    body: JSON.stringify(jsonData)
+  });
+
+  const result = await response.json();
+  if (response.ok) {
+    showFloatingAlert('success', 'Pengajuan berhasil dikirim dengan nomor pengajuan ' + (result.data.nomor_pengajuan || 'terjadi kesalahan'));
+   // console.log("Response dari server:", result);
+
+     setTimeout(() => {
+      location.reload();
+    }, 2000);
+
+  } else {
+
+    showFloatingAlert('warning', "Gagal: " + (result.message || 'Terjadi kesalahan'));
+  }
+
+
       }
     });
 
@@ -928,6 +1194,31 @@
 
       return true;
     }
+
+
+
+    function showFloatingAlert(type, message) {
+    const existingAlert = document.getElementById('ajax-alert');
+    if (existingAlert) {
+        existingAlert.remove();
+    }
+
+    const alertDiv = document.createElement('div');
+    alertDiv.id = 'ajax-alert';
+    alertDiv.className = 'floating-alert ' + type;
+    alertDiv.innerText = message;
+    document.body.appendChild(alertDiv);
+
+    setTimeout(() => {
+        alertDiv.classList.add('slide-out');
+    }, 3000);
+
+    setTimeout(() => {
+        alertDiv.remove();
+    }, 3800);
+}
+
+    
   </script>
 
 

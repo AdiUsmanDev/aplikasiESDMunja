@@ -23,8 +23,8 @@
 <body class="m-0 font-sans text-base antialiased font-normal dark:bg-slate-900 leading-default bg-gray-50 text-slate-500">
   <div class="absolute w-full dark:hidden min-h-75" style="background-color: #08A04B;"></div>
   @include('components.sidebar')
-  <main class="relative h-full max-h-screen transition-all duration-200 ease-in-out xl:ml-68 rounded-xl">
-    <!-- Navbar -->
+ <main id="main-content" class="relative h-full max-h-screen transition-all duration-200 ease-in-out xl:ml-68 rounded-xl">
+ <!-- Navbar -->
     <nav class="relative flex flex-wrap items-center justify-between px-0 py-2 mx-6 transition-all ease-in shadow-none duration-250 rounded-2xl lg:flex-nowrap lg:justify-start" navbar-main navbar-scroll="false">
       <div class="flex items-center justify-between w-full px-4 py-1 mx-auto flex-wrap-inherit">
         <nav>
@@ -35,7 +35,7 @@
             </li>
             <li class="text-sm pl-2 capitalize leading-normal text-white before:float-left before:pr-2 before:text-white before:content-['/']" aria-current="page">Beranda</li>
           </ol>
-          <h6 class="mb-0 font-bold text-white capitalize">Selamat Datang Pengguna</h6>
+          <h6 class="mb-0 font-bold text-white capitalize">Selamat Datang {{ Auth::user()->name }}</h6>
         </nav>
 
         <div class="flex items-center mt-2 grow sm:mt-0 sm:mr-6 md:mr-0 lg:flex lg:basis-auto">
@@ -47,11 +47,6 @@
             </div>
           </div>
           <ul class="flex flex-row justify-end pl-0 mb-0 list-none md-max:w-full">
-            <!-- online builder btn  -->
-            <!-- <li class="flex items-center">
-                <a class="inline-block px-8 py-2 mb-0 mr-4 text-xs font-bold text-center text-blue-500 uppercase align-middle transition-all ease-in bg-transparent border border-blue-500 border-solid rounded-lg shadow-none cursor-pointer leading-pro hover:-translate-y-px active:shadow-xs hover:border-blue-500 active:bg-blue-500 active:hover:text-blue-500 hover:text-blue-500 tracking-tight-rem hover:bg-transparent hover:opacity-75 hover:shadow-none active:text-white active:hover:bg-transparent" target="_blank" href="https://www.creative-tim.com/builder/soft-ui?ref=navbar-dashboard&amp;_ga=2.76518741.1192788655.1647724933-1242940210.1644448053">Online Builder</a>
-              </li> -->
-
 
             <li class="flex items-center pl-4 xl:hidden">
               <a href="javascript:;" class="block p-0 text-sm text-white transition-all ease-nav-brand" sidenav-trigger>
@@ -80,6 +75,32 @@
     </nav>
 
     <!-- end Navbar -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const toggleButton = document.querySelector('[sidenav-trigger]');
+    const sidebar = document.getElementById('sidenav-main');
+    const mainContent = document.getElementById('main-content');
+
+    toggleButton.addEventListener('click', function () {
+      // Toggle sembunyikan sidebar
+      sidebar.classList.toggle('-translate-x-full');
+      sidebar.classList.toggle('translate-x-0');
+
+      // Toggle kontainer utama (main-content)
+      if (mainContent.classList.contains('xl:ml-68')) {
+        mainContent.classList.remove('xl:ml-68');
+        mainContent.classList.add('ml-0');
+      } else {
+        mainContent.classList.remove('ml-0');
+        mainContent.classList.add('xl:ml-68');
+      }
+    });
+  });
+</script>
+
+
+
+
 
 
     <div class="w-full px-6 py-6 mx-auto">
@@ -106,7 +127,7 @@
                 <!-- Step 1 -->
                 <div class="cursor-pointer" onclick="showStep(1)">
                   <div class="relative mb-2 w-10 h-10 mx-auto bg-green-500 text-white rounded-full flex items-center justify-center">
-                    1
+                    <span id="jumlahPengajuan">0</span>
                   </div>
                   <div class="text-m text-green-600 font-semibold mt-1">Telah Diajukan</div>
                 </div>
@@ -166,8 +187,20 @@
                 }
               }
 
+              async function loadJumlahPengajuan() {
+                    try {
+                        const response = await fetch('/pengajuan/jumlah');
+                        const result = await response.json();
+
+                        document.getElementById('jumlahPengajuan').textContent = result.jumlah;
+                    } catch (error) {
+                        console.error('Gagal memuat jumlah pengajuan:', error);
+                    }
+                }
+
               document.addEventListener("DOMContentLoaded", function() {
                 showStep(1);
+                loadJumlahPengajuan();
               });
             </script>
 

@@ -1,93 +1,109 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use App\Models\DaftarPengajuanPermohonan;
-use App\Models\UnitTenagaSurya;
-use App\Models\UnitPengajuanNonSurya;
-use Carbon\Carbon;
+use App\Models\Pengajuan;
+use Illuminate\Support\Facades\Auth;
 
 class PengajuanController extends Controller
 {
-    public function create()
+    // Auto generate nomor pengajuan
+    private function generateNomorPengajuan()
     {
-        return view('pengajuan.form'); // pastikan file ini ada: resources/views/pengajuan/form.blade.php
+        $prefix = 'PNJ-' . date('Ymd');
+        $count = Pengajuan::whereDate('created_at', today())->count() + 1;
+        return $prefix . '-' . str_pad($count, 4, '0', STR_PAD_LEFT);
     }
 
-    public function store(Request $request)
+    // Menyimpan data Surya
+    public function storeSurya(Request $request)
     {
-        // dd($request->all()); // Debug awal untuk melihat isian form
+    $user = Auth::user(); 
 
-
-    $today = Carbon::now()->format('Ymd');
-
-    $countToday = DB::table('daftar_pengajuan_permohonan')
-        ->whereDate('created_at', Carbon::today())
-        ->count();
-
-    $urut = str_pad($countToday + 1, 4, '0', STR_PAD_LEFT);
-    $nomor_pengajuan = 'PJN-' . $today . '-' . $urut;
-
-        dd($request->all());
+    if (!$user) {
+        return response()->json(['message' => 'User belum login'], 401);
+    }
         $request->validate([
-            'jenis_pengajuan' => 'required',
-            'nama_unit' => 'required',
-            'merek' => 'required',
-            'tipe' => 'required',
-            'tahun_pembuatan' => 'required|integer',
-            'kapasitas' => 'required|numeric',
-            'koordinat_latitude' => 'required|numeric',
-            'koordinat_longitude' => 'required|numeric',
-            'sifat_penggunaan' => 'required',
-            'file' => 'nullable|file|mimes:pdf,jpg,jpeg,png',
+            'jenis_pembangkit' => 'required|in:surya',
+            
         ]);
 
-        // Simpan file (kalau ada)
-        $filePath = null;
-        if ($request->hasFile('file')) {
-            $filePath = $request->file('file')->store('berkas', 'public');
-        }
-
-        // Simpan ke tabel utama
-        $pengajuan = DaftarPengajuanPermohonan::create([
-            'nomor_pengajuan' => $nomor_pengajuan,
-            'jenis_pengajuan' => $request->jenis_pengajuan,
-            'file_url' => $filePath ? Storage::url($filePath) : null,
+        $pengajuId = auth()->id();
+        $pengajuan = Pengajuan::create([
+            'nomor_pengajuan' => $this->generateNomorPengajuan(),
+            'pengaju_id' => $pengajuId,
+            'jenis_pembangkit' => 'surya',
+            'nama_lokasi' => $request->input('addressdes') ?? 'lokasi tidak ditentukan',
+            'status' => 'menunggu',
+            'data' => $request->except(['pengaju_id', '_token']),
         ]);
 
-        // Simpan ke tabel detail
-        if ($request->jenis_pengajuan === 'surya') {
-            $unit = UnitTenagaSurya::create([
-                'pengajuan_id' => $pengajuan->id,
-                'nama_unit' => $request->nama_unit,
-                'merek' => $request->merek,
-                'tipe' => $request->tipe,
-                'negara_pembuat' => $request->negara_pembuat,
-                'tahun_pembuatan' => $request->tahun_pembuatan,
-                'kapasitas_kwp' => $request->kapasitas,
-                'koordinat_latitude' => $request->koordinat_latitude,
-                'koordinat_longitude' => $request->koordinat_longitude,
-                'sifat_penggunaan' => $request->sifat_penggunaan,
-            ]);
-        } else {
-            $unit = UnitPengajuanNonSurya::create([
-                'pengajuan_id' => $pengajuan->id,
-                'nama_unit' => $request->nama_unit,
-                'jenis_penggerak' => $request->jenis_penggerak,
-                'merek' => $request->merek,
-                'tipe' => $request->tipe,
-                'negara_pembuat' => $request->negara_pembuat,
-                'tahun_pembuatan' => $request->tahun_pembuatan,
-                'kapasitas_kw' => $request->kapasitas,
-                'energi_primer' => $request->energi_primer,
-                'koordinat_latitude' => $request->koordinat_latitude,
-                'koordinat_longitude' => $request->koordinat_longitude,
-                'sifat_penggunaan' => $request->sifat_penggunaan,
-            ]);
-        }
-
-        // Debug tampilan hasil
-    
+        return response()->json(['message' => 'Pengajuan Surya disimpan', 'data' => $pengajuan]);
     }
+
+    // Menyimpan data Non-Surya
+    public function storeNonSurya(Request $request)
+    {
+    $user = Auth::user(); 
+
+    if (!$user) {
+        return response()->json(['message' => 'User belum login'], 401);
+    }
+        $request->validate([
+            'jenis_pembangkit' => 'required|in:non surya',
+         
+        ]);
+
+     $pengajuId = auth()->id();
+
+        $pengajuan = Pengajuan::create([
+            'nomor_pengajuan' => $this->generateNomorPengajuan(),
+            'pengaju_id' =>   $pengajuId,
+            'jenis_pembangkit' => 'non surya',
+            'nama_lokasi' => $request->input('addressdes') ?? 'lokasi tidak ditentukan',
+            'status' => 'menunggu',
+            'data' => $request->except(['pengaju_id', '_token']),
+        ]);
+
+        return response()->json(['message' => 'Pengajuan Non-Surya disimpan', 'data' => $pengajuan]);
+    }
+
+    // Menampilkan detail pengajuan
+    public function show($id)
+    {
+        $pengajuan = Pengajuan::findOrFail($id);
+        return response()->json($pengajuan);
+    }
+
+    // Update status
+    public function updateStatus($id, Request $request)
+    {
+        $pengajuan = Pengajuan::findOrFail($id);
+        $pengajuan->status = $request->input('status');
+        $pengajuan->save();
+
+        return response()->json(['message' => 'Status diperbarui', 'data' => $pengajuan]);
+    }
+
+   public function nilaimenunggu(Request $request)
+    {
+          if (!auth()->check()) {
+        return response()->json(['error' => 'Unauthorized'], 401);
+    }
+        $menunggu = Pengajuan::where('pengaju_id', auth()->id())
+                     ->where('status', 'menunggu')
+                     ->count();
+                      return response()->json(['jumlah' =>  $menunggu]);
+    }
+
+   public function getHistori()
+        {
+            $pengajuan = Pengajuan::where('pengaju_id', auth()->id())
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+            return response()->json($pengajuan);
+        }
+
 }

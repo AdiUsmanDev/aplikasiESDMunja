@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Pengguna;
-use App\Models\IdentitasPengguna; // ✅ Pastikan ini di-import
+use App\Models\IdentitasPengguna; 
 
 class AuthControllermanual extends Controller
 {
@@ -26,12 +26,11 @@ class AuthControllermanual extends Controller
             'password'     => bcrypt($request->password),
             'provider'     => null,
             'provider_id'  => null,
-            'role'         => 'pengguna', 
+            'role'         => 'timteknis', 
         ]);
 
         Auth::login($user);
 
-        // ✅ Buat identitas_pengguna default setelah login
         $this->createDefaultIdentitas($user);
 
         return redirect('/dashboarduser');
@@ -50,10 +49,17 @@ class AuthControllermanual extends Controller
         ])) {
             $user = Auth::user();
 
-            // ✅ Buat identitas_pengguna default setelah login
             $this->createDefaultIdentitas($user);
 
-            return redirect('/dashboarduser');
+           // return redirect('/dashboarduser');
+
+            if ($user->role === 'timteknis') {
+                return redirect('/berandateknis');
+            } elseif ($user->role === 'pengguna') {
+                return redirect('/dashboarduser');
+            } else {
+                return redirect('/'); 
+            }
         }
 
         return back()->withErrors(['email' => 'Email atau password salah.']);
@@ -62,10 +68,9 @@ class AuthControllermanual extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect('/login');
+        return redirect('/masuk');
     }
 
-    // ✅ Fungsi reusable untuk membuat identitas default
     protected function createDefaultIdentitas($user)
     {
         if (!$user->identitas) {
