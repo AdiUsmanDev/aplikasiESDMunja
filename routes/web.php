@@ -106,10 +106,9 @@ Route::get('/validator', function () {
 })->name('validator');
 
 
-Route::get('/daftarpengajuanvalidator', function () {
-    return view('daftarpengajuanvalidator');
-})->name('daftarpengajuanvalidator');
-
+Route::get('/halamantimteknis', function () {
+    return view('halamantimteknis');
+})->name('halamantimteknis');
 
 Route::get('/suratterbituser', function () {
     return view('suratterbituser');

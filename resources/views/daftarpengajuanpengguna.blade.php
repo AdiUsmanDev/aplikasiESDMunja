@@ -89,13 +89,13 @@
             </div>
             <div class="flex-auto pt-0 pb-2 overflow-x-auto">
               <table class="min-w-full text-sm text-left text-slate-500 dark:text-slate-200">
-                <thead class="uppercase text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-700">
+                <thead class="text-xs uppercase text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-700">
                   <tr>
-                    <th class="px-4 py-3  text-m text-slate-900 font-semibold whitespace-nowrap dark:text-white uppercase">No Laporan</th>
-                    <th class="px-4 py-3  text-m text-slate-900 font-semibold text-center whitespace-nowrap dark:text-white uppercase">Tanggal Laporan</th>
-                    <th class="px-4 py-3  text-m text-slate-900 font-semibold text-center whitespace-nowrap dark:text-white uppercase">Keterangan / Catatan Perbaikan</th>
-                    <th class="px-4 py-3  text-m text-slate-900 font-semibold text-center whitespace-nowrap dark:text-white uppercase">Status</th>
-                    <th class="px-4 py-3  text-m text-slate-900 font-semibold text-center whitespace-nowrap dark:text-white uppercase">Aksi</th>
+                    <th class="px-4 py-3  text-m text-slate-900 font-bold whitespace-nowrap dark:text-white uppercase">No Laporan</th>
+                    <th class="px-4 py-3  text-m text-slate-900 font-bold text-center whitespace-nowrap dark:text-white uppercase">Tanggal Laporan</th>
+                    <th class="px-4 py-3  text-m text-slate-900 font-bold whitespace-nowrap dark:text-white uppercase">Keterangan / Catatan Perbaikan</th>
+                    <th class="px-4 py-3 text-m text-slate-900 font-bold text-center whitespace-nowrap dark:text-white uppercase">Status</th>
+                    <th class="px-4 py-3 text-m text-slate-900 font-bold text-center whitespace-nowrap uppercase">Aksi</th>
                   </tr>
                 </thead>
 
