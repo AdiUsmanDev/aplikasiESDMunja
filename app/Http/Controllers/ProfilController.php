@@ -18,7 +18,7 @@ class ProfilController extends Controller
 
 public function simpan(Request $request)
 {
-    
+   
     $user = Auth::user();
     $request->validate([
         'nama' => 'required|string|max:255',
@@ -50,6 +50,11 @@ $user->identitas()->updateOrCreate(
             'nomor_pokok_wajib_pajak' => $request->nomor_pokok_wajib_pajak,
         ]
     );
+
+         
+        $user->update([
+            'name' => $request->input('nama'),
+        ]);
 
     return redirect()->route('profile')->with('success', 'Profil berhasil disimpan.');
 }

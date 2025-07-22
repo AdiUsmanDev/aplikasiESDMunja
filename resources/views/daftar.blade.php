@@ -21,6 +21,18 @@
 </head>
 
 <body class="m-0 font-sans antialiased font-normal bg-white text-start text-base leading-default text-slate-500">
+
+@if (session('error'))
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+        <strong>Error:</strong> {{ session('error') }}
+    </div>
+@endif
+
+@if (session('success'))
+    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+        <strong>Sukses:</strong> {{ session('success') }}
+    </div>
+@endif
   <!-- Navbar -->
   <nav class="absolute top-0 z-30 flex flex-wrap items-center justify-between w-full px-4 py-2 mt-6 mb-4 shadow-none lg:flex-nowrap lg:justify-start">
     <div class="container flex items-center justify-between py-0 flex-wrap-inherit">

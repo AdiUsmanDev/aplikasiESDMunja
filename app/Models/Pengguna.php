@@ -24,5 +24,9 @@ class Pengguna extends Authenticatable
     {
         return $this->hasOne(IdentitasPengguna::class, 'pengguna_id');
     }
+    public function identitasTimAdmin()
+    {
+        return $this->hasOne(IdentitasTimAdmin::class,'pengguna_id');
+    }
 
 }

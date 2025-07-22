@@ -36,7 +36,7 @@
             </li>
             <li class="text-sm pl-2 capitalize leading-normal text-white before:float-left before:pr-2 before:text-white before:content-['/']" aria-current="page">Beranda</li>
           </ol>
-          <h6 class="mb-0 font-bold text-white capitalize">Selamat Datang Tim Teknis</h6>
+          <h6 class="mb-0 font-bold text-white capitalize">Selamat Datang {{ Auth::user()->name }}</h6>
         </nav>
 
         <div class="flex items-center mt-2 grow sm:mt-0 sm:mr-6 md:mr-0 lg:flex lg:basis-auto">

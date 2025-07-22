@@ -299,21 +299,21 @@
                               <tr>
                                 <td>Foto Unit</td>
                                 <td>
-                                  <input type="file" name="foto_unit_1" accept="image/*" onchange="previewGambar(this, 'preview_unit_1')" required>
+                                  <input type="file" name="foto_unit_1" accept="image/*" onchange="previewGambar(this, 'preview_unit_1')"data-required>
                                   <img id="preview_unit_1" class="mt-2 w-24 hidden border rounded" />
                                 </td>
                               </tr>
                               <tr>
                                 <td>Foto Papan Nama (Name Plate) Generator</td>
                                 <td>
-                                  <input type="file" name="foto_generator_1" accept="image/*" onchange="previewGambar(this, 'preview_generator_1')" required>
+                                  <input type="file" name="foto_generator_1" accept="image/*" onchange="previewGambar(this, 'preview_generator_1')"data-required>
                                   <img id="preview_generator_1" class="mt-2 w-24 hidden border rounded" />
                                 </td>
                               </tr>
                               <tr>
                                 <td>Foto Papan Nama (Name Plate) Mesin Penggerak</td>
                                 <td>
-                                  <input type="file" name="foto_mesin_1" accept="image/*" onchange="previewGambar(this, 'preview_mesin_1')" required>
+                                  <input type="file" name="foto_mesin_1" accept="image/*" onchange="previewGambar(this, 'preview_mesin_1')"data-required>
                                   <img id="preview_mesin_1" class="mt-2 w-24 hidden border rounded" />
                                 </td>
                               </tr>
@@ -408,7 +408,7 @@
                               <tr>
                                 <td>Foto Unit</td>
                                 <td>
-                                  <input type="file" name="sfoto_unit_1" accept="image/*" onchange="previewGambar(this, 'spreview_unit_1')" required>
+                                  <input type="file" name="sfoto_unit_1" accept="image/*" onchange="previewGambar(this, 'spreview_unit_1')"data-required>
                                   <img id="spreview_unit_1" class="mt-2 w-24 hidden border rounded" />
                                 </td>
                               </tr>
@@ -1053,6 +1053,7 @@ async function handleSubmitForm(event) {
 
 
   <script>
+
     document.getElementById("suratpengajuan").addEventListener("submit", async function(e) {
       e.preventDefault();
 
@@ -1137,7 +1138,7 @@ const response = await fetch(url, {
     function validateForm() {
       const form = document.getElementById("suratpengajuan");
       const checkbox = document.getElementById("persetujuan");
-      const requiredFields = Array.from(form.querySelectorAll("input[required], select[required], textarea[required]"))
+      const requiredFields = Array.from(form.querySelectorAll("input[data-required], select[data-required], textarea[data-required]"))
         .filter(field => field.offsetParent !== null); // hanya ambil yang terlihat
 
       let isValid = true;
@@ -1157,7 +1158,13 @@ const response = await fetch(url, {
           icon: 'warning',
           title: 'Formulir Belum Lengkap',
           text: 'Harap isi semua kolom wajib yang kosong.',
-          confirmButtonColor: '#f59e0b'
+           confirmButtonText: 'OK',
+          didOpen: () => {
+            const btn = Swal.getConfirmButton();
+            btn.style.backgroundColor = '#f59e0b';
+            btn.style.color = 'white';
+            btn.style.border = 'none';
+  }
         });
         return false;
       }
@@ -1166,10 +1173,17 @@ const response = await fetch(url, {
           icon: 'warning',
           title: 'Persetujuan Belum Dicentang',
           text: 'Anda harus menyetujui pernyataan tanggung jawab sebelum melanjutkan.',
-          confirmButtonColor: '#f97316'
+          confirmButtonText: 'OK',
+          didOpen: () => {
+            const btn = Swal.getConfirmButton();
+            btn.style.backgroundColor = '#f59e0b';
+            btn.style.color = 'white';
+            btn.style.border = 'none';
+  }
         });
         checkbox.classList.add("ring", "ring-red-500");
         return false;
+    
       } else {
         checkbox.classList.remove("ring", "ring-red-500");
       }
@@ -1178,7 +1192,31 @@ const response = await fetch(url, {
       return true;
     }
 
+
+    function showFloatingAlert(type, message) {
+   
+    const existingAlert = document.getElementById('ajax-alert');
+    if (existingAlert) {
+        existingAlert.remove();
     }
+
+    const alertDiv = document.createElement('div');
+    alertDiv.id = 'ajax-alert';
+    alertDiv.className = 'floating-alert ' + type;
+    alertDiv.innerText = message;
+    document.body.appendChild(alertDiv);
+
+    setTimeout(() => {
+        alertDiv.classList.add('slide-out');
+    }, 3000);
+
+    setTimeout(() => {
+        alertDiv.remove();
+    }, 3800);
+}
+
+
+    
   </script>
 
 

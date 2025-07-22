@@ -8,6 +8,7 @@ use App\Http\Middleware\CekProfilLengkap;
 use App\Http\Middleware\Authenticate;
 use App\Http\Controllers\PengajuanController;
 use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\IdentitasTimAdminController;
 
 Route::get('/tes-email', function () {
     Mail::raw('Ini email uji coba dari Laravel.', function ($message) {
@@ -26,16 +27,31 @@ Route::middleware('auth')->group(function () {
     Route::post('/pengajuan', [PengajuanController::class, 'store'])->name('pengajuan.store');
     Route::get('/pengajuan/jumlah', [PengajuanController::class, 'nilaimenunggu'])->name('pengajuan.jumlah');
     Route::get('/pengajuan/histori', [PengajuanController::class, 'getHistori'])->name('pengajuan.histori');
+    Route::get('/profileteknis', [IdentitasTimAdminController::class, 'showProfile'])->name('profileteknis');
+    Route::get('/tim-admin/edit', [IdentitasTimAdminController::class, 'edit'])->name('tim_admin.edit');
+    Route::post('/tim-admin/update', [IdentitasTimAdminController::class, 'update'])->name('tim_admin.update');
+   
     Route::get('/berandateknis', function () {
     return view('berandateknis');
-})->name('berandateknis');
+    })->name('berandateknis');
+
+  
+
+     Route::get('/daftarpengajuanteknis', function () {
+    return view('daftarpengajuanteknis');
+    })->name('daftarpengajuanteknis');
+    
+     Route::get('/suketteknis', function () {
+    return view('suketteknis');
+    })->name('suketteknis');
+
+   
 
 
-
-Route::post('/pengajuan/surya', [PengajuanController::class, 'storeSurya']);
-Route::post('/pengajuan/non-surya', [PengajuanController::class, 'storeNonSurya']);
-Route::get('/pengajuan/{id}', [PengajuanController::class, 'show']);
-Route::put('/pengajuan/{id}/status', [PengajuanController::class, 'updateStatus']);
+    Route::post('/pengajuan/surya', [PengajuanController::class, 'storeSurya']);
+    Route::post('/pengajuan/non-surya', [PengajuanController::class, 'storeNonSurya']);
+    Route::get('/pengajuan/{id}', [PengajuanController::class, 'show']);
+    Route::put('/pengajuan/{id}/status', [PengajuanController::class, 'updateStatus']);
 
 
 });

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Pengguna;
 use App\Models\IdentitasPengguna; 
+use App\Models\IdentitasTimAdmin;
 
 class AuthControllermanual extends Controller
 {
@@ -31,7 +32,18 @@ class AuthControllermanual extends Controller
 
         Auth::login($user);
 
-        $this->createDefaultIdentitas($user);
+        if ($user->role === 'timteknis') {
+        IdentitasTimAdmin::create([
+            'pengguna_id' => $user->id,
+            'nip' => '',
+            'pangkat' => 'Staf',
+            'jabatan' => 'Admin Sistem',
+            'foto' => 'default.jpg',
+        ]);
+    }else{ 
+           $this->createDefaultIdentitas($user);
+    }
+
 
         return redirect('/dashboarduser');
     }

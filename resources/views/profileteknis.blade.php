@@ -18,7 +18,38 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Main Styling -->
   <link href="{{ asset('assets/css/argon-dashboard-tailwind.css?v=1.0.1') }}" rel="stylesheet" />
+  <style>
+     @keyframes slideOutUp {
+            0% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-30px); }
+        }
+        .floating-alert {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            padding: 15px 20px;
+            border-left: 5px solid;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: opacity 0.5s ease-in-out;
+        }
+        .floating-alert.success {
+            background-color: #d4edda;
+            color: #155724;
+            border-left-color: #28a745;
+        }
+        .floating-alert.warning {
+            background-color: #f8d7da;
+            color: #721c24;
+            border-left-color: #f44336;
+        }
+        .slide-out {
+            animation: slideOutUp 0.8s forwards;
+        }
+  </style>
 </head>
+
 
 <div
   class="absolute bg-y-50 w-full top-0 bg-[url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/profile-layout-header.jpg')] bg-cover bg-center min-h-75">
@@ -26,6 +57,23 @@
 </div>
 
   @include('components.sidebartimteknis')
+
+       
+@if (session('alert'))
+    <div id="alert" class="floating-alert {{ session('alert.type', 'success') }}">
+        {{ session('alert.message') }}
+    </div>
+        <script>
+        setTimeout(() => {
+            const el = document.getElementById('alert');
+            if (el) el.classList.add('slide-out');
+        }, 3000);
+        setTimeout(() => {
+            const el = document.getElementById('alert');
+            if (el) el.remove();
+        }, 3800);
+    </script>
+    @endif
 
   <div class="relative h-full max-h-screen transition-all duration-200 ease-in-out xl:ml-68">
     <nav
@@ -175,130 +223,147 @@
 
     <div class="relative w-full mx-auto mt-60 ">
       <div
-        class="relative flex flex-col flex-auto min-w-0 p-4 mx-6 overflow-hidden break-words bg-white border-0 dark:bg-slate-850 dark:shadow-dark-xl shadow-3xl rounded-2xl bg-clip-border">
-        <div class="flex flex-wrap -mx-3">
-          <div class="flex-none w-auto max-w-full px-3">
-          </div>
-          <div class="flex items-center justify-end space-x-6 p-4 bg-transparent">
-            <!-- Foto Profil -->
-            <div class="relative w-32 h-32">
-              <img id="previewFoto" src="../assets/img/profil1.jpeg" alt=""
-                class="w-32 h-32 object-cover rounded-full border-2 border-gray-300 shadow-md" />
-              <!-- Tombol Upload -->
-              <label for="uploadFoto"
+        class="relative flex flex-col flex-auto min-w-0 p-4 mx-6 overflow-hidden break-words bg-white border-0 dark:bg-slate-850 dark:shadow-dark-xl shadow-3xl rounded-2xl bg-clip-border">       
+       
+  <!-- Foto Profil -->
+  <form action="{{ route('tim_admin.update') }}" method="POST" enctype="multipart/form-data">
+    @csrf
+
+    <!-- FOTO PROFIL + NAMA + NIP -->
+    <div class="flex flex-col md:flex-row items-center gap-6 mb-6">
+        <!-- Foto Profil -->
+        <div class="relative w-32 h-32">
+            <img  id="previewFoto" src="{{ asset('storage/' . $profile->foto) }}" alt="Foto Profil"
+                class="w-full h-full rounded-full object-cover border border-gray-300">
+            <label for="uploadFoto"
                 class="absolute bottom-1 right-1 bg-white p-2 rounded-full shadow-md cursor-pointer hover:bg-gray-100">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-700" fill="none" viewBox="0 0 24 24"
-                  stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M3 7h4l2-3h6l2 3h4v13H3V7z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M12 11a3 3 0 110 6 3 3 0 010-6z" />
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M3 7h4l2-3h6l2 3h4v13H3V7z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 11a3 3 0 110 6 3 3 0 010-6z" />
                 </svg>
-              </label>
-            </div>
-            <!-- Nama dan Jabatan -->
-            <div class="flex flex-col justify-center">
-              <h1 class="text-base font-bold dark:text-white">Nama</h1>
-              <p class="text-sm font-semibold leading-normal dark:text-white dark:opacity-60">Pangkat / Golongan</p>
-            </div>
-          </div>
+                <input type="file" name="foto" id="uploadFoto" accept="image/*" onchange="previewImage(event)" hidden>
+            </label>
         </div>
-      </div>
+
+        <!-- Nama & NIP -->
+        <div class="text-center md:text-left">
+            <h1 class="text-xl font-bold dark:text-white">{{ $profile->pengguna->name ?? '-' }}</h1>
+            <p class="text-sm font-semibold dark:text-white dark:opacity-70">{{ $profile->nip ?? '-' }}</p>
+        </div>
     </div>
-    <div class="w-full p-6 mx-auto">
-      <div class="flex flex-wrap -mx-3">
-        <div class="w-full px-4 md:w-full">
-          <div
-            class="relative z-20 flex flex-col min-w-0 break-words bg-white border-0 shadow-2xl shadow-black/20 dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
-            <div class="border-black/12.5 rounded-t-2xl border-b-0 border-solid p-6 pb-0">
+       <div class="border-black/12.5 rounded-t-2xl border-b-0 border-solid p-6 pb-0">
               <div class="flex items-center">
                 <!--  <p class="mb-0 dark:text-white/80">Edit Profil</p>-->
-                <button type="button"
-                  class="inline-block px-8 py-2 mb-4 ml-auto font-bold leading-normal text-center text-white align-middle transition-all ease-in bg-blue-500 border-0 rounded-lg shadow-md cursor-pointer text-m tracking-tight-rem hover:shadow-m hover:-translate-y-px active:opacity-85">Edit Profil</button>
+                <button type="button" onclick="enableReadonlyForm()"
+                  class="inline-block px-8 py-2 mb-4 ml-auto font-bold leading-normal text-center text-white align-middle transition-all ease-in bg-blue-500 border-0 rounded-lg shadow-md cursor-pointer text-m tracking-tight-rem hover:shadow-m hover:-translate-y-px active:opacity-85">
+                  Edit Profil</button>
               </div>
             </div>
-            <form action="/submit" method="POST" class="w-full px-4 py-6 bg-white rounded-xl shadow-md  dark:bg-slate-800">
-              <div class="max-w-6xl mx-auto">
-                <!-- Bagian: Data Akun -->
-                <div class="mb-6">
-                  <p class="text-lg font-bold uppercase dark:text-white dark:opacity-60 mb-4">DATA AKUN</p>
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label for="username" class="block mb-2 text-m font-bold text-slate-700 dark:text-white/80">Nama Pengguna</label>
-                      <input type="text" name="username" id="username" required
-                        class="w-full px-3 py-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-lg placeholder:text-gray-500 focus:outline-none focus:border-blue-500 dark:bg-slate-850 dark:text-white" />
-                    </div>
-                    <div>
-                      <label for="email" class="block mb-2 text-m font-bold text-slate-700 dark:text-white/80">Email Pengguna</label>
-                      <input type="email" name="email" id="email" required
-                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-                        title="Masukkan email yang valid (misal: nama@example.com)"
-                        placeholder="nama@example.com"
-                        class="w-full px-3 py-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-lg placeholder:text-gray-500 focus:outline-none focus:border-blue-500 dark:bg-slate-850 dark:text-white" />
-                    </div>
 
-                    <div>
-                      <label for="nip" class="block mb-2 text-m font-bold text-slate-700 dark:text-white/80">NIP</label>
-                      <input type="text" name="nip" id="nip" required maxlength="18" minlength="18" pattern="\d{18}"
-                        inputmode="numeric"
-                        placeholder="Masukkan 18 digit NIP"
-                        class="w-full px-3 py-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-lg placeholder:text-gray-500 focus:outline-none focus:border-blue-500 dark:bg-slate-850 dark:text-white" />
-                    </div>
-
-                    <div>
-                      <label for="pangkat_golongan" class="block mb-2 text-m font-bold text-slate-700 dark:text-white/80">
-                        Pangkat / Golongan
-                      </label>
-                      <select name="pangkat_golongan" id="pangkat_golongan" required
-                        class="w-full px-3 py-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-lg placeholder:text-gray-500 focus:outline-none focus:border-blue-500 dark:bg-slate-850 dark:text-white">
-                        <option value="" disabled selected hidden>-- Pilih Pangkat / Golongan --</option>
-                        <!--Golongan 1-->
-                        <optgroup label="Golongan I">
-                          <option value="Juru Muda (I/a)">Juru Muda (I/a)</option>
-                          <option value="Juru Muda Tingkat I (I/b)">Juru Muda Tingkat I (I/b)</option>
-                          <option value="Juru (I/c)">Juru (I/c)</option>
-                          <option value="Juru Tingkat I (I/d)">Juru Tingkat I (I/d)</option>
-                        </optgroup>
-                        <!--Golongan II-->
-                        <optgroup label="Golongan II">
-                          <option value="Pengatur Muda (II/a)">Pengatur Muda (II/a)</option>
-                          <option value="Pengatur Muda Tingkat I (II/b)">Pengatur Muda Tingkat I (II/b)</option>
-                          <option value="Pengatur (II/c)">Pengatur (II/c)</option>
-                          <option value="Pengatur Tingkat I (II/d)">Pengatur Tingkat I (II/d)</option>
-                        </optgroup>
-                        <!--Golongan III-->
-                        <optgroup label="Golongan III">
-                          <option value="Penata Muda (III/a)">Penata Muda (III/a)</option>
-                          <option value="Penata Muda Tingkat I (III/b)">Penata Muda Tingkat I (III/b)</option>
-                          <option value="Penata (III/c)">Penata (III/c)</option>
-                          <option value="Penata Tingkat I (III/d)">Penata Tingkat I (III/d)</option>
-                        </optgroup>
-                        <!--Golongan IV-->
-                        <optgroup label="Golongan IV">
-                          <option value="Pembina (IV/a)">Pembina (IV/a)</option>
-                          <option value="Pembina Tingkat I (IV/b)">Pembina Tingkat I (IV/b)</option>
-                          <option value="Pembina Utama Muda (IV/c)">Pembina Utama Muda (IV/c)</option>
-                          <option value="Pembina Utama Madya (IV/d)">Pembina Utama Madya (IV/d)</option>
-                          <option value="Pembina Utama (IV/e)">Pembina Utama (IV/e)</option>
-                        </optgroup>
-                      </select>
-                    </div>
-                  </div>
-                  <!-- Tombol Reset & Simpan: sejajar di sebelah kiri -->
-                  <div class="mt-6 flex gap-4">
-                    <button type="button"
-                      class="px-6 py-3 text-sm font-bold text-white bg-red-400 rounded-lg hover:bg-red-500 transition-all">
-                      Reset Password
-                    </button>
-                    <button type="submit"
-                      class="px-6 py-3 text-sm font-bold text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition-all">
-                      Simpan
-                    </button>
-                  </div>
-
+    <!-- DATA AKUN -->
+    <div class="w-full p-6 mx-auto">
+        <div class="max-w-6xl mx-auto">
+            <p class="text-lg font-bold uppercase dark:text-white mb-4">DATA AKUN</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Nama -->
+                <div>
+                    <label for="username"
+                        class="block mb-2 text-sm font-bold text-slate-700 dark:text-white">Nama Pengguna</label>
+                    <input type="text" name="name" id="username" data-required readonly
+                        value="{{ old('username', $profile->pengguna->name ?? '') }}"
+                        class="w-full px-3 py-2 text-sm text-gray-700 border rounded-lg dark:bg-slate-850 dark:text-white bg-gray-100 cursor-not-allowed" />
                 </div>
-            </form>
 
+                <!-- Email -->
+                <div>
+                    <label for="email"
+                        class="block mb-2 text-sm font-bold text-slate-700 dark:text-white">Email Pengguna</label>
+                    <input type="email" name="email" id="email" data-required readonly 
+                        value="{{ old('email', $profile->pengguna->email ?? '') }}"
+                        class="w-full px-3 py-2 text-sm text-gray-700 border rounded-lg dark:bg-slate-850 dark:text-white bg-gray-100 cursor-not-allowed"
+                        placeholder="nama@example.com" />
+                </div>
+
+                <!-- NIP -->
+                <div>
+                    <label for="nip" class="block mb-2 text-sm font-bold text-slate-700 dark:text-white">NIP</label>
+                    <input type="text" name="nip" id="nip" required maxlength="18" minlength="18" pattern="\d{18}"
+                        value="{{ old('nip', $profile->nip ?? '') }}"
+                        class="w-full px-3 py-2 text-sm text-gray-700 border rounded-lg dark:bg-slate-850 dark:text-white bg-gray-100 cursor-not-allowed"
+                        placeholder="Masukkan 18 digit NIP" 
+                        readonly/>
+                </div>
+
+                <!-- Pangkat Golongan -->
+                <div>
+                    
+                <label for="pangkat" class="block mb-2 text-sm font-medium text-gray-700 dark:text-white">Pangkat / Golongan</label>
+
+                <select id="pangkat_select" disabled
+                    class="w-full px-3 py-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-lg placeholder:text-gray-500 focus:outline-none focus:border-blue-500 dark:bg-slate-850 dark:text-white">
+                    <option value="" disabled hidden>-- Pilih Pangkat / Golongan --</option>
+
+                    <!--Golongan I-->
+                    <optgroup label="Golongan I">
+                        <option value="Juru Muda (I/a)" @selected(old('pangkat', $profile->pangkat ?? '') == 'Juru Muda (I/a)')>Juru Muda (I/a)</option>
+                        <option value="Juru Muda Tingkat I (I/b)" @selected(old('pangkat', $profile->pangkat ?? '') == 'Juru Muda Tingkat I (I/b)')>Juru Muda Tingkat I (I/b)</option>
+                        <option value="Juru (I/c)" @selected(old('pangkat', $profile->pangkat ?? '') == 'Juru (I/c)')>Juru (I/c)</option>
+                        <option value="Juru Tingkat I (I/d)" @selected(old('pangkat', $profile->pangkat ?? '') == 'Juru Tingkat I (I/d)')>Juru Tingkat I (I/d)</option>
+                    </optgroup>
+
+                    <!--Golongan II-->
+                    <optgroup label="Golongan II">
+                        <option value="Pengatur Muda (II/a)" @selected(old('pangkat', $profile->pangkat ?? '') == 'Pengatur Muda (II/a)')>Pengatur Muda (II/a)</option>
+                        <option value="Pengatur Muda Tingkat I (II/b)" @selected(old('pangkat', $profile->pangkat ?? '') == 'Pengatur Muda Tingkat I (II/b)')>Pengatur Muda Tingkat I (II/b)</option>
+                        <option value="Pengatur (II/c)" @selected(old('pangkat', $profile->pangkat ?? '') == 'Pengatur (II/c)')>Pengatur (II/c)</option>
+                        <option value="Pengatur Tingkat I (II/d)" @selected(old('pangkat', $profile->pangkat ?? '') == 'Pengatur Tingkat I (II/d)')>Pengatur Tingkat I (II/d)</option>
+                    </optgroup>
+
+                    <!--Golongan III-->
+                    <optgroup label="Golongan III">
+                        <option value="Penata Muda (III/a)" @selected(old('pangkat', $profile->pangkat ?? '') == 'Penata Muda (III/a)')>Penata Muda (III/a)</option>
+                        <option value="Penata Muda Tingkat I (III/b)" @selected(old('pangkat', $profile->pangkat ?? '') == 'Penata Muda Tingkat I (III/b)')>Penata Muda Tingkat I (III/b)</option>
+                        <option value="Penata (III/c)" @selected(old('pangkat', $profile->pangkat ?? '') == 'Penata (III/c)')>Penata (III/c)</option>
+                        <option value="Penata Tingkat I (III/d)" @selected(old('pangkat', $profile->pangkat ?? '') == 'Penata Tingkat I (III/d)')>Penata Tingkat I (III/d)</option>
+                    </optgroup>
+
+                    <!--Golongan IV-->
+                    <optgroup label="Golongan IV">
+                        <option value="Pembina (IV/a)" @selected(old('pangkat', $profile->pangkat ?? '') == 'Pembina (IV/a)')>Pembina (IV/a)</option>
+                        <option value="Pembina Tingkat I (IV/b)" @selected(old('pangkat', $profile->pangkat ?? '') == 'Pembina Tingkat I (IV/b)')>Pembina Tingkat I (IV/b)</option>
+                        <option value="Pembina Utama Muda (IV/c)" @selected(old('pangkat', $profile->pangkat ?? '') == 'Pembina Utama Muda (IV/c)')>Pembina Utama Muda (IV/c)</option>
+                        <option value="Pembina Utama Madya (IV/d)" @selected(old('pangkat', $profile->pangkat ?? '') == 'Pembina Utama Madya (IV/d)')>Pembina Utama Madya (IV/d)</option>
+                        <option value="Pembina Utama (IV/e)" @selected(old('pangkat', $profile->pangkat ?? '') == 'Pembina Utama (IV/e)')>Pembina Utama (IV/e)</option>
+                    </optgroup>
+                </select>
+
+                <!-- input hidden agar tetap terkirim saat disabled -->
+                <input type="hidden" name="pangkat" value="{{ old('pangkat', $profile->pangkat ?? '') }}">
+            </div>
+                    
+         
+
+            </div>
+
+
+
+      <!-- Tombol -->
+      <div class="mt-6 flex gap-4">
+        <button type="button"
+          class="px-6 py-3 text-sm font-bold text-white bg-red-400 rounded-lg hover:bg-red-500 transition-all">
+          Reset Password
+        </button>
+        <button type="submit"
+          class="px-6 py-3 text-sm font-bold text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition-all">
+          Simpan
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
             <!--
                   <div class="relative w-full mx-auto mt-60 ">
 
@@ -668,6 +733,43 @@
                 </div>
               </div> -->
 </body>
+
+<script>
+  function enableReadonlyForm() {
+    
+    const inputs = document.querySelectorAll('input, select');
+    inputs.forEach(input => {
+
+         if (input.id === 'email') return;
+
+        if (input.hasAttribute('readonly') || input.hasAttribute('disabled')) {
+            input.removeAttribute('readonly');
+            input.removeAttribute('disabled');
+            input.classList.remove('cursor-not-allowed', 'bg-gray-100');
+        }
+    });
+
+    // Sinkronisasi select pangkat dengan hidden input
+    const select = document.getElementById('pangkat');
+    const hidden = document.getElementById('pangkat_hidden');
+
+    select.addEventListener('change', function() {
+        hidden.value = this.value;
+    });
+
+  }
+  function previewImage(event) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const preview = document.getElementById('previewFoto');
+        preview.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+</script>
 <!-- plugin for scrollbar  -->
 <script src="../assets/js/plugins/perfect-scrollbar.min.js" async></script>
 <!-- main script file  -->
