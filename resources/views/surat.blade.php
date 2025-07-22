@@ -76,41 +76,46 @@
     }
   }
 
-    @keyframes slideOutUp {
-        0% { opacity: 1; transform: translateY(0); }
-        100% { opacity: 0; transform: translateY(-30px); }
+  @keyframes slideOutUp {
+    0% {
+      opacity: 1;
+      transform: translateY(0);
     }
 
-    .floating-alert {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        z-index: 9999;
-        padding: 15px 20px;
-        border-left: 5px solid;
-        border-radius: 5px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        transition: opacity 0.5s ease-in-out;
-        font-family: sans-serif;
+    100% {
+      opacity: 0;
+      transform: translateY(-30px);
     }
+  }
 
-    .floating-alert.success {
-        background-color: #d4edda;
-        color: #155724;
-        border-left-color: #28a745;
-    }
+  .floating-alert {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    padding: 15px 20px;
+    border-left: 5px solid;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: opacity 0.5s ease-in-out;
+    font-family: sans-serif;
+  }
 
-    .floating-alert.warning {
-        background-color: #f8d7da;
-        color: #721c24;
-        border-left-color: #f44336;
-    }
+  .floating-alert.success {
+    background-color: #d4edda;
+    color: #155724;
+    border-left-color: #28a745;
+  }
 
-    .slide-out {
-        animation: slideOutUp 0.8s forwards;
-    }
+  .floating-alert.warning {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-left-color: #f44336;
+  }
 
-
+  .slide-out {
+    animation: slideOutUp 0.8s forwards;
+  }
 </style>
 
 <body
@@ -194,7 +199,7 @@
                 <h4 class="text-lg font-bold mb-4 text-gray-700 dark:text-white text-center uppercase">DATA TEKNIS</h4>
 
                 <form id="suratpengajuan" method="POST" action="{{ route('pengajuan.store') }}" onsubmit="return validateForm()">
-                    @csrf
+                  @csrf
                   <p class="leading-normal  dark:text-white dark:opacity-60 text-base font-bold">Data Pembangkit Tenaga Listrik
                   </p>
                   <div class="flex flex-wrap -mx-3">
@@ -299,21 +304,21 @@
                               <tr>
                                 <td>Foto Unit</td>
                                 <td>
-                                  <input type="file" name="foto_unit_1" accept="image/*" onchange="previewGambar(this, 'preview_unit_1')" required>
+                                  <input type="file" name="foto_unit_1" accept="image/*" onchange="previewGambar(this, 'preview_unit_1')" data-required>
                                   <img id="preview_unit_1" class="mt-2 w-24 hidden border rounded" />
                                 </td>
                               </tr>
                               <tr>
                                 <td>Foto Papan Nama (Name Plate) Generator</td>
                                 <td>
-                                  <input type="file" name="foto_generator_1" accept="image/*" onchange="previewGambar(this, 'preview_generator_1')" required>
+                                  <input type="file" name="foto_generator_1" accept="image/*" onchange="previewGambar(this, 'preview_generator_1')" data-required>
                                   <img id="preview_generator_1" class="mt-2 w-24 hidden border rounded" />
                                 </td>
                               </tr>
                               <tr>
                                 <td>Foto Papan Nama (Name Plate) Mesin Penggerak</td>
                                 <td>
-                                  <input type="file" name="foto_mesin_1" accept="image/*" onchange="previewGambar(this, 'preview_mesin_1')" required>
+                                  <input type="file" name="foto_mesin_1" accept="image/*" onchange="previewGambar(this, 'preview_mesin_1')" data-required>
                                   <img id="preview_mesin_1" class="mt-2 w-24 hidden border rounded" />
                                 </td>
                               </tr>
@@ -408,7 +413,7 @@
                               <tr>
                                 <td>Foto Unit</td>
                                 <td>
-                                  <input type="file" name="sfoto_unit_1" accept="image/*" onchange="previewGambar(this, 'spreview_unit_1')" required>
+                                  <input type="file" name="sfoto_unit_1" accept="image/*" onchange="previewGambar(this, 'spreview_unit_1')" data-required>
                                   <img id="spreview_unit_1" class="mt-2 w-24 hidden border rounded" />
                                 </td>
                               </tr>
@@ -793,13 +798,13 @@
 
                           function formatKomaOnly(event) {
                             const input = event.target;
-                        
+
                             let value = input.value.replace(/[^\d,]/g, '');
 
-                         
+
                             if (value.includes(',')) {
                               const parts = value.split(',');
-                              const decimal = parts[1].slice(0, 2); 
+                              const decimal = parts[1].slice(0, 2);
                               value = parts[0] + ',' + decimal;
                             }
 
@@ -971,7 +976,7 @@
                       </div>
 
                       <div class="w-full flex justify-center my-4 ">
-                        <button type="submit" id="submitkirim" 
+                        <button type="submit" id="submitkirim"
                           class=" bg-blue-400 from-blue-500 to-violet-500 text-white px-6 py-2 rounded-full shadow hover:opacity-90">
                           Kirim
                         </button>
@@ -983,42 +988,41 @@
                 </form>
 
 
-<script>
-async function handleSubmitForm(event) {
-  event.preventDefault();
+                <script>
+                  async function handleSubmitForm(event) {
+                    event.preventDefault();
 
-  const form = document.querySelector("form");
-  const formData = new FormData(form);
-  const jsonData = {};
-  const fileFields = [
-    'sfoto_unit_1', 'sfoto_modul_1', 'sfoto_inverter_1',
-    'nib', 'ktp', 'npwp', 'gambar_situasi', 'bukti_tagihan'
-  ];
+                    const form = document.querySelector("form");
+                    const formData = new FormData(form);
+                    const jsonData = {};
+                    const fileFields = [
+                      'sfoto_unit_1', 'sfoto_modul_1', 'sfoto_inverter_1',
+                      'nib', 'ktp', 'npwp', 'gambar_situasi', 'bukti_tagihan'
+                    ];
 
-  for (const field of fileFields) {
-    const file = formData.get(field);
-    if (file && file.name) {
-      const uploadedUrl = await uploadFileDummy(file);
-      jsonData[field] = uploadedUrl;
-    }
-  }
+                    for (const field of fileFields) {
+                      const file = formData.get(field);
+                      if (file && file.name) {
+                        const uploadedUrl = await uploadFileDummy(file);
+                        jsonData[field] = uploadedUrl;
+                      }
+                    }
 
-  const inputs = form.querySelectorAll("input, select, textarea");
-  inputs.forEach(input => {
-    if (!fileFields.includes(input.name) && input.type !== "file") {
-      if (input.type === "checkbox") {
-        jsonData[input.name] = input.checked;
-      } else {
-        jsonData[input.name] = input.value;
-      }
-    }
-  });
+                    const inputs = form.querySelectorAll("input, select, textarea");
+                    inputs.forEach(input => {
+                      if (!fileFields.includes(input.name) && input.type !== "file") {
+                        if (input.type === "checkbox") {
+                          jsonData[input.name] = input.checked;
+                        } else {
+                          jsonData[input.name] = input.value;
+                        }
+                      }
+                    });
 
-  // Tampilkan di browser
-  document.getElementById("json-preview").textContent = JSON.stringify(jsonData, null, 2);
-}
-
-</script>
+                    // Tampilkan di browser
+                    document.getElementById("json-preview").textContent = JSON.stringify(jsonData, null, 2);
+                  }
+                </script>
 
               </div>
             </div>
@@ -1077,58 +1081,58 @@ async function handleSubmitForm(event) {
       const isValid = validateForm();
 
       if (isValid) {
-       // form.submit();
-  const form = e.target;
-  const formData = new FormData(form);
-  const jsonData = {};
-  let jenis ='';
+        // form.submit();
+        const form = e.target;
+        const formData = new FormData(form);
+        const jsonData = {};
+        let jenis = '';
 
-  const jenisPembangkit = document.getElementById('pembangkitSelect')?.value;
-  if (jenisPembangkit) {
-    jsonData['jenis_pembangkit'] = jenisPembangkit;
-    jenis =jenisPembangkit;
-  }
-  const url = jenis === "surya" 
-      ? "/pengajuan/surya" 
-      : "/pengajuan/non-surya";
+        const jenisPembangkit = document.getElementById('pembangkitSelect')?.value;
+        if (jenisPembangkit) {
+          jsonData['jenis_pembangkit'] = jenisPembangkit;
+          jenis = jenisPembangkit;
+        }
+        const url = jenis === "surya" ?
+          "/pengajuan/surya" :
+          "/pengajuan/non-surya";
 
-  for (const [key, value] of formData.entries()) {
-    // Jika file kosong (tidak dipilih), skip
-    if (value instanceof File && value.name === '') continue;
+        for (const [key, value] of formData.entries()) {
+          // Jika file kosong (tidak dipilih), skip
+          if (value instanceof File && value.name === '') continue;
 
-    // Jika string kosong, skip
-    if (typeof value === 'string' && value.trim() === '') continue;
+          // Jika string kosong, skip
+          if (typeof value === 'string' && value.trim() === '') continue;
 
-    jsonData[key] = value instanceof File ? value.name : value;
-  }
+          jsonData[key] = value instanceof File ? value.name : value;
+        }
 
-  console.log("Form Data JSON:", JSON.stringify(jsonData, null, 2));
+        console.log("Form Data JSON:", JSON.stringify(jsonData, null, 2));
 
 
 
-const response = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Accept": "application/json"
-    },
-      credentials: "include",
-    body: JSON.stringify(jsonData)
-  });
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          credentials: "include",
+          body: JSON.stringify(jsonData)
+        });
 
-  const result = await response.json();
-  if (response.ok) {
-    showFloatingAlert('success', 'Pengajuan berhasil dikirim dengan nomor pengajuan ' + (result.data.nomor_pengajuan || 'terjadi kesalahan'));
-   // console.log("Response dari server:", result);
+        const result = await response.json();
+        if (response.ok) {
+          showFloatingAlert('success', 'Pengajuan berhasil dikirim dengan nomor pengajuan ' + (result.data.nomor_pengajuan || 'terjadi kesalahan'));
+          // console.log("Response dari server:", result);
 
-     setTimeout(() => {
-      location.reload();
-    }, 2000);
+          setTimeout(() => {
+            location.reload();
+          }, 2000);
 
-  } else {
+        } else {
 
-    showFloatingAlert('warning', "Gagal: " + (result.message || 'Terjadi kesalahan'));
-  }
+          showFloatingAlert('warning', "Gagal: " + (result.message || 'Terjadi kesalahan'));
+        }
 
 
       }
@@ -1137,7 +1141,7 @@ const response = await fetch(url, {
     function validateForm() {
       const form = document.getElementById("suratpengajuan");
       const checkbox = document.getElementById("persetujuan");
-      const requiredFields = Array.from(form.querySelectorAll("input[required], select[required], textarea[required]"))
+      const requiredFields = Array.from(form.querySelectorAll("input[data-required], select[data-required], textarea[data-required]"))
         .filter(field => field.offsetParent !== null); // hanya ambil yang terlihat
 
       let isValid = true;
@@ -1157,7 +1161,7 @@ const response = await fetch(url, {
           icon: 'warning',
           title: 'Formulir Belum Lengkap',
           text: 'Harap isi semua kolom wajib yang kosong.',
-          confirmButtonColor: '#f59e0b'
+          confirmButtonColor: 'red'
         });
         return false;
       }
@@ -1178,6 +1182,26 @@ const response = await fetch(url, {
       return true;
     }
 
+    function showFloatingAlert(type, message) {
+
+      const existingAlert = document.getElementById('ajax-alert');
+      if (existingAlert) {
+        existingAlert.remove();
+      }
+
+      const alertDiv = document.createElement('div');
+      alertDiv.id = 'ajax-alert';
+      alertDiv.className = 'floating-alert ' + type;
+      alertDiv.innerText = message;
+      document.body.appendChild(alertDiv);
+
+      setTimeout(() => {
+        alertDiv.classList.add('slide-out');
+      }, 3000);
+
+      setTimeout(() => {
+        alertDiv.remove();
+      }, 3800);
     }
   </script>
 

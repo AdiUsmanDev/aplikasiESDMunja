@@ -26,7 +26,7 @@ class AuthControllermanual extends Controller
             'password'     => bcrypt($request->password),
             'provider'     => null,
             'provider_id'  => null,
-            'role'         => 'timteknis', 
+            'role'         => 'pengguna', 
         ]);
 
         Auth::login($user);
