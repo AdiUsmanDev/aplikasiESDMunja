@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/png" href=" {{ asset('assets/img/logo-esdm.svg') }} " />
-  <title>Verifikasi Pengajuan</title>
+  <title>Daftar Permohonan Tim Teknis</title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
   <!-- Font Awesome Icons -->
@@ -34,16 +34,15 @@
             <li class="text-sm leading-normal">
               <a class="text-white opacity-50" href="javascript:;">Halaman</a>
             </li>
-            <li class="text-sm pl-2 capitalize leading-normal text-white before:float-left before:pr-2 before:text-white before:content-['/']" aria-current="page">Daftar Pengajuan</li>
+            <li class="text-sm pl-2 capitalize leading-normal text-white before:float-left before:pr-2 before:text-white before:content-['/']" aria-current="page">Daftar Permohonan</li>
           </ol>
-          <h6 class="mb-0 font-bold text-white capitalize">Daftar pengajuan</h6>
+          <h6 class="mb-0 font-bold text-white capitalize">Daftar Permohonan</h6>
         </nav>
 
         <div class="flex items-center mt-2 grow sm:mt-0 sm:mr-6 md:mr-0 lg:flex lg:basis-auto">
           <div class="flex items-center md:ml-auto md:pr-4">
             <div class="relative flex flex-wrap items-stretch w-full transition-all rounded-lg ease">
               <span class="text-sm ease leading-5.6 absolute z-50 -ml-px flex h-full items-center whitespace-nowrap rounded-lg rounded-tr-none rounded-br-none border border-r-0 border-transparent bg-transparent py-2 px-2.5 text-center font-normal text-slate-500 transition-all">
-                <i class="fas fa-search"></i>
               </span>
               <!--<input type="text" class="pl-9 text-sm focus:shadow-primary-outline ease w-1/100 leading-5.6 relative -ml-px block min-w-0 flex-auto rounded-lg border border-solid border-gray-300 dark:bg-slate-850 dark:text-white bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none focus:transition-shadow" placeholder="Type here..." />
               -->
@@ -78,7 +77,6 @@
             </li>
             <li class="flex items-center px-4">
               <a href="javascript:;" class="p-0 text-sm text-white transition-all ease-nav-brand">
-                <i fixed-plugin-button-nav class="cursor-pointer fa fa-cog"></i>
                 <!-- fixed-plugin-button-nav  -->
               </a>
             </li>
@@ -88,7 +86,6 @@
             <li class="relative flex items-center pr-2">
               <p class="hidden transform-dropdown-show"></p>
               <a href="javascript:;" class="block p-0 text-sm text-white transition-all ease-nav-brand" dropdown-trigger aria-expanded="false">
-                <i class="cursor-pointer fa fa-bell"></i>
               </a>
 
               <ul dropdown-menu class="text-sm transform-dropdown before:font-awesome before:leading-default dark:shadow-dark-xl before:duration-350 before:ease lg:shadow-3xl duration-250 min-w-44 before:sm:right-8 before:text-5.5 pointer-events-none absolute right-0 top-0 z-50 origin-top list-none rounded-lg border-0 border-solid border-transparent dark:bg-slate-850 bg-white bg-clip-padding px-2 py-4 text-left text-slate-500 opacity-0 transition-all before:absolute before:right-2 before:left-auto before:top-0 before:z-50 before:inline-block before:font-normal before:text-white before:antialiased before:transition-all before:content-['\f0d8'] sm:-mr-6 lg:absolute lg:right-0 lg:left-auto lg:mt-2 lg:block lg:cursor-pointer">
@@ -162,140 +159,173 @@
       </div>
     </nav>
 
-    <div class="w-full px-6 py-6 mx-auto">
-      <!-- table 1 -->
+    <script>
+      function hitungHariKerja(tanggalLaporan) {
+        const tgl = new Date(tanggalLaporan);
+        const now = new Date();
+        let hariKerja = 0;
 
+        while (tgl < now) {
+          const day = tgl.getDay();
+          if (day !== 0 && day !== 6) hariKerja++;
+          tgl.setDate(tgl.getDate() + 1);
+        }
+        return hariKerja;
+      }
+
+      document.addEventListener("DOMContentLoaded", function() {
+        const rows = document.querySelectorAll("tr[data-status='PROSES EVALUASI']");
+
+        rows.forEach((row) => {
+          const tgl = row.getAttribute("data-tanggal");
+          const box = row.querySelector(".status-wrapper");
+          const hari = hitungHariKerja(tgl);
+          const sisa = 5 - hari;
+
+          let bgColor = "";
+          let durasiLabel = "";
+          let statusLabel = "PROSES EVALUASI";
+
+          if (sisa >= 3) {
+            bgColor = "bg-yellow-600";
+            durasiLabel = `Sisa - ${sisa} Hari Kerja`;
+          } else if (sisa >= 1) {
+            bgColor = "bg-yellow-400";
+            durasiLabel = `Sisa - ${sisa} Hari Kerja`;
+          } else {
+            bgColor = "bg-yellow-200";
+            durasiLabel = `Melebihi - ${hari - 5} Hari Kerja`;
+          }
+
+          // Tambahkan class warna background
+          box.classList.remove("bg-yellow-600", "bg-yellow-400", "bg-yellow-200");
+          box.classList.add(bgColor);
+
+          // Animasi: ganti teks setiap 2 detik
+          let showStatus = true;
+          setInterval(() => {
+            box.textContent = showStatus ? durasiLabel : statusLabel;
+            showStatus = !showStatus;
+          }, 3000);
+        });
+      });
+    </script>
+
+
+
+    <!-- TABEL -->
+    <div class="w-full px-6 py-6 mx-auto">
       <div class="flex flex-wrap -mx-3">
-        <div class="flex-none w-full max-w-full px-3">
-          <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl">
-            <div class="p-4 pb-0 mb-0 border-b border-b-transparent rounded-t-2xl">
-              <h6 class="leading-normal text-lg font-bold mb-4 text-gray-700 dark:text-white uppercase">Daftar Surat Permohonan Keterangan</h6>
+        <div class="w-full max-w-full px-3">
+          <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border border-gray-100 shadow-md rounded-2xl">
+            <div class="p-4 pb-0 mb-0 border-b border-b-gray-100 rounded-t-2xl">
+              <h6 class="leading-normal text-lg font-bold mb-4 text-gray-700 uppercase">Daftar Permohonan Surat Keterangan</h6>
             </div>
+
+            <!-- Responsive Table -->
             <div class="flex-auto pt-0 pb-2 overflow-x-auto">
-              <table class="min-w-full text-sm text-left text-slate-500 dark:text-slate-200">
-                <thead class="text-xs uppercase text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-700">
+              <table class="min-w-full text-sm text-left text-slate-600">
+               <thead class="bg-blue-400 text-white">
                   <tr>
-                    <th class="px-4 py-3 text-slate-900 font-bold whitespace-nowrap">No Laporan</th>
-                    <th class="px-4 py-3 text-slate-900 font-bold text-center whitespace-nowrap">Nama Badan Usaha</th>
-                    <th class="px-4 py-3 text-slate-900 font-bold text-center whitespace-nowrap">Tanggal Laporan</th>
-                    <th class="px-4 py-3 text-slate-900 font-bold text-center whitespace-nowrap">Keterangan / Catatan Perbaikan</th>
-                    <th class="px-4 py-3 text-slate-900 font-bold text-center whitespace-nowrap">Status</th>
-                    <th class="px-4 py-3 text-slate-900 font-bold text-center whitespace-nowrap">Aksi</th>
-                    <th class="px-4 py-3 text-slate-900 font-bold text-center whitespace-nowrap">Jadwal Evaluasi</th>
+                    <th class="px-4 py-3 text-sm font-bold">No</th>
+                    <th class="px-4 py-3 text-sm font-bold text-center">Tanggal</th>
+                    <th class="px-4 py-3 text-sm font-bold text-center">Badan Usaha</th>
+                    <th class="px-4 py-3 text-sm font-bold text-center">Catatan</th>
+                    <th class="px-4 py-3 text-sm font-bold text-center">Status</th>
+                    <th class="px-4 py-3 text-sm font-bold text-center">Aksi</th>
                   </tr>
                 </thead>
-                <tbody class="bg-white dark:bg-slate-800">
-                  <tr class="border-b dark:border-slate-700">
-                    <td class="px-4 py-3">
-                      <div class="flex flex-col">
-                        <span class="font-medium text-slate-900 dark:text-white">0001</span>
-                      </div>
-                    </td>
-                    <td class="px-4 py-3 text-center text-xs">Perseroan Terbatas (PT)</td>
-                    <td class="px-4 py-3 text-center text-xs">23/04/18</td>
-                    <td class="px-4 py-3 text-sm">Perbaikan pada lampiran</td>
+                <tbody class="bg-white divide-y divide-gray-100">
+
+                  <!-- ITEM 1 -->
+                  <tr class="flex flex-col md:table-row" data-status="PROSES EVALUASI" data-tanggal="2025-07-20">
+                    <td class="px-4 py-3 text-xs font-medium text-slate-900">0001</td>
+                    <td class="px-4 py-3 text-center text-xs">15/07/2025</td>
+                    <td class="px-4 py-3 text-center text-xs">PT Maju Jaya</td>
+                    <td class="px-4 py-3 text-left text-xs">-</td>
                     <td class="px-4 py-3 text-center">
-                      <span class="inline-flex items-center justify-center w-40 h-8 text-xs font-semibold text-white rounded-full bg-yellow-400">
+                      <span class="status-wrapper inline-flex items-center justify-center w-40 h-8 text-xs font-semibold text-white rounded-full bg-yellow-800">
                         PROSES EVALUASI
                       </span>
                     </td>
                     <td class="px-4 py-3 text-center">
-                      <a href="/halamantimteknis" class="text-blue-600 hover:underline text-xs">lihat </a>
-                    </td>
-                    <td class="px-4 py-3 text-center text-xs">25 juli 2025</td>
-                  </tr>
-
-                  <tr class="border-b dark:border-slate-700">
-                    <td class="px-4 py-3">
-                      <div class="flex flex-col">
-                        <span class="font-medium text-slate-900 dark:text-white">0002</span>
-                      </div>
-                    </td>
-                    <td class="px-4 py-3 text-center text-xs">Perseroan Terbatas (PT)</td>
-                    <td class="px-4 py-3 text-center text-xs">11/01/19</td>
-                    <td class="px-4 py-3 text-sm">Kapasitas total tidak sesuai dengan data</td>
-                    <td class="px-4 py-3 text-center">
-                      <span class="inline-flex items-center justify-center w-40 h-8 text-xs font-semibold text-white rounded-full bg-red-500">
-                        PERBAIKAN
-                      </span>
-                    </td>
-                    <td class="px-4 py-3 text-center">
-                      <a href="/halamantimteknis" class="text-blue-600 hover:underline text-xs">lihat</a>
-                    </td>
-                    <td class="px-4 py-3 text-center text-xs">25 juli 2025</td>
-                  </tr>
-
-                  <tr class="border-b dark:border-slate-700">
-                    <td class="px-4 py-3">
-                      <div class="flex flex-col">
-                        <span class="font-medium text-slate-900 dark:text-white">0003</span>
-                      </div>
-                    </td>
-                    <td class="px-4 py-3 text-center text-xs">Perseroan Terbatas (PT)</td>
-                    <td class="px-4 py-3 text-center text-xs">12/05/2025</td>
-                    <td class="px-4 py-3 text-sm">-</td>
-                    <td class="px-4 py-3 text-center">
-                      <span class="inline-flex items-center justify-center w-40 h-8 text-xs font-semibold text-white rounded-full bg-green-600" >
-                        TELAH DIEVALUASI
-                      </span>
-                    </td>
-                    <td class="px-4 py-3 text-center">
                       <a href="/halamantimteknis" class="text-blue-600 hover:underline text-xs">Lihat</a>
                     </td>
-                    <td class="px-4 py-3 text-center text-xs">25 juli 2025</td>
                   </tr>
 
-                  <tr class="border-b dark:border-slate-700">
-                    <td class="px-4 py-3">
-                      <div class="flex flex-col">
-                        <span class="font-medium text-slate-900 dark:text-white">0004</span>
-                      </div>
-                    </td>
-                    <td class="px-4 py-3 text-center text-xs">Perseroan Terbatas (PT)</td>
-                    <td class="px-4 py-3 text-center text-xs">19/09/17</td>
-                    <td class="px-4 py-3 text-sm">-</td>
+
+                  <!-- ITEM 2 -->
+                  <tr class="flex flex-col md:table-row" data-status="PERBAIKAN" data-tanggal="2025-07-10">
+                    <td class="px-4 py-3 text-xs font-medium text-slate-900">0002</td>
+                    <td class="px-4 py-3 text-xs text-center text-xs">10/07/2025</td>
+                    <td class="px-4 py-3 text-xs text-center text-xs">PT Sejahtera</td>
+
+                    <td class="px-4 py-3 text-left text-xs">Perbaikan Pada Name plate dan NIB</td>
                     <td class="px-4 py-3 text-center">
-                      <span class="inline-flex items-center justify-center w-40 h-8 text-xs font-semibold text-white rounded-full bg-green-600">
-                        DISETUJUI
-                      </span>
+                      <span class="inline-flex items-center justify-center w-40 h-8 text-xs font-semibold text-white rounded-full bg-red-500">PERBAIKAN</span>
+                    </td>
+                    <td class="px-4 py-3 text-center">
+                      <a href="/halamantimteknisperbaikan" class="text-blue-600 hover:underline text-xs">Lihat</a>
+                    </td>
+                  </tr>
+
+                  <!-- ITEM 3 -->
+                  <tr class="flex flex-col md:table-row" data-status="TELAH DIEVALUASI" data-tanggal="2025-07-05">
+                    <td class="px-4 py-3 text-xs font-medium text-slate-900">0003</td>
+                    <td class="px-4 py-3 text-xs text-center text-xs">05/07/2025</td>
+                    <td class="px-4 py-3 text-xs text-center text-xs">PT Hijau Abadi</td>
+
+                    <td class="px-4 py-3 text-left text-xs">-</td>
+                    <td class="px-4 py-3 text-center">
+                      <span class="inline-flex items-center justify-center w-40 h-8 text-xs font-semibold text-white rounded-full bg-green-600">TELAH DIEVALUASI</span>
+                    </td>
+                    <td class="px-4 py-3 text-center">
+                      <a href="/halamantimteknistelahdievaluasi" class="text-blue-600 hover:underline text-xs">Lihat</a>
+                    </td>
+                  </tr>
+
+                  <!-- ITEM 4 -->
+                  <tr class="flex flex-col md:table-row" data-status="DISETUJUI" data-tanggal="2025-06-30">
+                    <td class="px-4 py-3 text-xs font-medium text-slate-900">0004</td>
+                    <td class="px-4 py-3 text-xs text-center text-xs">30/06/2025</td>
+                    <td class="px-4 py-3 text-xs text-center text-xs">PT Amanah</td>
+
+                    <td class="px-4 py-3 text-left text-xs">Semuanya Sudah Sesuai</td>
+                    <td class="px-4 py-3 text-center">
+                      <span class="inline-flex items-center justify-center w-40 h-8 text-xs font-semibold text-white rounded-full bg-green-600">DISETUJUI</span>
                     </td>
                     <td class="px-4 py-3 text-center">
                       <a href="/suketteknis" class="text-blue-600 hover:underline text-xs">Lihat</a>
                     </td>
-                    <td class="px-4 py-3 text-center text-xs">25 juli 2025</td>
                   </tr>
 
-                  <tr class="border-b dark:border-slate-700">
-                    <td class="px-4 py-3">
-                      <div class="flex flex-col">
-                        <span class="font-medium text-slate-900 dark:text-white">0005</span>
-                      </div>
-                    </td>
-                    <td class="px-4 py-3 text-center text-xs">Perseroan Terbatas (PT)</td>
-                    <td class="px-4 py-3 text-center text-xs">19/09/17</td>
-                    <td class="px-4 py-3 text-sm">-</td>
+                  <!-- ITEM 5 -->
+                  <tr class="flex flex-col md:table-row" data-status="PROSES VALIDASI" data-tanggal="2025-07-17">
+                    <td class="px-4 py-3 text-xs font-medium text-slate-900">0005</td>
+                    <td class="px-4 py-3 text-xs text-center text-xs">17/07/2025</td>
+                    <td class="px-4 py-3 text-xs text-center text-xs">PT Bintang Timur</td>
+
+                    <td class="px-4 py-3 text-left text-xs">-</td>
                     <td class="px-4 py-3 text-center">
-                      <span class="inline-flex items-center justify-center w-40 h-8 text-xs font-semibold text-white rounded-full bg-yellow-400">
-                        PROSES VALIDASI
-                      </span>
+                      <span class="inline-flex items-center justify-center w-40 h-8 text-xs font-semibold text-white rounded-full bg-orange-400">PROSES VALIDASI</span>
                     </td>
-                    <td class="px-4 py-3 text-center">
-                      <a href="/halamantimteknis" class="text-blue-600 hover:underline text-xs">Lihat</a>
                     </td>
-                    <td class="px-4 py-3 text-center text-xs">25 juli 2025</td>
                   </tr>
+
                 </tbody>
               </table>
             </div>
           </div>
         </div>
       </div>
+    </div>
 
 
 
-      <!-- card 2 -->
 
-      <!-- <div class="flex flex-wrap -mx-3">
+    <!-- card 2 -->
+
+    <!-- <div class="flex flex-wrap -mx-3">
           <div class="flex-none w-full max-w-full px-3">
             <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
               <div class="p-6 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
@@ -533,7 +563,7 @@
                   .
                 </div>
               </div> -->
-      <!-- <div class="w-full max-w-full px-3 mt-0 shrink-0 lg:w-1/2 lg:flex-none">
+    <!-- <div class="w-full max-w-full px-3 mt-0 shrink-0 lg:w-1/2 lg:flex-none">
                 <ul class="flex flex-wrap justify-center pl-0 mb-0 list-none lg:justify-end">
                   <li class="nav-item">
                     <a href="https://www.creative-tim.com" class="block px-4 pt-0 pb-1 text-sm font-normal transition-colors ease-in-out text-slate-500" target="_blank">Creative Tim</a>

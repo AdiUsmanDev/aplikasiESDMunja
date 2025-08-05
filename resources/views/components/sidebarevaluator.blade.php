@@ -34,9 +34,9 @@
 
       {{-- Daftar Permohonan --}}
       <li class="mt-0.5 w-full">
-        <a href="/daftarpengajuanevaluator"
+        <a href="/daftarpengajuaneval"
            class="py-2.7 text-lg ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors
-           {{ request()->is('daftarpengajuanevaluator') ? 'bg-blue-500/13 rounded-lg font-semibold text-slate-700' : 'dark:text-white dark:opacity-80' }}">
+           {{ request()->is('daftarpengajuaneval') ? 'bg-blue-500/13 rounded-lg font-semibold text-slate-700' : 'dark:text-white dark:opacity-80' }}">
           <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
             <i class="relative top-0 text-lg leading-normal ni ni-bullet-list-67 text-orange-500"></i>
           </div>
@@ -53,7 +53,7 @@
       <li class="mt-0.5 w-full">
         <a href="/profileevaluator"
            class="py-2.7 text-lg ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors
-           {{ request()->is('profileevaluator') ? 'bg-blue-500/13 rounded-lg font-semibold text-slate-700' : 'dark:text-white dark:opacity-80' }}">
+           {{ request()->is('profileteknis') ? 'bg-blue-500/13 rounded-lg font-semibold text-slate-700' : 'dark:text-white dark:opacity-80' }}">
           <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
             <i class="relative top-0 text-lg leading-normal ni ni-single-02 text-slate-700"></i>
           </div>

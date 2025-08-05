@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/png" href=" {{ asset('assets/img/logo-esdm.svg') }} " />
-  <title>Buat Permohonan Pengguna</title>
+  <title>Pengajuan Surat</title>
   <!--     Fonts and icons     -->
 
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -95,9 +95,9 @@
             </li>
             <li
               class="text-sm pl-2 capitalize leading-normal text-white before:float-left before:pr-2 before:text-white before:content-['/']"
-              aria-current="page">Buat Permohonan</li>
+              aria-current="page">Buat Pengajuan</li>
           </ol>
-          <h6 class="mb-4 font-bold text-white capitalize">Buat Permohonan</h6>
+          <h6 class="mb-4 font-bold text-white capitalize">Buat Pengajuan</h6>
         </nav>
 
         <div class="flex items-center mt-2 grow sm:mt-0 sm:mr-6 md:mr-0 lg:flex lg:basis-auto">
@@ -105,6 +105,7 @@
             <div class="relative flex flex-wrap items-stretch w-full transition-all rounded-lg ease">
               <span
                 class="text-sm ease leading-5.6 absolute z-50 -ml-px flex h-full items-center whitespace-nowrap rounded-lg rounded-tr-none rounded-br-none border border-r-0 border-transparent bg-transparent py-2 px-2.5 text-center font-normal text-slate-500 transition-all">
+                <i class="fas fa-search"></i>
               </span>
             </div>
           </div>
@@ -125,6 +126,7 @@
             </li>
             <li class="flex items-center px-4">
               <a href="javascript:;" class="p-0 text-sm text-white transition-all ease-nav-brand">
+                <i fixed-plugin-button-nav class="cursor-pointer fa fa-cog"></i>
                 <!-- fixed-plugin-button-nav  -->
               </a>
             </li>
@@ -135,6 +137,7 @@
               <p class="hidden transform-dropdown-show"></p>
               <a href="javascript:;" class="block p-0 text-sm text-white transition-all ease-nav-brand" dropdown-trigger
                 aria-expanded="false">
+                <i class="cursor-pointer fa fa-bell"></i>
               </a>
             </li>
           </ul>
@@ -164,131 +167,14 @@
                       </label>
                       <select id="pembangkitSelect" class="w-full border px-4 py-2 rounded mb-4"
                         onchange="showForm(this.value)" data-required>
-                        <option value="" disabled selected hidden>- Pilih Jenis Pembangkit -</option>
-                        <option value="nonSurya">Pembangkit Listrik Selain Tenaga Surya</option>
+                        <option value="" disabled selected hidden>Pembangkit Listrik Tenaga Surya</option>
+                        <option value="non surya">Pembangkit Listrik Selain Tenaga Surya</option>
                         <option value="surya">Pembangkit Listrik Tenaga Surya</option>
                       </select>
-                      <!-- FORM NON SURYA -->
-                      <div id="form-nonSurya" class="hidden">
-                        <h3 class="font-semibold mb-2"></h3>
-                        <div class="mb-4 flex flex-wrap gap-2">
+                      <!-- FORM SURYA -->
+                    
 
-                          <button type="button" onclick="tambahKolom('nonSurya')"
-                            class="bg-blue-600 hover:bg-blue-500 text-white px-3 py-1 rounded">
-                            Tambah Unit
-                          </button>
-                          <button type="button" onclick="kurangiKolom('nonSurya')"
-                            class="bg-red-600 hover:bg-red-500 text-white px-3 py-1 rounded ">
-                            Kurangi Unit
-                          </button>
-                        </div>
-                        <div class="overflow-scroll">
-                          <table id="table-nonSurya">
-                            <thead>
-                              <tr id="header-nonSurya">
-                                <th>SPESIFIKASI</th>
-                                <th>UNIT 1</th>
-                              </tr>
-                            </thead>
-                            <tbody id="body-nonSurya">
-                              <tr>
-                                <td>Jenis Penggerak</td>
-                                <td><input placeholder="Contoh: Air / Diesel / Gas dsb" name="jenis_1" data-required></td>
-                              </tr>
-                              <tr>
-                                <td>Merek</td>
-                                <td><input name="merek_1" data-required></td>
-                              </tr>
-                              <tr>
-                                <td>Tipe</td>
-                                <td><input name="tipe_1" data-required></td>
-                              </tr>
-                              <tr>
-                                <td>Negara Pembuat</td>
-                                <td><input name="negara_1" data-required></td>
-                              </tr>
-                              <tr>
-                                <td>Tahun Pembuatan</td>
-                                <td><input name="tahun_1" data-required></td>
-                              </tr>
-                              <tr>
-                                <td>Kapasitas (kW)</td>
-                                <td><input placeholder="Satuan Dalam kilo Watt (kW) " name="kapasitas_1" data-required></td>
-                              </tr>
-                              <tr>
-                                <td>Energi Primer</td>
-                                <td><input placeholder="Contoh: Air / Biosolar / Dexlite / Pertamax / LPG / Biogas dsb" name="primer_1" data-required></td>
-                              </tr>
-
-                              <tr>
-                                <td>Titik Koordinat (Latitude)</td>
-                                <td>
-                                  <input
-                                    type="text"
-                                    name="titikkordinatla_2"
-                                    inputmode="decimal"
-                                    pattern="^-?\d{1,2},\d+$"
-                                    placeholder="-1,234567"
-                                    title="Masukkan format desimal dengan koma, contoh: -1,234567"
-                                    required>
-                                </td>
-                              </tr>
-
-                              <tr>
-                                <td>Titik Koordinat (Longitude)</td>
-                                <td>
-                                  <input
-                                    type="text"
-                                    name="titikkordinatlo_2"
-                                    inputmode="decimal"
-                                    pattern="^-?\d{1,3},\d+$"
-                                    placeholder="103,456789"
-                                    title="Masukkan format desimal dengan koma, contoh: 103,456789"
-                                    required>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>Sifat Penggunaan</td>
-                                <td>
-                                  <select name="sifat_1" data-required>
-                                    <option value="" disabled selected hidden>- Pilih -</option>
-                                    <option value="Darurat">Utama</option>
-                                    <option value="Permanen">Cadangan</option>
-                                    <option value="Sementara">Darurat</option>
-                                    <option value="Musiman">Sementara</option>
-                                  </select>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>Foto Unit</td>
-                                <td>
-                                  <input type="file" name="foto_unit_1" accept="application/pdf, image/jpeg, image/png/*" onchange="previewGambar(this, 'preview_unit_1')" class="block" required>
-                                  <img id="preview_unit_1" class="mt-2 w-24 hidden border rounded" />
-                                </td>
-                              </tr>
-
-                              <tr>
-                                <td>Foto Papan Nama (Name Plate) Generator</td>
-                                <td>
-                                  <input type="file" name="foto_generator_1" accept="application/pdf, image/jpeg, image/png/*" onchange="previewGambar(this, 'preview_generator_1')" class="block" required>
-                                  <img id="preview_generator_1" class="mt-2 w-24 hidden border rounded" />
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>Foto Papan Nama (Name Plate) Mesin Penggerak</td>
-                                <td>
-                                  <input type="file" name="foto_mesin_1" accept="application/pdf, image/jpeg, image/png/*" onchange="previewGambar(this, 'preview_mesin_1')" class="block" required>
-                                  <img id="preview_mesin_1" class="mt-2 w-24 hidden border rounded" />
-                                </td>
-                              </tr>
-
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-
-                      <!-- FORM TENAGA SURYA -->
-                      <div id="form-surya" class="hidden">
+                       <div id="form-surya" class="">
 
                         <h3 class="font-semibold mb-2"></h3>
                         <div class="mb-4 flex flex-wrap gap-2">
@@ -330,6 +216,7 @@
                                 <td>Kapasitas (kilo Watt-peak)</td>
                                 <td><input placeholder="Satuan Dalam kilo Watt peak (kWp) " name="skapasitas_1" data-required></td>
                               </tr>
+                              
                               <tr>
                                 <td>Titik Koordinat (Latitude)</td>
                                 <td>
@@ -358,11 +245,10 @@
                                 </td>
                               </tr>
 
-
                               <tr>
                                 <td>Sifat Penggunaan</td>
                                 <td>
-                                  <select name="sifat_2" data-required>
+                                  <select name="ssifat_1" data-required>
                                     <option value="" disabled selected hidden>-- Pilih --</option>
                                     <option value="Darurat">Utama</option>
                                     <option value="Permanen">Cadangan</option>
@@ -375,7 +261,7 @@
                               <tr>
                                 <td>Foto Unit</td>
                                 <td>
-                                  <input type="file" name="sfoto_unit_1" accept="application/pdf, image/jpeg, image/png/*" onchange="previewGambar(this, 'spreview_unit_1')" data-data-required>
+                                  <input type="file" name="sfoto_unit_1" accept="application/pdf, image/jpeg, image/png/*" onchange="previewGambar(this, 'spreview_unit_1')" data-required>
                                   <img id="spreview_unit_1" class="mt-2 w-24 hidden border rounded" />
                                 </td>
                               </tr>
@@ -395,11 +281,13 @@
                               </tr>
 
 
+
                             </tbody>
                           </table>
                           <br>
                         </div>
                       </div>
+
                       <script>
                         const MAX_FILE_SIZE_MB = 5;
                         const MAX_FILE_SIZE = MAX_FILE_SIZE_MB * 1024 * 1024;
@@ -444,7 +332,7 @@
                           inputMesin.required = true;
                         }
 
-                        
+
 
                         function previewGambar(input, previewId) {
                           const file = input.files[0];
@@ -648,6 +536,15 @@
                         });
                       </script>
 
+
+                      <div id="Catatan_data_teknis" class="my-4">
+                        <label class="w-full leading-normal text-red-500 italic text-sm text-gray-700 dark:text-white uppercase font-bold">*Catatan Perbaikan Data Teknis
+                        </label>
+                        <Label class="border px-4 py-2 border rounded-lg dark:bg-slate-700 dark:text-white leading-normal text-sm italic text-red-500 ">perbaiki lampiran unit 2
+                        </label>
+                        </label>
+                      </div>
+
                       <!-- Bagian 2: Jaringan Distribusi -->
                       <div class="mb-10">
                         <p class="leading-normal text-lg text-gray-700 dark:text-white uppercase font-bold">Jaringan
@@ -658,14 +555,14 @@
                         <select id="jaringanDistribusi"
                           class="w-full px-4 py-2 border rounded-lg dark:bg-slate-700 dark:text-white"
                           onchange="toggleJaringanDistribusi()" data-required>
-                          <option value="" disabled selected hidden>- Pilih -</option>
+                          <option value="" disabled selected hidden>Ada</option>
                           <option value="ada">Ada</option>
                           <option value="tidak">Tidak Ada</option>
                         </select>
 
                         <!-- Form Tambahan Jaringan Distribusi -->
 
-                        <div id="form-jaringan" class="hidden mt-4">
+                        <div id="form-jaringan" class="mt-4">
                           <div class="mb-4">
                             <label for="panjangSaluran" class="block text-m my-2 font-medium text-gray-700">Panjang Saluran (Kms)</label>
                             <input type="text" id="panjangSaluran" name="panjang_saluran"
@@ -685,6 +582,13 @@
                               title="Gunakan angka bulat atau dengan koma maksimal dua angka desimal, misal: 220, 220,5 atau 220,50"
                               data-required>
                           </div>
+                        </div>
+
+                        <div id="Catatan_jaringan_distribusi " class="my-4">
+                          <label class="w-full leading-normal text-red-500 italic text-sm text-gray-700 dark:text-white uppercase font-bold">*Catatan Perbaikan Jaringan Distribusi
+                          </label>
+                          <Label class=" border px-4 py-2 border rounded-lg dark:bg-slate-700 dark:text-white leading-normal text-sm italic text-red-500">perbaiki lampiran unit 2
+                          </label>
                         </div>
 
                         <script>
@@ -713,6 +617,9 @@
                           document.getElementById("tegangan").addEventListener("input", formatKomaOnly);
                         </script>
 
+
+
+
                         <!-- Bagian 3: Sambungan Listrik dari Pihak Lain -->
                         <div class="mb-6">
                           <p class="leading-normal text-lg my-2 text-gray-700 dark:text-white uppercase font-bold">Sambungan
@@ -722,13 +629,13 @@
                           <select id="sambunganListrik"
                             class="w-full px-4 py-2 border rounded-lg dark:bg-slate-700 dark:text-white"
                             onchange="toggleSambunganForm()" data-required>
-                            <option value="" disabled selected hidden>- Pilih -</option>
+                            <option value="" disabled selected hidden>Ada</option>
                             <option value="ada">Ada</option>
                             <option value="tidak">Tidak Ada</option>
                           </select>
 
                           <!-- Form Tambahan Jika "Ada" -->
-                          <div id="form-sambungan" class="hidden mt-4">
+                          <div id="form-sambungan" class="mt-4">
                             <div class="mb-4">
                               <label for="pihakLain" class="block text-m my-2 font-medium text-gray-700">Dari Pihak
                                 Lain</label>
@@ -749,6 +656,13 @@
 
                             </div>
                           </div>
+                        </div>
+
+                        <div id="Catatan_sambungan_listrik" class="my-4">
+                          <label class="w-full leading-normal text-red-500 italic text-sm text-gray-700 dark:text-white uppercase font-bold">*Catatan Perbaikan Sambungan Listrik Dari Pihak Lain
+                          </label>
+                          <Label class="border px-4 py-2 border rounded-lg dark:bg-slate-700 dark:text-white leading-normal text-sm italic text-red-500 ">lampiran tidak jelas
+                          </label>
                         </div>
 
                         <script>
@@ -852,6 +766,14 @@
                           </div>
                         </div>
 
+                        <div id="Catatan_lokasi_instalasi" class="mt-2 mb-4">
+                          <label class="w-full leading-normal text-red-500 italic text-sm text-gray-700 dark:text-white uppercase font-bold">*Catatan Perbaikan Lokasi Instalasi
+                          </label>
+                          <Label class="border px-4 py-2 border rounded-lg dark:bg-slate-700 dark:text-white leading-normal text-sm italic text-red-500 ">lampiran tidak sama
+                          </label>
+                          </label>
+                        </div>
+
                         <!-- Toggle Script -->
                         <script>
                           document.addEventListener("DOMContentLoaded", function() {
@@ -865,6 +787,7 @@
                             }
                           });
                         </script>
+
 
 
                         <p class="leading-normal text-lg text-gray-700 dark:text-white uppercase font-bold">
@@ -925,6 +848,13 @@
 
                           </div>
                         </div>
+                        <div id="Catatan_data_administrasi" class="my-4">
+                          <label class="w-full leading-normal text-red-500 italic text-sm text-gray-700 dark:text-white uppercase font-bold">*Catatan Lampiran Data Administrasi
+                          </label>
+                          <Label class="border px-4 py-2 border rounded-lg dark:bg-slate-700 dark:text-white leading-normal text-sm italic text-red-500 ">npwp tidak tepat
+                          </label>
+                          </label>
+                        </div>
 
                         <!-- Persetujuan -->
                         <div class="mt-4 flex items-start">
@@ -935,6 +865,8 @@
                             maka saya atau Badan Usaha / Instansi yang saya wakili bersedia menerima segala bentuk sanksi sesuai dengan ketentuan peraturan perundang-undangan yang berlaku.
                           </label>
                         </div>
+
+
 
                         <!-- JavaScript untuk Preview -->
 

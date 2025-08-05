@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/png" href=" {{ asset('assets/img/logo-esdm.svg') }} " />
-  <title>Profile Perusahaan</title>
+  <title>Profil Pengguna</title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
   <!-- Font Awesome Icons -->
@@ -46,8 +46,7 @@
         <div class="flex items-center mt-2 grow sm:mt-0 sm:mr-6 md:mr-0 lg:flex lg:basis-auto">
           <div class="flex items-center md:ml-auto md:pr-4">
             <div class="relative flex flex-wrap items-stretch w-full transition-all rounded-lg ease">
-              <span class="text-sm ease leading-5.6 absolute z-50 -ml-px flex h-full items-center whitespace-nowrap rounded-lg rounded-tr-none rounded-br-none border border-r-0 border-transparent bg-transparent py-2 px-2.5 text-center font-normal text-slate-500 transition-all">
-                <i class="fas fa-search"></i>
+              <span class="text-sm ease leading-5.6 absolute z-50 -ml-px flex h-full items-center whitespace-nowrap rounded-lg rounded-tr-none rounded-br-none border border-r-0 border-transparent bg-transparent py-2 px-2.5 text-center font-normal text-slate-500 transition-all">     
               </span>
               <!--<input type="text" class="pl-9 text-sm focus:shadow-primary-outline ease w-1/100 leading-5.6 relative -ml-px block min-w-0 flex-auto rounded-lg border border-solid border-gray-300 dark:bg-slate-850 dark:text-white bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none focus:transition-shadow" placeholder="Type here..." />
               -->
@@ -65,7 +64,6 @@
             </li>
             <li class="flex items-center px-4">
               <a href="javascript:;" class="p-0 text-sm text-white transition-all ease-nav-brand">
-                <i fixed-plugin-button-nav class="cursor-pointer fa fa-cog"></i>
                 <!-- fixed-plugin-button-nav  -->
               </a>
             </li>
@@ -75,7 +73,6 @@
             <li class="relative flex items-center pr-2">
               <p class="hidden transform-dropdown-show"></p>
               <a href="javascript:;" class="block p-0 text-sm text-white transition-all ease-nav-brand" dropdown-trigger aria-expanded="false">
-                <i class="cursor-pointer fa fa-bell"></i>
               </a>
             </li>
           </ul>
@@ -123,122 +120,123 @@
                         class="w-full px-3 py-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-lg placeholder:text-gray-500 focus:outline-none focus:border-blue-500 dark:bg-slate-850 dark:text-white"
                         placeholder="nama@email.com" />
                     </div>
+                    <div class="mt-2">
+                      <button type="button"
+                        onclick="window.location.href='/verifikasiemail';"
+                        class="w-full md:w-auto px-6 py-3 text-sm font-bold text-white bg-red-500 rounded-lg hover:bg-red-600 transition-all">
+                        Ganti Kata Sandi
+                      </button>
+                    </div>
+
                   </div>
-                  <div class="mt-2">
-                    <button type="button"
-                      class="px-2 py-2 text-xs font-semibold text-white bg-red-400 rounded-lg hover:bg-red-500 transition-colors duration-200">
-                      Reset Password
+                </div>
+
+                <!-- Separator -->
+
+
+                <hr class="h-px mb-2 bg-transparent border-0 opacity-25 bg-gradient-to-r from-transparent via-black/40 to-transparent dark:bg-gradient-to-r dark:from-transparent dark:via-white dark:to-transparent" />
+
+
+                <!-- Bagian: Profil Perusahaan -->
+                <div class="mb-6">
+                  <p class="text-lg font-bold uppercase dark:text-white dark:opacity-60 mb-4">DATA ADMINISTRASI</p>
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label for="namabadanusaha" class="block mb-2 text-m font-bold text-slate-700 dark:text-white/80">Nama Badan Usaha / Instansi / Perseorangan</label>
+                      <input type="text" name="namabadanusaha" id="namabadanusaha" required
+                        class="w-full px-3 py-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-lg placeholder:text-gray-500 focus:outline-none focus:border-blue-500 dark:bg-slate-850 dark:text-white" />
+                    </div>
+                    <div>
+                      <label for="jenisbidang" class="block mb-2 text-m font-bold text-slate-700 dark:text-white/80">Nama Penanggung Jawab</label>
+                      <input type="text" name="jenisbidang" id="jenisbidang" required
+                        class="w-full px-3 py-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-lg placeholder:text-gray-500 focus:outline-none focus:border-blue-500 dark:bg-slate-850 dark:text-white" />
+                    </div>
+                    <div>
+                      <label for="penanggungjawab" class="block mb-2 text-m font-bold text-slate-700 dark:text-white/80">Kode KBLI</label>
+                      <input
+                        type="text"
+                        name="penanggungjawab"
+                        id="penanggungjawab"
+                        required
+                        pattern="\d{5}"
+                        maxlength="5"
+                        inputmode="numeric"
+                        title="Masukkan 5 digit angka sesuai format KBLI"
+                        class="w-full px-3 py-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-lg placeholder:text-gray-500 focus:outline-none focus:border-blue-500 dark:bg-slate-850 dark:text-white"
+                        placeholder="contoh: 62011" />
+                    </div>
+
+                    <div>
+                      <label for="judulkbli" class="block mb-2 text-m font-bold text-slate-700 dark:text-white/80">Judul KBLI</label>
+                      <input type="text" name="judulkbli" id="judulkbli" required
+                        class="w-full px-3 py-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-lg placeholder:text-gray-500 focus:outline-none focus:border-blue-500 dark:bg-slate-850 dark:text-white" />
+                    </div>
+                    <div>
+                      <label for="nomorhp" class="block mb-2 text-m font-bold text-slate-700 dark:text-white/80">No Tlp./HP</label>
+                      <input type="numeric" name="nomorhp" id="nomorhp" required
+                        class="w-full px-3 py-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-lg placeholder:text-gray-500 focus:outline-none focus:border-blue-500 dark:bg-slate-850 dark:text-white" />
+                    </div>
+                    <div>
+                      <label for="email" class="block mb-2 text-m font-bold text-slate-700 dark:text-white/80">Email Perusahaan</label>
+                      <input
+                        type="email"
+                        name="emailpt"
+                        id="emailpt"
+                        required
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                        title="Masukkan email yang valid, contoh: nama@email.com"
+                        class="w-full px-3 py-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-lg placeholder:text-gray-500 focus:outline-none focus:border-blue-500 dark:bg-slate-850 dark:text-white"
+                        placeholder="nama@email.com" />
+                    </div>
+                  </div>
+
+
+                  <!-- Alamat Perusahaan (Optional Toggle) -->
+
+                  <div id="alamatForm" class=" mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="col-span-2">
+                      <label for="address" class="block mb-2 text-m font-bold text-slate-700 dark:text-white/80">Alamat Badan Usaha</label>
+                      <input type="text" name="address" id="address" required
+                        class="w-full px-3 py-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-lg placeholder:text-gray-500 focus:outline-none focus:border-blue-500 dark:bg-slate-850 dark:text-white" />
+                    </div>
+
+                    <div class="col-span-2">
+                      <label for="nib" class="block mb-2 text-m font-bold text-slate-700 dark:text-white/80">
+                        Nomor Induk Berusaha (NIB)
+                      </label>
+                      <input type="text" name="nib" id="nib" required
+                        pattern="^\d{13,16}$"
+                        maxlength="16"
+                        inputmode="numeric"
+                        title="Masukkan NIB yang terdiri dari 13 hingga 16 digit angka"
+                        placeholder="Contoh: 1234567890123"
+                        class="w-full px-3 py-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-lg placeholder:text-gray-500 focus:outline-none focus:border-blue-500 dark:bg-slate-850 dark:text-white" />
+                      <p class="text-m mt-1 text-slate-500">
+                        Note: Sesuai NIB jika Badan Usaha / Sesuai KTP jika Instansi/Perseorangan
+                      </p>
+                    </div>
+                    <div class="col-span-2">
+                      <label for="npwp" class="block mb-2 text-m font-bold text-slate-700 dark:text-white/80">
+                        Nomor Pokok Wajib Pajak (NPWP)
+                      </label>
+                      <input type="text" name="npwp" id="npwp" required
+                        pattern="^\d{2}\.\d{3}\.\d{3}\.\d-\d{3}\.\d{3}$"
+                        maxlength="20"
+                        title="Masukkan NPWP sesuai format: 12.345.678.9-012.345"
+                        placeholder="Contoh: 12.345.678.9-012.345"
+                        class="w-full px-3 py-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-lg placeholder:text-gray-500 focus:outline-none focus:border-blue-500 dark:bg-slate-850 dark:text-white" />
+                    </div>
+
+                  </div>
+
+                  <!-- Submit Button -->
+                  <div class="mt-6">
+                    <button type="submit"
+                      class="w-full md:w-auto px-6 py-3 text-sm font-bold text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition-all">
+                      Simpan
                     </button>
                   </div>
                 </div>
-              </div>
-
-              <!-- Separator -->
-
-
-              <hr class="h-px mb-2 bg-transparent border-0 opacity-25 bg-gradient-to-r from-transparent via-black/40 to-transparent dark:bg-gradient-to-r dark:from-transparent dark:via-white dark:to-transparent" />
-
-
-              <!-- Bagian: Profil Perusahaan -->
-              <div class="mb-6">
-                <p class="text-lg font-bold uppercase dark:text-white dark:opacity-60 mb-4">DATA ADMINISTRASI</p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label for="namabadanusaha" class="block mb-2 text-m font-bold text-slate-700 dark:text-white/80">Nama Badan Usaha / Instansi / Perseorangan</label>
-                    <input type="text" name="namabadanusaha" id="namabadanusaha" required
-                      class="w-full px-3 py-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-lg placeholder:text-gray-500 focus:outline-none focus:border-blue-500 dark:bg-slate-850 dark:text-white" />
-                  </div>
-                  <div>
-                    <label for="jenisbidang" class="block mb-2 text-m font-bold text-slate-700 dark:text-white/80">Nama Penanggung Jawab</label>
-                    <input type="text" name="jenisbidang" id="jenisbidang" required
-                      class="w-full px-3 py-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-lg placeholder:text-gray-500 focus:outline-none focus:border-blue-500 dark:bg-slate-850 dark:text-white" />
-                  </div>
-                  <div>
-                    <label for="penanggungjawab" class="block mb-2 text-m font-bold text-slate-700 dark:text-white/80">Kode KBLI</label>
-                    <input
-                      type="text"
-                      name="penanggungjawab"
-                      id="penanggungjawab"
-                      required
-                      pattern="\d{5}"
-                      maxlength="5"
-                      inputmode="numeric"
-                      title="Masukkan 5 digit angka sesuai format KBLI"
-                      class="w-full px-3 py-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-lg placeholder:text-gray-500 focus:outline-none focus:border-blue-500 dark:bg-slate-850 dark:text-white"
-                      placeholder="contoh: 62011" />
-                  </div>
-
-                  <div>
-                    <label for="judulkbli" class="block mb-2 text-m font-bold text-slate-700 dark:text-white/80">Judul KBLI</label>
-                    <input type="text" name="judulkbli" id="judulkbli" required
-                      class="w-full px-3 py-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-lg placeholder:text-gray-500 focus:outline-none focus:border-blue-500 dark:bg-slate-850 dark:text-white" />
-                  </div>
-                  <div>
-                    <label for="nomorhp" class="block mb-2 text-m font-bold text-slate-700 dark:text-white/80">No Tlp./HP</label>
-                    <input type="numeric" name="nomorhp" id="nomorhp" required
-                      class="w-full px-3 py-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-lg placeholder:text-gray-500 focus:outline-none focus:border-blue-500 dark:bg-slate-850 dark:text-white" />
-                  </div>
-                  <div>
-                    <label for="email" class="block mb-2 text-m font-bold text-slate-700 dark:text-white/80">Email Perusahaan</label>
-                    <input
-                      type="email"
-                      name="emailpt"
-                      id="emailpt"
-                      required
-                      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-                      title="Masukkan email yang valid, contoh: nama@email.com"
-                      class="w-full px-3 py-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-lg placeholder:text-gray-500 focus:outline-none focus:border-blue-500 dark:bg-slate-850 dark:text-white"
-                      placeholder="nama@email.com" />
-                  </div>
-                </div>
-
-
-                <!-- Alamat Perusahaan (Optional Toggle) -->
-
-                <div id="alamatForm" class=" mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div class="col-span-2">
-                    <label for="address" class="block mb-2 text-m font-bold text-slate-700 dark:text-white/80">Alamat Badan Usaha</label>
-                    <input type="text" name="address" id="address" required
-                      class="w-full px-3 py-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-lg placeholder:text-gray-500 focus:outline-none focus:border-blue-500 dark:bg-slate-850 dark:text-white" />
-                  </div>
-
-                  <div class="col-span-2">
-                    <label for="nib" class="block mb-2 text-m font-bold text-slate-700 dark:text-white/80">
-                      Nomor Induk Berusaha (NIB)
-                    </label>
-                    <input type="text" name="nib" id="nib" required
-                      pattern="^\d{13,16}$"
-                      maxlength="16"
-                      inputmode="numeric"
-                      title="Masukkan NIB yang terdiri dari 13 hingga 16 digit angka"
-                      placeholder="Contoh: 1234567890123"
-                      class="w-full px-3 py-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-lg placeholder:text-gray-500 focus:outline-none focus:border-blue-500 dark:bg-slate-850 dark:text-white" />
-                    <p class="text-m mt-1 text-slate-500">
-                      Note: Sesuai NIB jika Badan Usaha / Sesuai KTP jika Instansi/Perseorangan
-                    </p>
-                  </div>
-                  <div class="col-span-2">
-                    <label for="npwp" class="block mb-2 text-m font-bold text-slate-700 dark:text-white/80">
-                      Nomor Pokok Wajib Pajak (NPWP)
-                    </label>
-                    <input type="text" name="npwp" id="npwp" required
-                      pattern="^\d{2}\.\d{3}\.\d{3}\.\d-\d{3}\.\d{3}$"
-                      maxlength="20"
-                      title="Masukkan NPWP sesuai format: 12.345.678.9-012.345"
-                      placeholder="Contoh: 12.345.678.9-012.345"
-                      class="w-full px-3 py-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-lg placeholder:text-gray-500 focus:outline-none focus:border-blue-500 dark:bg-slate-850 dark:text-white" />
-                  </div>
-
-                </div>
-
-                <!-- Submit Button -->
-                <div class="mt-6">
-                  <button type="submit"
-                    class="w-full md:w-auto px-6 py-3 text-sm font-bold text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition-all">
-                    Simpan
-                  </button>
-                </div>
-              </div>
             </form>
 
             <!--

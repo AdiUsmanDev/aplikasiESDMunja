@@ -21,8 +21,9 @@
 </head>
 
 <body class="m-0 font-sans text-base antialiased font-normal dark:bg-slate-900 leading-default bg-gray-50 text-slate-500">
-    <div class="absolute w-full bg-yellow-500 dark:hidden min-h-75"></div>
-    @include('components.sidebarevaluator')
+  <div class="absolute w-full bg-yellow-500 dark:hidden min-h-75"></div>
+
+  @include('components.sidebarevaluator')
   <main class="relative h-full max-h-screen transition-all duration-200 ease-in-out xl:ml-68 rounded-xl">
     <!-- Navbar -->
     <nav class="relative flex flex-wrap items-center justify-between px-0 py-2 mx-6 transition-all ease-in shadow-none duration-250 rounded-2xl lg:flex-nowrap lg:justify-start" navbar-main navbar-scroll="false">
@@ -161,87 +162,122 @@
       </div>
     </nav>
 
-    <div class="w-full px-6 py-6 mx-auto">
-      <!-- table 1 -->
+    <script>
+      function hitungHariKerja(tanggalLaporan) {
+        const tgl = new Date(tanggalLaporan);
+        const now = new Date();
+        let hariKerja = 0;
 
+        while (tgl < now) {
+          const day = tgl.getDay();
+          if (day !== 0 && day !== 6) hariKerja++;
+          tgl.setDate(tgl.getDate() + 1);
+        }
+        return hariKerja;
+      }
+
+      document.addEventListener("DOMContentLoaded", function() {
+        const rows = document.querySelectorAll("tr[data-status='PROSES EVALUASI']");
+
+        rows.forEach((row) => {
+          const tgl = row.getAttribute("data-tanggal");
+          const box = row.querySelector(".status-wrapper");
+          const hari = hitungHariKerja(tgl);
+          const sisa = 5 - hari;
+
+          let bgColor = "";
+          let durasiLabel = "";
+          let statusLabel = "PROSES EVALUASI";
+
+          if (sisa >= 3) {
+            bgColor = "bg-yellow-300";
+            durasiLabel = `Sisa - ${sisa} Hari Kerja`;
+          } else if (sisa >= 1) {
+            bgColor = "bg-yellow-400";
+            durasiLabel = `Sisa - ${sisa} Hari Kerja`;
+          } else {
+            bgColor = "bg-yellow-600";
+            durasiLabel = `Melebihi - ${hari - 5} Hari Kerja`;
+          }
+
+          // Tambahkan class warna background
+          box.classList.remove("bg-yellow-600", "bg-yellow-400", "bg-yellow-200");
+          box.classList.add(bgColor);
+
+          // Animasi: ganti teks setiap 2 detik
+          let showStatus = true;
+          setInterval(() => {
+            box.textContent = showStatus ? durasiLabel : statusLabel;
+            showStatus = !showStatus;
+          }, 3000);
+        });
+      });
+    </script>
+
+
+
+    <!-- TABEL -->
+    <div class="w-full px-6 py-6 mx-auto">
       <div class="flex flex-wrap -mx-3">
-        <div class="flex-none w-full max-w-full px-3">
-          <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl">
-            <div class="p-4 pb-0 mb-0 border-b border-b-transparent rounded-t-2xl">
-              <h6 class="leading-normal text-lg font-bold mb-4 text-gray-700 dark:text-white uppercase">Daftar Surat Permohonan Keterangan</h6>
+        <div class="w-full max-w-full px-3">
+          <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border border-gray-100 shadow-md rounded-2xl">
+            <div class="p-4 pb-0 mb-0 border-b border-b-gray-100 rounded-t-2xl">
+              <h6 class="leading-normal text-lg font-bold mb-4 text-gray-700 uppercase">Daftar Permohonan Surat Keterangan</h6>
             </div>
+
+            <!-- Responsive Table -->
             <div class="flex-auto pt-0 pb-2 overflow-x-auto">
-              <table class="min-w-full text-sm text-left text-slate-500 dark:text-slate-200">
-                <thead class="text-xs uppercase text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-700">
+              <table class="min-w-full text-sm text-left text-slate-600">
+              <thead class="bg-yellow-500 text-white">
                   <tr>
-                    <th class="px-4 py-3  text-m text-slate-900 font-bold whitespace-nowrap dark:text-white uppercase">No Laporan</th>
-                    <th class="px-4 py-3  text-m text-slate-900 font-bold text-center whitespace-nowrap dark:text-white uppercase">Nama Badan Usaha</th>
-                    <th class="px-4 py-3  text-m text-slate-900 font-bold text-center whitespace-nowrap dark:text-white uppercase">Tanggal Laporan</th>
-                    <th class="px-4 py-3  text-m text-slate-900 font-bold text-center whitespace-nowrap dark:text-white uppercase">Keterangan / Catatan Perbaikan</th>
-                    <th class="px-4 py-3  text-m text-slate-900 font-bold text-center whitespace-nowrap dark:text-white uppercase">Status</th>
-                    <th class="px-4 py-3  text-m text-slate-900 font-bold text-center whitespace-nowrap dark:text-white uppercase">Aksi</th>
-                    <th class="px-4 py-3  text-m text-slate-900 font-bold text-center whitespace-nowrap dark:text-white uppercase">Jadwal Evaluasi</th>
+                    <th class="px-4 py-3 text-sm font-bold">No</th>
+                    <th class="px-4 py-3 text-sm font-bold text-center">Tanggal</th>
+                    <th class="px-4 py-3 text-sm font-bold text-center">Badan Usaha</th>
+                    <th class="px-4 py-3 text-sm font-bold text-center">Catatan</th>
+                    <th class="px-4 py-3 text-sm font-bold text-center">Status</th>
+                    <th class="px-4 py-3 text-sm font-bold text-center">Aksi</th>
                   </tr>
                 </thead>
-                <tbody class="bg-white dark:bg-slate-800">
-                  <tr class="border-b dark:border-slate-700">
-                    <td class="px-4 py-3">
-                      <div class="flex flex-col">
-                        <span class="font-medium text-slate-900 dark:text-white">0001</span>
-                      </div>
-                    </td>
-                    <td class="px-4 py-3 text-center text-sm">Perseroan Terbatas (PT)</td>
-                    <td class="px-4 py-3 text-center text-sm">23/04/18</td>
-                    <td class="px-4 py-3 text-sm">Perbaikan pada lampiran</td>
+                <tbody class="bg-white divide-y divide-gray-100">
+
+                  <!-- ITEM 1 -->
+                  <tr class="flex flex-col md:table-row" data-status="PROSES EVALUASI" data-tanggal="2025-07-17">
+                    <td class="px-4 py-3 text-xs font-medium text-slate-900">0001</td>
+                    <td class="px-4 py-3 text-center text-xs">15/07/2025</td>
+                    <td class="px-4 py-3 text-center text-xs">PT Maju Jaya</td>
+                    <td class="px-4 py-3 text-sm text-center">Perbaikan pada lampiran</td>
                     <td class="px-4 py-3 text-center">
-                      <span class="inline-flex items-center justify-center w-40 h-8 text-xs font-semibold text-white rounded-full bg-blue-400">
-                        PROSES EVALUASI
+                      <span class="status-wrapper inline-flex items-center justify-center w-40 h-8 text-xs font-semibold text-white rounded-full bg-yellow-500">
+                        MENUNGGU EVALUASI
                       </span>
                     </td>
                     <td class="px-4 py-3 text-center">
-                      <a href="/halamanevaluasi" class="text-blue-600 hover:underline text-sm">lihat </a>
+                      <a href="/halamanevaluasi" class="text-blue-600 hover:underline text-xs">Lihat</a>
                     </td>
-                    <td class="px-4 py-3 text-center text-sm">25 juli 2025</td>
                   </tr>
 
-                  <tr class="border-b dark:border-slate-700">
-                    <td class="px-4 py-3">
-                      <div class="flex flex-col">
-                        <span class="font-medium text-slate-900 dark:text-white">0002</span>
-                      </div>
-                    </td>
-                    <td class="px-4 py-3 text-center text-sm">Perseroan Terbatas (PT)</td>
-                    <td class="px-4 py-3 text-center text-sm">11/01/19</td>
-                    <td class="px-4 py-3 text-sm">Kapasitas total tidak sesuai dengan data</td>
+                  <!-- ITEM 3 -->
+                  <tr class="flex flex-col md:table-row" data-status="TELAH DIEVALUASI" data-tanggal="2025-07-05">
+                    <td class="px-4 py-3 text-xs font-medium text-slate-900">0003</td>
+                    <td class="px-4 py-3 text-center text-xs">05/07/2025</td>
+                    <td class="px-4 py-3 text-center text-xs">PT Hijau Abadi</td>
+
+                    <td class="px-4 py-3 text-sm text-center">-</td>
                     <td class="px-4 py-3 text-center">
-                      <span class="inline-flex items-center justify-center w-40 h-8 text-xs font-semibold text-white rounded-full bg-orange-700" style="background-color:orange;">
-                        PERBAIKAN
-                      </span>
+                      <span class="inline-flex items-center justify-center w-40 h-8 text-xs font-semibold text-white rounded-full bg-green-600">TELAH DIEVALUASI</span>
                     </td>
-                    <td class="px-4 py-3 text-center">
-                      <a href="#" class="text-blue-600 hover:underline text-sm">lihat</a>
-                    </td>
-                    <td class="px-4 py-3 text-center text-sm">25 juli 2025</td>
                   </tr>
 
-                  <tr class="border-b dark:border-slate-700">
-                    <td class="px-4 py-3">
-                      <div class="flex flex-col">
-                        <span class="font-medium text-slate-900 dark:text-white">0003</span>
-                      </div>
-                    </td>
-                    <td class="px-4 py-3 text-center text-sm">Perseroan Terbatas (PT)</td>
-                    <td class="px-4 py-3 text-center text-sm">12/05/2025</td>
-                    <td class="px-4 py-3 text-sm">-</td>
+                  <!-- ITEM 4 -->
+                  <tr class="flex flex-col md:table-row" data-status="PROSES VALIDASI" data-tanggal="2025-07-17">
+                    <td class="px-4 py-3 text-xs font-medium text-slate-900">0004</td>
+                    <td class="px-4 py-3 text-center text-xs">17/07/2025</td>
+                    <td class="px-4 py-3 text-center text-xs">PT Bintang Timur</td>
+
+                    <td class="px-4 py-3 text-center text-sm">-</td>
                     <td class="px-4 py-3 text-center">
-                      <span class="inline-flex items-center justify-center w-40 h-8 text-xs font-semibold text-white rounded-full bg-orange-700" style="background-color:green;">
-                        TELAH DIEVALUASI
-                      </span>
+                      <span class="inline-flex items-center justify-center w-40 h-8 text-xs font-semibold text-white rounded-full bg-green-600">TELAH DIEVALUASI</span>
                     </td>
-                    <td class="px-4 py-3 text-center">
-                      <a href="#" class="text-blue-600 hover:underline text-sm">Lihat</a>
-                    </td>
-                    <td class="px-4 py-3 text-center text-sm">25 juli 2025</td>
                   </tr>
                 </tbody>
               </table>
@@ -249,6 +285,266 @@
           </div>
         </div>
       </div>
+    </div>
+
+
+
+
+    <!-- card 2 -->
+
+    <!-- <div class="flex flex-wrap -mx-3">
+          <div class="flex-none w-full max-w-full px-3">
+            <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
+              <div class="p-6 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
+                <h6 class="dark:text-white">Projects table</h6>
+              </div>
+              <div class="flex-auto px-0 pt-0 pb-2">
+                <div class="p-0 overflow-x-auto">
+                  <table class="items-center justify-center w-full mb-0 align-top border-collapse dark:border-white/40 text-slate-500">
+                    <thead class="align-bottom">
+                      <tr>
+                        <th class="px-6 py-3 font-bold text-left uppercase align-middle bg-transparent border-b shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Project</th>
+                        <th class="px-6 py-3 pl-2 font-bold text-left uppercase align-middle bg-transparent border-b shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Budget</th>
+                        <th class="px-6 py-3 pl-2 font-bold text-left uppercase align-middle bg-transparent border-b shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Status</th>
+                        <th class="px-6 py-3 pl-2 font-bold text-center uppercase align-middle bg-transparent border-b shadow-none dark:border-white/40 dark:text-white text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Completion</th>
+                        <th class="px-6 py-3 font-semibold capitalize align-middle bg-transparent border-b border-solid shadow-none dark:border-white/40 dark:text-white tracking-none whitespace-nowrap"></th>
+                      </tr>
+                    </thead>
+                    <tbody class="border-t">
+                      <tr>
+                        <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                          <div class="flex px-2">
+                            <div>
+                              <img src="../assets/img/small-logos/logo-spotify.svg" class="inline-flex items-center justify-center mr-2 text-sm text-white transition-all duration-200 ease-in-out rounded-full h-9 w-9" alt="spotify" />
+                            </div>
+                            <div class="my-auto">
+                              <h6 class="mb-0 text-sm leading-normal dark:text-white">Spotify</h6>
+                            </div>
+                          </div>
+                        </td>
+                        <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                          <p class="mb-0 text-sm font-semibold leading-normal dark:text-white dark:opacity-60">$2,500</p>
+                        </td>
+                        <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                          <span class="text-xs font-semibold leading-tight dark:text-white dark:opacity-60">working</span>
+                        </td>
+                        <td class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                          <div class="flex items-center justify-center">
+                            <span class="mr-2 text-xs font-semibold leading-tight dark:text-white dark:opacity-60">60%</span>
+                            <div>
+                              <div class="text-xs h-0.75 w-30 m-0 flex overflow-visible rounded-lg bg-gray-200">
+                                <div class="flex flex-col justify-center w-3/5 h-auto overflow-hidden text-center text-white transition-all bg-blue-500 rounded duration-600 ease bg-gradient-to-tl from-blue-700 to-cyan-500 whitespace-nowrap" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                          <button class="inline-block px-5 py-2.5 mb-0 font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none leading-normal text-sm ease-in bg-150 tracking-tight-rem bg-x-25 text-slate-400">
+                            <i class="text-xs leading-tight fa fa-ellipsis-v dark:text-white dark:opacity-60"></i>
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                          <div class="flex px-2">
+                            <div>
+                              <img src="../assets/img/small-logos/logo-invision.svg" class="inline-flex items-center justify-center mr-2 text-sm text-white transition-all duration-200 ease-in-out rounded-full h-9 w-9" alt="invision" />
+                            </div>
+                            <div class="my-auto">
+                              <h6 class="mb-0 text-sm leading-normal dark:text-white">Invision</h6>
+                            </div>
+                          </div>
+                        </td>
+                        <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                          <p class="mb-0 text-sm font-semibold leading-normal dark:text-white dark:opacity-60">$5,000</p>
+                        </td>
+                        <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                          <span class="text-xs font-semibold leading-tight dark:text-white dark:opacity-60">done</span>
+                        </td>
+                        <td class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                          <div class="flex items-center justify-center">
+                            <span class="mr-2 text-xs font-semibold leading-tight dark:text-white dark:opacity-60">100%</span>
+                            <div>
+                              <div class="text-xs h-0.75 w-30 m-0 flex overflow-visible rounded-lg bg-gray-200">
+                                <div class="flex flex-col justify-center w-full h-auto overflow-hidden text-center text-white transition-all bg-blue-500 rounded duration-600 ease bg-gradient-to-tl from-emerald-500 to-teal-400 whitespace-nowrap" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                          <button class="inline-block px-5 py-2.5 mb-0 font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none leading-normal text-sm ease-in bg-150 tracking-tight-rem bg-x-25 text-slate-400" aria-haspopup="true" aria-expanded="false">
+                            <i class="text-xs leading-tight fa fa-ellipsis-v dark:text-white dark:opacity-60"></i>
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                          <div class="flex px-2">
+                            <div>
+                              <img src="../assets/img/small-logos/logo-jira.svg" class="inline-flex items-center justify-center mr-2 text-sm text-white transition-all duration-200 ease-in-out rounded-full h-9 w-9" alt="jira" />
+                            </div>
+                            <div class="my-auto">
+                              <h6 class="mb-0 text-sm leading-normal dark:text-white">Jira</h6>
+                            </div>
+                          </div>
+                        </td>
+                        <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                          <p class="mb-0 text-sm font-semibold leading-normal dark:text-white dark:opacity-60">$3,400</p>
+                        </td>
+                        <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                          <span class="text-xs font-semibold leading-tight dark:text-white dark:opacity-60">canceled</span>
+                        </td>
+                        <td class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                          <div class="flex items-center justify-center">
+                            <span class="mr-2 text-xs font-semibold leading-tight dark:text-white dark:opacity-60">30%</span>
+                            <div>
+                              <div class="text-xs h-0.75 w-30 m-0 flex overflow-visible rounded-lg bg-gray-200">
+                                <div class="flex flex-col justify-center h-auto overflow-hidden text-center text-white transition-all bg-blue-500 rounded duration-600 ease bg-gradient-to-tl from-red-600 to-orange-600 w-3/10 whitespace-nowrap" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="30"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                          <button class="inline-block px-5 py-2.5 mb-0 font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none leading-normal text-sm ease-in bg-150 tracking-tight-rem bg-x-25 text-slate-400" aria-haspopup="true" aria-expanded="false">
+                            <i class="text-xs leading-tight fa fa-ellipsis-v dark:text-white dark:opacity-60"></i>
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                          <div class="flex px-2">
+                            <div>
+                              <img src="../assets/img/small-logos/logo-slack.svg" class="inline-flex items-center justify-center mr-2 text-sm text-white transition-all duration-200 ease-in-out rounded-full h-9 w-9" alt="slack" />
+                            </div>
+                            <div class="my-auto">
+                              <h6 class="mb-0 text-sm leading-normal dark:text-white">Slack</h6>
+                            </div>
+                          </div>
+                        </td>
+                        <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                          <p class="mb-0 text-sm font-semibold leading-normal dark:text-white dark:opacity-60">$1,000</p>
+                        </td>
+                        <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                          <span class="text-xs font-semibold leading-tight dark:text-white dark:opacity-60">canceled</span>
+                        </td>
+                        <td class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                          <div class="flex items-center justify-center">
+                            <span class="mr-2 text-xs font-semibold leading-tight dark:text-white dark:opacity-60">0%</span>
+                            <div>
+                              <div class="text-xs h-0.75 w-30 m-0 flex overflow-visible rounded-lg bg-gray-200">
+                                <div class="flex flex-col justify-center w-0 h-auto overflow-hidden text-center text-white transition-all bg-blue-500 rounded duration-600 ease bg-gradient-to-tl from-emerald-500 to-teal-400 whitespace-nowrap" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="0"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                          <button class="inline-block px-5 py-2.5 mb-0 font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none leading-normal text-sm ease-in bg-150 tracking-tight-rem bg-x-25 text-slate-400" aria-haspopup="true" aria-expanded="false">
+                            <i class="text-xs leading-tight fa fa-ellipsis-v dark:text-white dark:opacity-60"></i>
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                          <div class="flex px-2">
+                            <div>
+                              <img src="../assets/img/small-logos/logo-webdev.svg" class="inline-flex items-center justify-center mr-2 text-sm text-white transition-all duration-200 ease-in-out rounded-full h-9 w-9" alt="webdev" />
+                            </div>
+                            <div class="my-auto">
+                              <h6 class="mb-0 text-sm leading-normal dark:text-white">Webdev</h6>
+                            </div>
+                          </div>
+                        </td>
+                        <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                          <p class="mb-0 text-sm font-semibold leading-normal dark:text-white dark:opacity-60">$14,000</p>
+                        </td>
+                        <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                          <span class="text-xs font-semibold leading-tight dark:text-white dark:opacity-60">working</span>
+                        </td>
+                        <td class="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                          <div class="flex items-center justify-center">
+                            <span class="mr-2 text-xs font-semibold leading-tight dark:text-white dark:opacity-60">80%</span>
+                            <div>
+                              <div class="text-xs h-0.75 w-30 m-0 flex overflow-visible rounded-lg bg-gray-200">
+                                <div class="flex flex-col justify-center w-4/5 h-auto overflow-hidden text-center text-white transition-all bg-blue-500 rounded duration-600 ease bg-gradient-to-tl from-blue-700 to-cyan-500 whitespace-nowrap" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="80"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                          <button class="inline-block px-5 py-2.5 mb-0 font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none leading-normal text-sm ease-in bg-150 tracking-tight-rem bg-x-25 text-slate-400" aria-haspopup="true" aria-expanded="false">
+                            <i class="text-xs leading-tight fa fa-ellipsis-v dark:text-white dark:opacity-60"></i>
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="p-2 align-middle bg-transparent border-b-0 whitespace-nowrap shadow-transparent">
+                          <div class="flex px-2">
+                            <div>
+                              <img src="../assets/img/small-logos/logo-xd.svg" class="inline-flex items-center justify-center mr-2 text-sm text-white transition-all duration-200 ease-in-out rounded-full h-9 w-9" alt="xd" />
+                            </div>
+                            <div class="my-auto">
+                              <h6 class="mb-0 text-sm leading-normal dark:text-white">Adobe XD</h6>
+                            </div>
+                          </div>
+                        </td>
+                        <td class="p-2 align-middle bg-transparent border-b-0 whitespace-nowrap shadow-transparent">
+                          <p class="mb-0 text-sm font-semibold leading-normal dark:text-white dark:opacity-60">$2,300</p>
+                        </td>
+                        <td class="p-2 align-middle bg-transparent border-b-0 whitespace-nowrap shadow-transparent">
+                          <span class="text-xs font-semibold leading-tight dark:text-white dark:opacity-60">done</span>
+                        </td>
+                        <td class="p-2 text-center align-middle bg-transparent border-b-0 whitespace-nowrap shadow-transparent">
+                          <div class="flex items-center justify-center">
+                            <span class="mr-2 text-xs font-semibold leading-tight dark:text-white dark:opacity-60">100%</span>
+                            <div>
+                              <div class="text-xs h-0.75 w-30 m-0 flex overflow-visible rounded-lg bg-gray-200">
+                                <div class="flex flex-col justify-center w-full h-auto overflow-hidden text-center text-white transition-all bg-blue-500 rounded duration-600 ease bg-gradient-to-tl from-green-600 to-lime-400 whitespace-nowrap" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        <td class="p-2 align-middle bg-transparent border-b-0 whitespace-nowrap shadow-transparent">
+                          <button class="inline-block px-5 py-2.5 mb-0 font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none leading-normal text-sm ease-in bg-150 tracking-tight-rem bg-x-25 text-slate-400" aria-haspopup="true" aria-expanded="false">
+                            <i class="text-xs leading-tight fa fa-ellipsis-v dark:text-white dark:opacity-60"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <footer class="pt-4">
+          <div class="w-full px-6 mx-auto">
+            <div class="flex flex-wrap items-center -mx-3 lg:justify-between">
+              <div class="w-full max-w-full px-3 mt-0 mb-6 shrink-0 lg:mb-0 lg:w-1/2 lg:flex-none">
+                <div class="text-sm leading-normal text-center text-slate-500 lg:text-left">
+                  ©
+                  <script>
+                    document.write(new Date().getFullYear() + ",");
+                  </script>
+                  made with <i class="fa fa-heart"></i> by
+                  <a href="https://www.creative-tim.com" class="font-semibold dark:text-white text-slate-700" target="_blank">Creative Tim</a>
+                  .
+                </div>
+              </div> -->
+    <!-- <div class="w-full max-w-full px-3 mt-0 shrink-0 lg:w-1/2 lg:flex-none">
+                <ul class="flex flex-wrap justify-center pl-0 mb-0 list-none lg:justify-end">
+                  <li class="nav-item">
+                    <a href="https://www.creative-tim.com" class="block px-4 pt-0 pb-1 text-sm font-normal transition-colors ease-in-out text-slate-500" target="_blank">Creative Tim</a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="https://www.creative-tim.com/presentation" class="block px-4 pt-0 pb-1 text-sm font-normal transition-colors ease-in-out text-slate-500" target="_blank">About Us</a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="https://creative-tim.com/blog" class="block px-4 pt-0 pb-1 text-sm font-normal transition-colors ease-in-out text-slate-500" target="_blank">Blog</a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="https://www.creative-tim.com/license" class="block px-4 pt-0 pb-1 pr-0 text-sm font-normal transition-colors ease-in-out text-slate-500" target="_blank">License</a>
+                  </li>
+                </ul>  <!-->
     </div>
     </div>
     </div>

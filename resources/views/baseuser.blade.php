@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/png" href=" {{ asset('assets/img/logo-esdm.svg') }} " />
-  <title>Dashboard Pengguna</title>
+  <title>Beranda Pengguna</title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
   <!-- Font Awesome Icons -->
@@ -42,7 +42,6 @@
           <div class="flex items-center md:ml-auto md:pr-4">
             <div class="relative flex flex-wrap items-stretch w-full transition-all rounded-lg ease">
               <span class="text-sm ease leading-5.6 absolute z-50 -ml-px flex h-full items-center whitespace-nowrap rounded-lg rounded-tr-none rounded-br-none border border-r-0 border-transparent bg-transparent py-2 px-2.5 text-center font-normal text-slate-500 transition-all">
-                <i class="fas fa-search"></i>
               </span>
             </div>
           </div>
@@ -62,7 +61,6 @@
             <li class="relative flex items-center pr-2">
               <p class="hidden transform-dropdown-show"></p>
               <a href="javascript:;" class="block p-0 text-sm text-white transition-all ease-nav-brand" dropdown-trigger aria-expanded="false">
-                <i class="cursor-pointer fa fa-bell"></i>
               </a>
 
               <ul dropdown-menu class="text-sm transform-dropdown before:font-awesome before:leading-default before:duration-350 before:ease lg:shadow-3xl duration-250 min-w-44 before:sm:right-8 before:text-5.5 pointer-events-none absolute right-0 top-0 z-50 origin-top list-none rounded-lg border-0 border-solid border-transparent dark:shadow-dark-xl dark:bg-slate-850 bg-white bg-clip-padding px-2 py-4 text-left text-slate-500 opacity-0 transition-all before:absolute before:right-2 before:left-auto before:top-0 before:z-50 before:inline-block before:font-normal before:text-white before:antialiased before:transition-all before:content-['\f0d8'] sm:-mr-6 lg:absolute lg:right-0 lg:left-auto lg:mt-2 lg:block lg:cursor-pointer">
@@ -115,7 +113,7 @@
             <div class="border-black/12.5 mb-0 rounded-t-2xl border-b-0 border-solid p-6 pt-4 pb-0">
               <h1 class="text-lg mb-4 font-bold text-black capitalize dark:text-white">PROGRES PENGAJUAN</h1>
               <p class="mb-0 text-lg leading-normal dark:text dark:opacity-60">
-                <i class="fa fa-arrow-up text-emerald-500"></i>
+                
                 <!-- <span class="font-semibold">2025</span> -->
               </p>
             </div>
@@ -129,7 +127,7 @@
                   <div class="relative mb-2 w-10 h-10 mx-auto bg-green-500 text-white rounded-full flex items-center justify-center">
                     1
                   </div>
-                  <div class="text-m text-green-600 font-semibold mt-1">Telah Diajukan</div>
+                  <div class="text-m text-green-600 font-semibold mt-1">Permohonan</div>
                 </div>
 
                 <!-- Step 2 -->
@@ -137,7 +135,7 @@
                   <div class="relative mb-2 w-10 h-10 mx-auto bg-green-500 text-white rounded-full flex items-center justify-center">
                     1
                   </div>
-                  <div class="text-m text-green-600 font-semibold mt-1">Diverifikasi</div>
+                  <div class="text-m text-green-600 font-semibold mt-1">Dievaluasi</div>
                 </div>
 
                 <!-- Step 3 -->
@@ -145,7 +143,7 @@
                   <div class="relative mb-2 w-10 h-10 mx-auto bg-green-500 text-white rounded-full flex items-center justify-center">
                     1
                   </div>
-                  <div class="text-m text-green-600 font-semibold mt-1">Divalidasi</div>
+                  <div class="text-m text-green-600 font-semibold mt-1">Diverifikasi</div>
                 </div>
 
                 <!-- Step 4 -->
@@ -153,7 +151,7 @@
                   <div class="relative mb-2 w-10 h-10 mx-auto bg-green-500 text-white rounded-full flex items-center justify-center">
                     1
                   </div>
-                  <div class="text-m text-green-600 font-semibold mt-1">Surat Diterbitkan</div>
+                  <div class="text-m text-green-600 font-semibold mt-1">Surat Keterangan</div>
                 </div>
               </div>
 
@@ -171,16 +169,16 @@
 
                 switch (step) {
                   case 1:
-                    content.innerHTML = `<strong>Telah Diajukan:</strong> Surat telah diajukan oleh pemohon. Menunggu verifikasi.`;
+                    content.innerHTML = `<strong>Permohonan:</strong> Surat permohonan telah diajukan oleh pemohon. Menunggu evaluasi.`;
                     break;
                   case 2:
-                    content.innerHTML = `<strong>Diverifikasi:</strong> Surat sedang diverifikasi oleh petugas verifikator.`;
+                    content.innerHTML = `<strong>Dievaluasi:</strong> Surat sedang dievaluasi oleh petugas evaluator.`;
                     break;
                   case 3:
-                    content.innerHTML = `<strong>Divalidasi:</strong> Surat sudah diverifikasi dan sedang divalidasi oleh pejabat terkait.`;
+                    content.innerHTML = `<strong>Diverifikasi:</strong> Surat sedang diverifikasi oleh tim teknis.`;
                     break;
                   case 4:
-                    content.innerHTML = `<strong>Surat Diterbitkan:</strong> Surat resmi telah diterbitkan dan siap diambil atau diunduh.`;
+                    content.innerHTML = `<strong>Surat Keterangan:</strong> Surat keterangan telah diterbitkan dan siap diunduh.`;
                     break;
                   default:
                     content.innerHTML = `Klik salah satu langkah untuk melihat informasi surat.`;

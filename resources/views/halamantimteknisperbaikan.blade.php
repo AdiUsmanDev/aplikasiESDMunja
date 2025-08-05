@@ -17,6 +17,8 @@
   <!-- Popper -->
   <script src="https://unpkg.com/@popperjs/core@2"></script>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   <!-- Main Styling -->
   <link href="{{ asset('assets/css/argon-dashboard-tailwind.css?v=1.0.1') }}" rel="stylesheet" />
 </head>
@@ -58,10 +60,21 @@
       display: block;
     }
   }
+
+
+  .swal2-confirm.btn-primary {
+    background-color: #2563eb !important; /* biru Tailwind: blue-600 */
+    color: white !important;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    font-size: 1rem;
+  }
+
 </style>
 
 <body class="m-0 font-sans text-base antialiased font-normal dark:bg-slate-900 leading-default bg-gray-50 text-slate-500">
-  <div class="absolute w-full bg-yellow-500 dark:hidden min-h-75"></div>
+  <div class="absolute w-full bg-blue-500 dark:hidden min-h-75"></div>
 
 
   <main class="relative h-full max-h-screen transition-all duration-200 ease-in-out xl:ml-90 rounded-xl">
@@ -313,20 +326,27 @@
                     <div class="bg-white rounded shadow p-4 space-y-4">
                       <h2 class="text-lg text-center font-bold border-b pb-2 mb-2">Evaluasi</h2>
 
-                      <label class="text-sm font-semibold">Catatan Perbaikan :</label>
-                      <textarea rows="8" class="w-full p-2 border rounded text-sm" placeholder="Tulis catatan perbaikan..."></textarea>
+                      <label for="catatan-perbaikan-1" class="text-sm font-semibold">Catatan Perbaikan :</label>
+                      <textarea
+                        id="catatan-perbaikan-1"
+                        name="catatan_perbaikan_1"
+                        rows="8"
+                        class="w-full p-2 border rounded text-sm bg-gray-100 text-red-600"
+                        disabled>NIB Tidak Sesuai</textarea>
 
-                      <label class="text-sm font-semibold">Status Permohonan :</label>
-                      <select class="w-full border p-2 rounded text-sm">
-                        <option value="" disabled selected hidden>-- Status --</option>
-                        <option>Disetujui</option>
-                        <option>Ditolak</option>
-                      </select>
+                        <label for="status-permohonan-1" class="text-sm font-semibold">Status Permohonan :</label>
+                        <select
+                          id="status-permohonan-1"
+                          name="status_permohonan_1"
+                          class="w-full border p-2 rounded text-sm bg-white text-red-600"
+                          disabled>
+                          <option value="Ditolak" selected>Ditolak</option>
+                        </select>
 
                       <!-- Tombol Simpan 1 -->
                         <div class="pt-2">
                         <button onclick="tampilkanPopup1()" class="bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded w-full">
-                            Simpan Evaluasi 
+                            Simpan Evaluasi
                         </button>
                         </div>
 
@@ -334,7 +354,7 @@
                         <div id="popupBerhasil1" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
                         <div class="bg-white p-6 rounded-lg shadow-lg text-center w-80">
                             <h2 class="text-lg font-semibold text-green-700 mb-2">Berhasil!</h2>
-                            <p class="text-gray-700 mb-4">Evaluasi berhasil disimpan.</p>
+                            <p class="text-gray-700 mb-4">Evaluasi Berhasil Disimpan</p>
                             <button onclick="tutupPopup1()" class="bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded">
                             OK
                             </button>
@@ -362,7 +382,8 @@
                     Selanjutnya
                   </button>
                 </div>
-            </div>
+                </div>
+
 
                 <!-- Halaman 2: Data Teknis -->
                 <div id="page2" class="hidden">
@@ -372,7 +393,7 @@
                   <div class="grid grid-cols-1 md:grid-cols-3 gap-4 border border-gray-200 rounded shadow-sm overflow-hidden p-4">
                     <!-- KOLOM 1: FORM NON SURYA -->
                     <div class="bg-white rounded shadow p-4 space-y-4">
-                      <h2 class="text-lg  text-center font-bold border-b pb-2 mb-2">Pembangkit Listrik Selain Tenaga Surya</h2>
+                      <h2 class="text-lg  text-center font-bold border-b pb-2 mb-2">Pembangkit Listrik Tenaga Surya</h2>
                       <div class="overflow-x-auto">
                         <table class="w-full table-auto border text-sm text-left">
                           <thead class="bg-gray-200">
@@ -383,11 +404,6 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr>
-                              <td class="border px-4 py-2">Jenis Penggerak</td>
-                              <td class="border px-4 py-2 text-center">Turbin Uap</td>
-                              <td class="border px-4 py-2 text-center">Mesin Diesel</td>
-                            </tr>
                             <tr>
                               <td class="border px-4 py-2">Merek</td>
                               <td class="border px-4 py-2 text-center">Elliott</td>
@@ -409,14 +425,9 @@
                               <td class="border px-4 py-2 text-center">2009</td>
                             </tr>
                             <tr>
-                              <td class="border px-4 py-2">Kapasitas (kW)</td>
+                              <td class="border px-4 py-2">Kapasitas (kilo waatt-peak)</td>
                               <td class="border px-4 py-2 text-center">1488</td>
                               <td class="border px-4 py-2 text-center">496</td>
-                            </tr>
-                            <tr>
-                              <td class="border px-4 py-2">Energi Primer</td>
-                              <td class="border px-4 py-2 text-center">-</td>
-                              <td class="border px-4 py-2 text-center">-</td>
                             </tr>
                             <tr>
                               <td class="border px-4 py-2">Titik Koordinat (Latitude)</td>
@@ -446,34 +457,43 @@
                           <p class="text-sm font-bold mb-2">Unit 1 (Gambar)</p><img src="../assets/img/mesinpenggerak.jpg" class="w-full rounded border mt-2" />
                         </div>
                         <div>
-                          <p class="text-sm font-semibold mb-1">Nameplate Mesin Penggerak (Gambar)</p><img src="../assets/img/nameplatemesin.jpg" class="w-full rounded border mt-2" />
+                          <p class="text-sm font-semibold mb-1">Foto papan Nama (Nama Plate) Modul PLTS (Gambar)</p><img src="../assets/img/nameplatemesin.jpg" class="w-full rounded border mt-2" />
                         </div>
                         <div>
-                          <p class="text-sm font-semibold mb-1">Nameplate Generator (Gambar)</p><img src="../assets/img/namegenerator.jpg" class="w-full rounded border mt-2" />
+                          <p class="text-sm font-semibold mb-1">Foto papan Nama (Nama Plate) Inverter PLTS (Gambar)</p><img src="../assets/img/namegenerator.jpg" class="w-full rounded border mt-2" />
                         </div>
                         <div>
                           <p class="text-sm font-bold mb-2">Unit 2 (Gambar)</p><img src="../assets/img/generator.jpg" class="w-full rounded border mt-2" />
                         </div>
                         <div>
-                          <p class="text-sm font-semibold mb-1">Nameplate Mesin Penggerak (Gambar)</p><img src="../assets/img/namemesin2.jpg" class="w-full rounded border mt-2" />
+                          <p class="text-sm font-semibold mb-1">Foto papan Nama (Nama Plate) Modul PLTS (Gambar)</p><img src="../assets/img/namemesin2.jpg" class="w-full rounded border mt-2" />
                         </div>
                         <div>
-                          <p class="text-sm font-semibold mb-1">Nameplate Generator (Gambar)</p><img src="../assets/img/namegenerator2.jpg" class="w-full rounded border mt-2" />
+                          <p class="text-sm font-semibold mb-1">Foto papan Nama (Nama Plate) Inverter PLTS (Gambar)</p><img src="../assets/img/namegenerator2.jpg" class="w-full rounded border mt-2" />
                         </div>
                       </div>
-                    </div>
+                    </div>
 
                     <!-- KOLOM 3: EVALUASI -->
                     <div class="bg-white rounded shadow p-4 space-y-4">
                       <h2 class="text-lg text-center font-bold border-b pb-2 mb-2">Evaluasi</h2>
-                      <label class="text-sm font-semibold">Catatan Perbaikan :</label>
-                      <textarea rows="8" class="w-full p-2 border rounded text-sm" placeholder="Tulis catatan perbaikan..."></textarea>
-                      <label class="text-sm font-semibold">Status Permohonan :</label>
-                      <select class="w-full border p-2 rounded text-sm">
-                        <option value="" disabled selected hidden>-- Status --</option>
-                        <option>Disetujui</option>
-                        <option>Ditolak</option>
-                      </select>
+                      <label for="catatan-perbaikan-2" class="text-sm font-semibold">Catatan Perbaikan :</label>
+                      <textarea
+                        id="catatan-perbaikan-2"
+                        name="catatan_perbaikan_2"
+                        rows="8"
+                        class="w-full p-2 border rounded text-sm bg-gray-100 text-red-600"
+                        disabled>Lampiran Tidak Sesuai</textarea>
+
+                        <label for="status-permohonan-2" class="text-sm font-semibold">Status Permohonan :</label>
+                        <select
+                          id="status-permohonan-2"
+                          name="status_permohonan_2"
+                          class="w-full border p-2 rounded text-sm bg-white text-red-600"
+                          disabled>
+                          <option value="Ditolak" selected>Ditolak</option>
+                        </select>
+
                       <!-- Tombol Simpan 2 -->
                         <div class="pt-2 mt-6">
                         <button onclick="tampilkanPopup2()" class="bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded w-full">
@@ -485,7 +505,7 @@
                         <div id="popupBerhasil2" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
                         <div class="bg-white p-6 rounded-lg shadow-lg text-center w-80">
                             <h2 class="text-lg font-semibold text-green-700 mb-2">Berhasil!</h2>
-                            <p class="text-gray-700 mb-4">Evaluasi berhasil disimpan.</p>
+                            <p class="text-gray-700 mb-4">Evaluasi Berhasil Disimpan</p>
                             <button onclick="tutupPopup2()" class="bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded">
                             OK
                             </button>
@@ -525,14 +545,22 @@
                     <!-- KOLOM 3: Evaluasi (copy) -->
                     <div class="bg-white rounded shadow p-4 space-y-4">
                       <h2 class="text-lg text-center font-bold border-b pb-2 mb-2">Evaluasi</h2>
-                      <label class="text-sm font-semibold">Catatan Perbaikan :</label>
-                      <textarea rows="8" class="w-full p-2 border rounded text-sm" placeholder="Tulis catatan perbaikan..."></textarea>
-                      <label class="text-sm font-semibold">Status Permohonan :</label>
-                      <select class="w-full border p-2 rounded text-sm">
-                        <option value="" disabled selected hidden>-- Status --</option>
-                        <option>Disetujui</option>
-                        <option>Ditolak</option>
-                      </select>
+                      <label for="catatan-perbaikan-3" class="text-sm font-semibold">Catatan Perbaikan :</label>
+                      <textarea
+                        id="catatan-perbaikan-3"
+                        name="catatan_perbaikan_3"
+                        rows="8"
+                        class="w-full p-2 border rounded text-sm bg-gray-100 text-gray-600"
+                        disabled>Sudah Benar</textarea>
+
+                        <label for="status-permohonan-3" class="text-sm font-semibold">Status Permohonan :</label>
+                        <select
+                          id="status-permohonan-3"
+                          name="status_permohonan_3"
+                          class="w-full border p-2 rounded text-sm bg-white text-gray-600"
+                          disabled>
+                          <option value="Disetujui" selected>Disetujui</option>
+                        </select>
                       <!-- Tombol Simpan 3 -->
                         <div class="pt-2 mt-6">
                         <button onclick="tampilkanPopup3()" class="bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded w-full">
@@ -544,7 +572,7 @@
                         <div id="popupBerhasil3" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
                         <div class="bg-white p-6 rounded-lg shadow-lg text-center w-80">
                             <h2 class="text-lg font-semibold text-green-700 mb-2">Berhasil!</h2>
-                            <p class="text-gray-700 mb-4">Evaluasi berhasil disimpan.</p>
+                            <p class="text-gray-700 mb-4">Evaluasi Berhasil Disimpan</p>
                             <button onclick="tutupPopup3()" class="bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded">
                             OK
                             </button>
@@ -585,14 +613,23 @@
                     <!-- KOLOM 3: Evaluasi (copy) -->
                     <div class="bg-white rounded shadow p-4 space-y-4">
                       <h2 class="text-lg text-center font-bold border-b pb-2 mb-2">Evaluasi</h2>
-                      <label class="text-sm font-semibold">Catatan Perbaikan :</label>
-                      <textarea rows="8" class="w-full p-2 border rounded text-sm" placeholder="Tulis catatan perbaikan..."></textarea>
-                      <label class="text-sm font-semibold">Status Permohonan :</label>
-                      <select class="w-full border p-2 rounded text-sm">
-                        <option value="" disabled selected hidden>-- Status --</option>
-                        <option>Disetujui</option>
-                        <option>Ditolak</option>
-                      </select>
+                      <label for="catatan-perbaikan-4" class="text-sm font-semibold">Catatan Perbaikan :</label>
+                      <textarea
+                        id="catatan-perbaikan-4"
+                        name="catatan_perbaikan_4"
+                        rows="8"
+                        class="w-full p-2 border rounded text-sm bg-gray-100 text-gray-600"
+                        disabled>Sudah Benar</textarea>
+
+                        <label for="status-permohonan-4" class="text-sm font-semibold">Status Permohonan :</label>
+                        <select
+                          id="status-permohonan-4"
+                          name="status_permohonan_4"
+                          class="w-full border p-2 rounded text-sm bg-white text-gray-600"
+                          disabled>
+                          <option value="Disetujui" selected>Disetujui</option>
+                        </select>
+
                        <!-- Tombol Simpan 4 -->
                        <div class="pt-2 mt-6">
                         <button onclick="tampilkanPopup4()" class="bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded w-full">
@@ -604,7 +641,7 @@
                         <div id="popupBerhasil4" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
                         <div class="bg-white p-6 rounded-lg shadow-lg text-center w-80">
                             <h2 class="text-lg font-semibold text-green-700 mb-2">Berhasil!</h2>
-                            <p class="text-gray-700 mb-4">Evaluasi berhasil disimpan.</p>
+                            <p class="text-gray-700 mb-4">Evaluasi Berhasil Disimpan</p>
                             <button onclick="tutupPopup4()" class="bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded">
                             OK
                             </button>
@@ -612,49 +649,20 @@
                     </div>
                     </div>
                   </div>
-
-                    <!-- Tombol Kirim -->
                   <div class="w-full flex justify-between mt-6">
-                    <button onclick="prevPage()" class="bg-green-500 text-white px-4 py-2 rounded">Kembali</button>
-                    <button 
-                      type="button" 
-                      onclick="showPopup()"
-                      class="inline-block px-5 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition">
-                      Kirim Hasil Evaluasi
+                    <button onclick="prevPage()" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition">
+                      Kembali
                     </button>
-                  </div>
 
-                  <!-- Card Pop-up Konfirmasi -->
-                  <div id="popupCard" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-                    <div class="bg-white rounded-2xl shadow-xl p-6 w-full max-w-md text-center">
-                      <h2 class="text-lg font-bold text-gray-800 mb-3">Konfirmasi Pengiriman</h2>
-                      <p class="text-sm text-gray-600 mb-6">Apakah Anda yakin ingin mengirim hasil evaluasi ini?</p>
-                      <div class="flex justify-center gap-4">
-                        <button onclick="submitEvaluasi()" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition">
-                          Iya
-                        </button>
-                        <button onclick="closePopup()" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition">
-                          Tidak
-                        </button>
-                      </div>
+
+                    <!-- Tombol Aksi di kanan -->
+
+                    <!-- Tombol Kirim Hasil Evaluasi -->
+                    <div class="relative inline-block">
+                      <button onclick="openKirimHasilModal()" class="px-5 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition">
+                        Proses Permohonan
+                      </button>
                     </div>
-                  </div>
-
-                  <!-- Script JavaScript -->
-                  <script>
-                    function showPopup() {
-                      document.getElementById('popupCard').classList.remove('hidden');
-                    }
-
-                    function closePopup() {
-                      document.getElementById('popupCard').classList.add('hidden');
-                    }
-
-                    function submitEvaluasi() {
-                      closePopup(); // tutup pop-up dulu
-                    }
-                  </script>
-               
                     <script>
                       function showPage(hideId, showId) {
                         const hidePage = document.getElementById(hideId);
@@ -722,286 +730,413 @@
                       }
                     </script>
 
-                    <!-- Dropdown -->
-                    <div id="dropdown-aksi" class="absolute right-0 mt-2 w-64 bg-white dark:bg-slate-800 rounded-lg shadow-lg hidden z-50 p-4 space-y-4">
-                      <button onclick="closeDropdown()"
-                        class="absolute top-2 right-2 text-gray-600 hover:text-gray-900 dark:hover:text-white font-bold text-xl leading-none">
-                        &times;
-                      </button>
-                      <!-- Kirim Langsung -->
-                      <button onclick="kirimLangsung()" class="w-full text-left px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition">
-                        Kirim Validator
-                      </button>
-
-
-                      <button onclick="openEvaluatorModal()" type="button"
-                        class="w-full text-left px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 transition">
-                        Kirim Evaluator
-                      </button>
-                      <!-- Perbaiki -->
-                      <button onclick="openModal('Nama Dokumen')" class="w-full text-left px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition">
-                        Perbaiki
-                      </button>
-                    </div>
-                  </div>
-
-                  <!-- Modal Perbaikan -->
-                  <div id="modal-evaluasi" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
-                    <div class="bg-white dark:bg-slate-800 rounded-xl p-6 w-full max-w-md shadow-lg relative">
-                      <h2 class="text-xl font-bold mb-4 text-gray-800 dark:text-white">
-                        Catatan Perbaikan
-                      </h2>
-                      <textarea id="catatan-evaluasi" class="w-full p-2 border rounded mb-4" rows="4" placeholder="Tulis catatan perbaikan..."></textarea>
-
-                      <div class="flex justify-end gap-2">
-                        <button onclick="closeModal()" class="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400">
-                          Batal
+                      <!-- Modal Popup Pilihan Kirim Hasil -->
+                      <div id="modal-kirim-hasil" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+                      <div class="bg-white dark:bg-slate-800 rounded-lg p-6 w-full max-w-sm shadow-lg relative">
+                        <button disabled class="w-full text-left px-4 py-2 mb-3 bg-yellow-300 text-white rounded opacity-60 cursor-not-allowed">
+                          Penugasan Evaluator
                         </button>
-                        <button onclick="simpanEvaluasi()" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-                          Kirim Perbaikan
+                        <button onclick="openModal()" class="w-full text-left px-4 py-2 mb-3 bg-red-600 text-white rounded hover:bg-red-700 transition">
+                          Perbaikan
                         </button>
+                        <!-- Tombol 3: Proses Verifikasi -->
+                        <button disabled class="w-full text-left px-4 py-2 mb-3 bg-blue-300 text-white rounded opacity-60 cursor-not-allowed">
+                          Verifikasi
+                        </button>
+                        <button onclick="closeKirimHasilModal()" class="absolute top-0 right-2 font-bold text-xl text-gray-600 hover:text-gray-900 dark:hover:text-white">&times;</button>
                       </div>
                     </div>
-                  </div>
 
-                  <script>
-                    const dropdown = document.getElementById('dropdown-aksi');
-                    const dropdownContainer = document.getElementById('dropdown-container');
-
-                    function toggleDropdown() {
-                      dropdown.classList.toggle('hidden');
-                    }
-
-                    function closeDropdown() {
-                      dropdown.classList.add('hidden');
-                    }
-
-                    // Tutup dropdown jika klik di luar dropdown dan tombol
-                    window.addEventListener('click', function(event) {
-                      if (!dropdownContainer.contains(event.target)) {
-                        dropdown.classList.add('hidden');
-                      }
-                    });
-
-                    function kirimLangsung() {
-                      window.location.href = "/daftarpengajuanevaluator";
-                    }
-
-                    function openModal() {
-                      closeDropdown();
-                      document.getElementById('modal-evaluasi').classList.remove('hidden');
-                      document.body.classList.add('overflow-hidden');
-                      document.getElementById('catatan-evaluasi').value = '';
-                    }
-
-                    function closeModal() {
-                      document.getElementById('modal-evaluasi').classList.add('hidden');
-                      document.body.classList.remove('overflow-hidden');
-                    }
-
-                    function simpanEvaluasi() {
-                      const catatan = document.getElementById('catatan-evaluasi').value.trim();
-
-                      if (!catatan) {
-                        alert("Catatan perbaikan wajib diisi.");
-                        return;
+                    <script>
+                      function openKirimHasilModal() {
+                        document.getElementById('modal-kirim-hasil').classList.remove('hidden');
+                        document.body.classList.add('overflow-hidden');
                       }
 
-                      console.log("Catatan perbaikan:", catatan);
+                      function closeKirimHasilModal() {
+                        document.getElementById('modal-kirim-hasil').classList.add('hidden');
+                        document.body.classList.remove('overflow-hidden');
+                      }
 
-                      closeModal();
-                      window.location.href = "/halaman-perbaikan";
-                    }
-
-                    function openEvaluatorModal() {
-                      closeDropdown();
-                      document.getElementById('modal-evaluator').classList.remove('hidden');
-                      document.body.classList.add('overflow-hidden');
-                    }
-
-                    function closeEvaluatorModal() {
-                      document.getElementById('modal-evaluator').classList.add('hidden');
-                      document.body.classList.remove('overflow-hidden');
-                    }
-                  </script>
-
-                  <!-- Modal Pilih Evaluator -->
-                  <div id="modal-evaluator" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
-                    <div class="bg-white dark:bg-slate-800 rounded-xl p-6 w-full max-w-2xl shadow-lg relative max-h-[90vh] flex flex-col">
-
-                      <h2 class="text-xl font-bold mb-4 text-gray-800 dark:text-white">Pilih Evaluator</h2>
-
-                      <!-- Scrollable Evaluator List -->
-                      <div class="space-y-4 overflow-y-auto pr-2" style="max-height: 60vh;">
-                        <!-- Evaluator 1 -->
-                        <label class="flex items-center gap-4 border p-3 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-slate-700 transition-all">
-                          <input type="radio" name="evaluator" value="evaluator1" class="hidden peer" />
-                          <img src="https://img.freepik.com/vektor-premium/ilustrasi-datar-vektor-dalam-skala-abu-abu-ikon-orang-profil-pengguna-avatar-gambar-profil-siluet-netral-gender-cocok-untuk-ikon-profil-media-sosial-screensaver-dan-sebagai-templatx9xa_719432-1096.jpg" alt="Foto Evaluator" class="w-12 h-12 rounded-full object-cover" />
-                          <div>
-                            <p class="font-semibold text-gray-800 dark:text-white">Ahmad Yusuf</p>
-                            <p class="text-sm text-gray-500 dark:text-gray-300">NIP: 1987654321</p>
-                          </div>
-                          <div class="ml-auto hidden peer-checked:flex items-center justify-center w-6 h-6 rounded-full bg-blue-500 text-white font-bold transition-all duration-200">
-                            ✓
-                          </div>
-                        </label>
-
-                        <!-- Evaluator 2 -->
-                        <label class="flex items-center gap-4 border p-3 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-slate-700 transition-all">
-                          <input type="radio" name="evaluator" value="evaluator2" class="hidden peer" />
-                          <img src="https://img.freepik.com/vektor-premium/ilustrasi-datar-vektor-dalam-skala-abu-abu-ikon-orang-profil-pengguna-avatar-gambar-profil-siluet-netral-gender-cocok-untuk-ikon-profil-media-sosial-screensaver-dan-sebagai-templatx9xa_719432-1096.jpg" alt="Foto Evaluator" class="w-12 h-12 rounded-full object-cover" />
-                          <div>
-                            <p class="font-semibold text-gray-800 dark:text-white">Siti Rahmawati</p>
-                            <p class="text-sm text-gray-500 dark:text-gray-300">NIP: 1990123456</p>
-                          </div>
-                          <div class="ml-auto hidden peer-checked:flex items-center justify-center w-6 h-6 rounded-full bg-blue-500 text-white font-bold transition-all duration-200">
-                            ✓
-                          </div>
-                        </label>
-
-                        <!-- Evaluator 3 -->
-                        <label class="flex items-center gap-4 border p-3 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-slate-700 transition-all">
-                          <input type="radio" name="evaluator" value="evaluator3" class="hidden peer" />
-                          <img src="https://img.freepik.com/vektor-premium/ilustrasi-datar-vektor-dalam-skala-abu-abu-ikon-orang-profil-pengguna-avatar-gambar-profil-siluet-netral-gender-cocok-untuk-ikon-profil-media-sosial-screensaver-dan-sebagai-templatx9xa_719432-1096.jpg" alt="Foto Evaluator" class="w-12 h-12 rounded-full object-cover" />
-                          <div>
-                            <p class="font-semibold text-gray-800 dark:text-white">Rizki Monika</p>
-                            <p class="text-sm text-gray-500 dark:text-gray-300">NIP: 19901234587</p>
-                          </div>
-                          <div class="ml-auto hidden peer-checked:flex items-center justify-center w-6 h-6 rounded-full bg-blue-500 text-white font-bold transition-all duration-200">
-                            ✓
-                          </div>
-                        </label>
-
-                        <!-- Tambahkan evaluator baru sebanyak yang kamu mau disini -->
-                        <!-- Contoh evaluator tambahan -->
-                        <label class="flex items-center gap-4 border p-3 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-slate-700 transition-all">
-                          <input type="radio" name="evaluator" value="evaluator4" class="hidden peer" />
-                          <img src="https://img.freepik.com/vektor-premium/ilustrasi-datar-vektor-dalam-skala-abu-abu-ikon-orang-profil-pengguna-avatar-gambar-profil-siluet-netral-gender-cocok-untuk-ikon-profil-media-sosial-screensaver-dan-sebagai-templatx9xa_719432-1096.jpg" alt="Foto Evaluator" class="w-12 h-12 rounded-full object-cover" />
-                          <div>
-                            <p class="font-semibold text-gray-800 dark:text-white">Budi Santoso</p>
-                            <p class="text-sm text-gray-500 dark:text-gray-300">NIP: 1990112233</p>
-                          </div>
-                          <div class="ml-auto hidden peer-checked:flex items-center justify-center w-6 h-6 rounded-full bg-blue-500 text-white font-bold transition-all duration-200">
-                            ✓
-                          </div>
-                        </label>
-
-                        <label class="flex items-center gap-4 border p-3 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-slate-700 transition-all">
-                          <input type="radio" name="evaluator" value="evaluator4" class="hidden peer" />
-                          <img src="https://img.freepik.com/vektor-premium/ilustrasi-datar-vektor-dalam-skala-abu-abu-ikon-orang-profil-pengguna-avatar-gambar-profil-siluet-netral-gender-cocok-untuk-ikon-profil-media-sosial-screensaver-dan-sebagai-templatx9xa_719432-1096.jpg" alt="Foto Evaluator" class="w-12 h-12 rounded-full object-cover" />
-                          <div>
-                            <p class="font-semibold text-gray-800 dark:text-white">Budi Santoso</p>
-                            <p class="text-sm text-gray-500 dark:text-gray-300">NIP: 1990112233</p>
-                          </div>
-                          <div class="ml-auto hidden peer-checked:flex items-center justify-center w-6 h-6 rounded-full bg-blue-500 text-white font-bold transition-all duration-200">
-                            ✓
-                          </div>
-                        </label>
-
-                        <label class="flex items-center gap-4 border p-3 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-slate-700 transition-all">
-                          <input type="radio" name="evaluator" value="evaluator4" class="hidden peer" />
-                          <img src="https://img.freepik.com/vektor-premium/ilustrasi-datar-vektor-dalam-skala-abu-abu-ikon-orang-profil-pengguna-avatar-gambar-profil-siluet-netral-gender-cocok-untuk-ikon-profil-media-sosial-screensaver-dan-sebagai-templatx9xa_719432-1096.jpg" alt="Foto Evaluator" class="w-12 h-12 rounded-full object-cover" />
-                          <div>
-                            <p class="font-semibold text-gray-800 dark:text-white">Budi Santoso</p>
-                            <p class="text-sm text-gray-500 dark:text-gray-300">NIP: 1990112233</p>
-                          </div>
-                          <div class="ml-auto hidden peer-checked:flex items-center justify-center w-6 h-6 rounded-full bg-blue-500 text-white font-bold transition-all duration-200">
-                            ✓
-                          </div>
-                        </label>
-
-                        <!-- dst... -->
-                      </div>
-
-                      <!-- Tombol Aksi di Bawah -->
-                      <div class="mt-6 space-y-3">
-                        <button onclick="kirimKeEvaluator()" class="w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
-                          Kirim
-                        </button>
-                        <button onclick="closeEvaluatorModal()" class="w-full px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400 transition">
-                          Batal
-                        </button>
+                      // fungsi kirim langsung
+                      function kirimLangsung() {
+                        alert("Dokumen dikirim ke Validator");
+                        closeKirimHasilModal();
+                        // Tambahkan aksi kirim langsung sesuai kebutuhanmu
+                      }
+                    </script>
+                    <!-- Modal Popup Proses Verifikasi -->
+                    <div id="verifikasi-popup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+                      <div class="bg-white dark:bg-slate-800 rounded-lg p-6 w-full max-w-sm shadow-lg relative">
+                        <h3 class="text-lg font-semibold mb-4 text-center text-gray-800 dark:text-white">Verifikasi</h3>
+                        <p class="text-sm text-gray-700 dark:text-gray-300 text-center mb-4">Data Telah Dikirim Untuk Proses Validasi</p>
+                        <div class="flex justify-center">
+                        <a href="javascript:history.back()" class="inline-block px-5 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition text-center">
+                          OK
+                        </a>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-
-                  <!-- Popup Notifikasi -->
-                  <div id="popup-notif" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 hidden z-60">
-                    <div class="bg-white dark:bg-slate-800 rounded-lg p-6 max-w-sm w-full shadow-lg text-center">
-                      <p class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Dokumen berhasil dikirim ke evaluator.</p>
-                      <button onclick="closePopupNotif()" class="px-5 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
-                        Tutup
-                      </button>
-                    </div>
-                  </div>
-
-                  <script>
-                    function openEvaluatorModal() {
-                      document.getElementById('modal-evaluator').classList.remove('hidden');
-                      document.body.classList.add('overflow-hidden');
-                    }
-
-                    function closeEvaluatorModal() {
-                      document.getElementById('modal-evaluator').classList.add('hidden');
-                      document.body.classList.remove('overflow-hidden');
-                    }
-
-                    function showPopupNotif() {
-                      document.getElementById('popup-notif').classList.remove('hidden');
-                      document.body.classList.add('overflow-hidden');
-                    }
-
-                    function closePopupNotif() {
-                      document.getElementById('popup-notif').classList.add('hidden');
-                      document.body.classList.remove('overflow-hidden');
-                    }
-
-                    function kirimKeEvaluator() {
-                      const selected = document.querySelector('input[name="evaluator"]:checked');
-                      if (!selected) {
-                        alert("Pilih salah satu evaluator terlebih dahulu.");
-                        return;
+                    <!-- Script JavaScript -->
+                    <script>
+                      // Sembunyikan semua popup lain (misalnya evaluasi, revisi, dll) di sini
+                      function closeAllOtherPopups() {
+                        const allPopups = ['modal-evaluator', 'modal-revisi', 'modal-kirim-hasil']; // tambahkan ID popup lain jika ada
+                        allPopups.forEach(id => {
+                          const el = document.getElementById(id);
+                          if (el) el.classList.add('hidden');
+                        });
                       }
 
-                      const evaluatorID = selected.value;
-                      console.log("Evaluator yang dipilih:", evaluatorID);
+                      function openVerifikasiPopup() {
+                        closeAllOtherPopups(); // pastikan popup lain disembunyikan
+                        document.getElementById('verifikasi-popup').classList.remove('hidden');
+                        document.body.classList.add('overflow-hidden');
+                      }
 
-                      // TODO: Tambahkan AJAX / pengiriman data ke server jika perlu
+                      function closeVerifikasiPopup() {
+                        document.getElementById('verifikasi-popup').classList.add('hidden');
+                        document.body.classList.remove('overflow-hidden');
+                      }
 
-                      closeEvaluatorModal();
-                      showPopupNotif();
-                    }
-                  </script>
-                  <script>
-                    function tampilkanPopup1() {
-                        document.getElementById('popupBerhasil1').classList.remove('hidden');
-                    }
-                    function tutupPopup1() {
-                        document.getElementById('popupBerhasil1').classList.add('hidden');
-                    }
+                      function redirectAfterVerifikasi() {
+                        // Tutup popup (opsional)
+                        closeVerifikasiPopup();
+                        // Redirect ke halaman lain
+                        window.location.href = "/verifikasi/selesai"; // ganti dengan URL tujuanmu
+                      }
+                    </script>
 
-                    function tampilkanPopup2() {
-                        document.getElementById('popupBerhasil2').classList.remove('hidden');
-                    }
-                    function tutupPopup2() {
-                        document.getElementById('popupBerhasil2').classList.add('hidden');
-                    }
+                      <!-- Modal Perbaikan -->
+                    <div id="modal-evaluasi" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+                      <div class="bg-white dark:bg-slate-800 rounded-xl p-6 w-full max-w-md shadow-lg relative">
+                        <!-- Catatan -->
+                        <label class="text-sm font-semibold text-gray-700 dark:text-white mb-1">Catatan Perbaikan :</label>
+                        <textarea id="catatan-evaluasi-perbaikan" rows="8" class="w-full p-2 border rounded text-sm mb-4" placeholder="Tulis catatan perbaikan..."></textarea>
 
-                    function tampilkanPopup3() {
-                        document.getElementById('popupBerhasil3').classList.remove('hidden');
-                    }
-                    function tutupPopup3() {
-                        document.getElementById('popupBerhasil3').classList.add('hidden');
-                    }
+                        <!-- Tombol Aksi -->
+                        <div class="pt-2 flex justify-end gap-2">
+                          <button onclick="closeModal()" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold px-4 py-2 rounded">
+                            Batal
+                          </button>
+                          <button onclick="simpanEvaluasiPerbaikan()" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded">
+                            Kirim
+                          </button>
+                        </div>
 
-                    function tampilkanPopup4() {
-                        document.getElementById('popupBerhasil4').classList.remove('hidden');
-                    }
-                    function tutupPopup4() {
-                        document.getElementById('popupBerhasil4').classList.add('hidden');
-                    }
-                  </script>
+                        <!-- Modal Pop-up Notifikasi 
+                        <div id="popup-evaluasi-notif" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 hidden z-[999]">
+                          <div class="bg-white dark:bg-slate-800 rounded-lg p-6 max-w-sm w-full shadow-lg text-center">
+                            <p class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Terkirim ke Badan Usaha</p>
+                            <button onclick="closePopupEvaluasi()" class="inline-block px-5 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition text-center">
+                              Tutup
+                            </button>
+                          </div>
+                        </div>-->
+
+                        <script>
+                        function openModal() {
+                          closeKirimHasilModal(); // Tutup modal kirim hasil
+                          document.getElementById('modal-evaluasi').classList.remove('hidden');
+                          document.body.classList.add('overflow-hidden');
+
+                          // Kosongkan semua textarea evaluasi saat modal dibuka
+                          document.getElementById('catatan-evaluasi1').value = '';
+                          document.getElementById('catatan-evaluasi2').value = '';
+                          document.getElementById('catatan-evaluasi3').value = '';
+                          document.getElementById('catatan-evaluasi4').value = '';
+                          document.getElementById('catatan-evaluasi-perbaikan').value = '';
+                          document.getElementById('status-evaluasi').value = '';
+                        }
+
+                        function closeModal() {
+                          document.getElementById('modal-evaluasi').classList.add('hidden');
+                          document.body.classList.remove('overflow-hidden');
+                        }
+
+                        function simpanEvaluasi() {
+                          // Ambil semua catatan
+                          const catatan1 = document.getElementById('catatan-evaluasi1').value.trim();
+                          const catatan2 = document.getElementById('catatan-evaluasi2').value.trim();
+                          const catatan3 = document.getElementById('catatan-evaluasi3').value.trim();
+                          const catatan4 = document.getElementById('catatan-evaluasi4').value.trim();
+                          const catatanPerbaikan = document.getElementById('catatan-evaluasi-perbaikan').value.trim();
+
+                          // Validasi: minimal salah satu catatan tidak kosong
+                          if (!catatan1 && !catatan2 && !catatan3 && !catatan4 && !catatanPerbaikan) {
+                            alert("Catatan Perbaikan Wajib Diisi");
+                            return;
+                          }
+
+                          // Tampilkan semua input ke console untuk pengecekan
+                          console.log("Catatan 1:", catatan1);
+                          console.log("Catatan 2:", catatan2);
+                          console.log("Catatan 3:", catatan3);
+                          console.log("Catatan 4:", catatan4);
+                          console.log("Catatan Perbaikan:", catatanPerbaikan);
+
+                          closeModal();
+                          showPopupEvaluasi(); // Menampilkan popup notifikasi setelah simpan evaluasi
+                        }
+                      </script>
+
+                   <!-- Popup Notifikasi Evaluasi 
+                    <div id="popup-evaluasi-notif" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 hidden z-[999]">
+                      <div class="bg-white dark:bg-slate-800 rounded-lg p-6 max-w-sm w-full shadow-lg text-center">
+                        <p class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Terkirim ke Badan Usaha</p>
+                        <a href="javascript:history.back()" class="inline-block px-5 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition text-center">
+                          Tutup
+                        </a>
+                      </div>
+                    </div>
+
+-->
+                    <script>
+                      function showPopupEvaluasi() {
+                        closeKirimHasilModal(); // Tutup modal kirim hasil
+                        document.getElementById('popup-evaluasi-notif').classList.remove('hidden');
+                        document.body.classList.add('overflow-hidden');
+                      }
+
+
+                      function closePopupEvaluasi() {
+                        document.getElementById('popup-evaluasi-notif').classList.add('hidden');
+                        document.body.classList.remove('overflow-hidden');
+                      }
+                    </script>
+
+
+<!--fahrul-->
+                    <script>
+  function simpanEvaluasiPerbaikan() {
+    const catatan = document.getElementById('catatan-evaluasi-perbaikan').value.trim();
+
+    // Validasi input catatan
+    if (!catatan) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Catatan Wajib Diisi',
+        text: 'Silakan isi catatan perbaikan sebelum mengirim.',
+        confirmButtonText: 'OK',
+        focusConfirm: true, // ⬅️ Fokus otomatis ke tombol OK
+        customClass: {
+          confirmButton: 'swal2-confirm btn-primary'
+        }
+      });
+      return;
+    }
+
+    // Tampilkan di konsol (opsional)
+    console.log("Catatan:", catatan);
+
+    // Tutup modal evaluasi
+    closeModal();
+
+    // Notifikasi berhasil menggunakan SweetAlert
+    Swal.fire({
+      icon: 'success',
+      title: 'Evaluasi Terkirim',
+      text: 'Catatan evaluasi berhasil dikirim ke Badan Usaha.',
+      confirmButtonText: 'OK',
+      focusConfirm: true, // ⬅️ Fokus otomatis ke tombol Tutup
+      customClass: {
+        confirmButton: 'swal2-confirm btn-primary'
+      }
+    }).then(() => {
+      // Redirect setelah klik "Tutup"
+      window.location.href = '/daftarpengajuanteknis';
+    });
+  }
+
+  function closeModal() {
+    const modal = document.getElementById('modal-evaluasi');
+    if (modal) {
+      modal.classList.add('hidden');
+      document.body.classList.remove('overflow-hidden');
+    }
+  }
+</script>
+
+
+                    <!-- Modal Pilih Evaluator -->
+                    <div id="modal-evaluator" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+                      <div class="bg-white dark:bg-slate-800 rounded-xl p-6 w-full max-w-2xl shadow-lg relative max-h-[90vh] flex flex-col">
+
+                        <h2 class="text-xl font-bold mb-4 text-gray-800 dark:text-white">Penugasan Evaluator</h2>
+
+                        <!-- Scrollable Evaluator List -->
+                        <div class="space-y-4 overflow-y-auto pr-2" style="max-height: 60vh;">
+                          <!-- Evaluator 1 -->
+                          <label class="flex items-center gap-4 border p-3 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-slate-700 transition-all">
+                            <input type="radio" name="evaluator" value="evaluator1" class="hidden peer" />
+                            <img src="https://img.freepik.com/vektor-premium/ilustrasi-datar-vektor-dalam-skala-abu-abu-ikon-orang-profil-pengguna-avatar-gambar-profil-siluet-netral-gender-cocok-untuk-ikon-profil-media-sosial-screensaver-dan-sebagai-templatx9xa_719432-1096.jpg" alt="Foto Evaluator" class="w-12 h-12 rounded-full object-cover" />
+                            <div>
+                              <p class="font-semibold text-gray-800 dark:text-white">Ahmad Yusuf</p>
+                              <p class="text-sm text-gray-500 dark:text-gray-300">NIP: 1987654321</p>
+                            </div>
+                            <div class="ml-auto hidden peer-checked:flex items-center justify-center w-6 h-6 rounded-full bg-blue-500 text-white font-bold transition-all duration-200">
+                              ✓
+                            </div>
+                          </label>
+
+                          <!-- Evaluator 2 -->
+                          <label class="flex items-center gap-4 border p-3 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-slate-700 transition-all">
+                            <input type="radio" name="evaluator" value="evaluator2" class="hidden peer" />
+                            <img src="https://img.freepik.com/vektor-premium/ilustrasi-datar-vektor-dalam-skala-abu-abu-ikon-orang-profil-pengguna-avatar-gambar-profil-siluet-netral-gender-cocok-untuk-ikon-profil-media-sosial-screensaver-dan-sebagai-templatx9xa_719432-1096.jpg" alt="Foto Evaluator" class="w-12 h-12 rounded-full object-cover" />
+                            <div>
+                              <p class="font-semibold text-gray-800 dark:text-white">Siti Rahmawati</p>
+                              <p class="text-sm text-gray-500 dark:text-gray-300">NIP: 1990123456</p>
+                            </div>
+                            <div class="ml-auto hidden peer-checked:flex items-center justify-center w-6 h-6 rounded-full bg-blue-500 text-white font-bold transition-all duration-200">
+                              ✓
+                            </div>
+                          </label>
+
+                          <!-- Evaluator 3 -->
+                          <label class="flex items-center gap-4 border p-3 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-slate-700 transition-all">
+                            <input type="radio" name="evaluator" value="evaluator3" class="hidden peer" />
+                            <img src="https://img.freepik.com/vektor-premium/ilustrasi-datar-vektor-dalam-skala-abu-abu-ikon-orang-profil-pengguna-avatar-gambar-profil-siluet-netral-gender-cocok-untuk-ikon-profil-media-sosial-screensaver-dan-sebagai-templatx9xa_719432-1096.jpg" alt="Foto Evaluator" class="w-12 h-12 rounded-full object-cover" />
+                            <div>
+                              <p class="font-semibold text-gray-800 dark:text-white">Rizki Monika</p>
+                              <p class="text-sm text-gray-500 dark:text-gray-300">NIP: 19901234587</p>
+                            </div>
+                            <div class="ml-auto hidden peer-checked:flex items-center justify-center w-6 h-6 rounded-full bg-blue-500 text-white font-bold transition-all duration-200">
+                              ✓
+                            </div>
+                          </label>
+
+                          <!-- Tambahkan evaluator baru sebanyak yang kamu mau disini -->
+                          <!-- Contoh evaluator tambahan -->
+                          <label class="flex items-center gap-4 border p-3 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-slate-700 transition-all">
+                            <input type="radio" name="evaluator" value="evaluator4" class="hidden peer" />
+                            <img src="https://img.freepik.com/vektor-premium/ilustrasi-datar-vektor-dalam-skala-abu-abu-ikon-orang-profil-pengguna-avatar-gambar-profil-siluet-netral-gender-cocok-untuk-ikon-profil-media-sosial-screensaver-dan-sebagai-templatx9xa_719432-1096.jpg" alt="Foto Evaluator" class="w-12 h-12 rounded-full object-cover" />
+                            <div>
+                              <p class="font-semibold text-gray-800 dark:text-white">Budi Santoso</p>
+                              <p class="text-sm text-gray-500 dark:text-gray-300">NIP: 1990112233</p>
+                            </div>
+                            <div class="ml-auto hidden peer-checked:flex items-center justify-center w-6 h-6 rounded-full bg-blue-500 text-white font-bold transition-all duration-200">
+                              ✓
+                            </div>
+                          </label>
+
+                          <label class="flex items-center gap-4 border p-3 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-slate-700 transition-all">
+                            <input type="radio" name="evaluator" value="evaluator4" class="hidden peer" />
+                            <img src="https://img.freepik.com/vektor-premium/ilustrasi-datar-vektor-dalam-skala-abu-abu-ikon-orang-profil-pengguna-avatar-gambar-profil-siluet-netral-gender-cocok-untuk-ikon-profil-media-sosial-screensaver-dan-sebagai-templatx9xa_719432-1096.jpg" alt="Foto Evaluator" class="w-12 h-12 rounded-full object-cover" />
+                            <div>
+                              <p class="font-semibold text-gray-800 dark:text-white">Budi Santoso</p>
+                              <p class="text-sm text-gray-500 dark:text-gray-300">NIP: 1990112233</p>
+                            </div>
+                            <div class="ml-auto hidden peer-checked:flex items-center justify-center w-6 h-6 rounded-full bg-blue-500 text-white font-bold transition-all duration-200">
+                              ✓
+                            </div>
+                          </label>
+
+                          <label class="flex items-center gap-4 border p-3 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-slate-700 transition-all">
+                            <input type="radio" name="evaluator" value="evaluator4" class="hidden peer" />
+                            <img src="https://img.freepik.com/vektor-premium/ilustrasi-datar-vektor-dalam-skala-abu-abu-ikon-orang-profil-pengguna-avatar-gambar-profil-siluet-netral-gender-cocok-untuk-ikon-profil-media-sosial-screensaver-dan-sebagai-templatx9xa_719432-1096.jpg" alt="Foto Evaluator" class="w-12 h-12 rounded-full object-cover" />
+                            <div>
+                              <p class="font-semibold text-gray-800 dark:text-white">Budi Santoso</p>
+                              <p class="text-sm text-gray-500 dark:text-gray-300">NIP: 1990112233</p>
+                            </div>
+                            <div class="ml-auto hidden peer-checked:flex items-center justify-center w-6 h-6 rounded-full bg-blue-500 text-white font-bold transition-all duration-200">
+                              ✓
+                            </div>
+                          </label>
+
+                          <!-- dst... -->
+                        </div>
+
+                        <!-- Tombol Aksi di Bawah -->
+                        <div class="mt-6 space-y-3">
+                          <button onclick="kirimKeEvaluator()" class="w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
+                            Kirim
+                          </button>
+                          <button onclick="closeEvaluatorModal()" class="w-full px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400 transition">
+                            Batal
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Popup Notifikasi -->
+                    <div id="popup-notif" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 hidden z-[999]">
+                      <div class="bg-white dark:bg-slate-800 rounded-lg p-6 max-w-sm w-full shadow-lg text-center">
+                        <p class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Dokumen Berhasil Dikirim Evaluator</p>
+                        <a href="javascript:history.back()" class="inline-block px-5 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition text-center">
+                          OK
+                        </a>
+                      </div>
+                    </div>
+
+                    <script>
+                      function openEvaluatorModal() {
+                        closeKirimHasilModal(); // Tutup modal kirim hasil
+                        document.getElementById('modal-evaluator').classList.remove('hidden');
+                        document.body.classList.add('overflow-hidden');
+                      }
+
+
+                      function closeEvaluatorModal() {
+                        document.getElementById('modal-evaluator').classList.add('hidden');
+                        document.body.classList.remove('overflow-hidden');
+                      }
+
+                      function showPopupNotif() {
+                        closeKirimHasilModal(); // Tutup modal kirim hasil
+                        document.getElementById('popup-notif').classList.remove('hidden');
+                        document.body.classList.add('overflow-hidden');
+                      }
+
+                      function closePopupNotif() {
+                        document.getElementById('popup-notif').classList.add('hidden');
+                        document.body.classList.remove('overflow-hidden');
+                      }
+
+                      function kirimKeEvaluator() {
+                        const selected = document.querySelector('input[name="evaluator"]:checked');
+                        if (!selected) {
+                          alert("Pilih salah satu evaluator terlebih dahulu.");
+                          return;
+                        }
+
+                        const evaluatorID = selected.value;
+                        console.log("Evaluator yang dipilih:", evaluatorID);
+
+                        // TODO: Tambahkan AJAX / pengiriman data ke server jika perlu
+
+                        closeEvaluatorModal();
+                        showPopupNotif();
+                      }
+                    </script>
+                    <script>
+                      function showPopupNotif() {
+                        document.getElementById('popup-notif').classList.remove('hidden');
+                        document.body.classList.add('overflow-hidden');
+                      }
+
+                      function closePopupNotif() {
+                        document.getElementById('popup-notif').classList.add('hidden');
+                        document.body.classList.remove('overflow-hidden');
+                      }
+
+                      function kirimKeEvaluator() {
+                        const selected = document.querySelector('input[name="evaluator"]:checked');
+                        if (!selected) {
+                          alert("Pilih salah satu evaluator terlebih dahulu.");
+                          return;
+                        }
+
+                        const evaluatorID = selected.value;
+                        console.log("Evaluator yang dipilih:", evaluatorID);
+
+                        // Tutup modal evaluator
+                        closeEvaluatorModal();
+
+                        // Tampilkan notifikasi
+                        showPopupNotif();
+                      }
+                    </script>
 
 
 </body>

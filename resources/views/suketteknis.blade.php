@@ -21,7 +21,7 @@
 </head>
 
 <body class="m-0 font-sans text-base antialiased font-normal dark:bg-slate-900 leading-default bg-gray-50 text-slate-500">
-  <div class="absolute w-full bg-blue-500 dark:hidden min-h-75" ></div>
+  <div class="absolute w-full bg-blue-400 dark:hidden min-h-75" ></div>
   @include('components.sidebartimteknis')
 
   <main class="relative h-full max-h-screen transition-all duration-200 ease-in-out xl:ml-68 rounded-xl">
@@ -43,7 +43,6 @@
           <div class="flex items-center md:ml-auto md:pr-4">
             <div class="relative flex flex-wrap items-stretch w-full transition-all rounded-lg ease">
               <span class="text-sm ease leading-5.6 absolute z-50 -ml-px flex h-full items-center whitespace-nowrap rounded-lg rounded-tr-none rounded-br-none border border-r-0 border-transparent bg-transparent py-2 px-2.5 text-center font-normal text-slate-500 transition-all">
-                <i class="fas fa-search"></i>
               </span>
               <!--<input type="text" class="pl-9 text-sm focus:shadow-primary-outline ease w-1/100 leading-5.6 relative -ml-px block min-w-0 flex-auto rounded-lg border border-solid border-gray-300 dark:bg-slate-850 dark:text-white bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none focus:transition-shadow" placeholder="Type here..." />
               -->
@@ -61,7 +60,6 @@
             </li>
             <li class="flex items-center px-4">
               <a href="javascript:;" class="p-0 text-sm text-white transition-all ease-nav-brand">
-                <i fixed-plugin-button-nav class="cursor-pointer fa fa-cog"></i>
                 <!-- fixed-plugin-button-nav  -->
               </a>
             </li>
@@ -71,7 +69,6 @@
             <li class="relative flex items-center pr-2">
               <p class="hidden transform-dropdown-show"></p>
               <a href="javascript:;" class="block p-0 text-sm text-white transition-all ease-nav-brand" dropdown-trigger aria-expanded="false">
-                <i class="cursor-pointer fa fa-bell"></i>
               </a>
 
               <ul dropdown-menu class="text-sm transform-dropdown before:font-awesome before:leading-default dark:shadow-dark-xl before:duration-350 before:ease lg:shadow-3xl duration-250 min-w-44 before:sm:right-8 before:text-5.5 pointer-events-none absolute right-0 top-0 z-50 origin-top list-none rounded-lg border-0 border-solid border-transparent dark:bg-slate-850 bg-white bg-clip-padding px-2 py-4 text-left text-slate-500 opacity-0 transition-all before:absolute before:right-2 before:left-auto before:top-0 before:z-50 before:inline-block before:font-normal before:text-white before:antialiased before:transition-all before:content-['\f0d8'] sm:-mr-6 lg:absolute lg:right-0 lg:left-auto lg:mt-2 lg:block lg:cursor-pointer">
@@ -155,117 +152,336 @@
             </div>
             <div class="flex-auto px-0 pt-0 pb-2">
 
-              <!-- Tambahkan overflow-x-auto dan responsive wrapper -->
-              <div class="overflow-x-auto w-full">
-                <table class="min-w-full text-left border-collapse text-slate-500 dark:border-white/40">
-                  <thead>
-                    <tr>
-                      <th class="px-4 py-3  text-m text-slate-900 font-semibold whitespace-nowrap dark:text-white uppercase">No Laporan</th>
-                      <th class="px-4 py-3  text-m text-slate-900 font-semibold text-center whitespace-nowrap dark:text-white uppercase">Nama Badan Usaha</th>
-                      <th class="px-4 py-3  text-m text-slate-900 font-semibold text-center whitespace-nowrap dark:text-white uppercase">Tanggal disetujui</th>
-                      <th class="px-4 py-3  text-m text-slate-900 font-semibold text-center whitespace-nowrap dark:text-white uppercase">Aksi</th>
-                    </tr>
-                  </thead>
-                  <tbody>
+              <!-- Responsive Table -->
+            <div class="flex-auto pt-0 pb-2 overflow-x-auto">
+              <table class="min-w-full text-sm text-left text-slate-600">
+              <thead class="bg-blue-400 text-white border border-white"><tr>
+                    <th class="px-4 py-3 text-sm font-bold">No</th>
+                    <th class="px-4 py-3 text-sm font-bold text-center">Badan Usaha</th>
+                    <th class="px-4 py-3 text-sm font-bold text-center">Tanggal</th>
+                    <th class="px-4 py-3 text-sm font-bold text-center">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-100">
+
+
                     <!-- Row 1 -->
-                    <tr>
-                      <td class="px-6 py-3 text-sm dark:text-white border-b dark:border-white/40">0001</td>
-                      <td class="px-6 py-3 text-sm text-center dark:text-white border-b dark:border-white/40">Perusahaan Persero</td>
-                      <td class="px-6 py-3 text-sm text-center dark:text-white border-b dark:border-white/40">23/04/18</td>
-                      <td class="px-6 py-3 text-sm text-center dark:text-white border-b dark:border-white/40">
+                    <tr class="border-b dark:border-slate-700">
+                    <td class="px-4 py-3">
+                      <div class="flex flex-col">
+                        <span class="font-medium text-xs text-slate-900 dark:text-white">0001</span>
+                      </div>
+                    </td>                      
+                    <td class="px-6 py-3 text-xs text-center dark:text-white border-b dark:border-white/40">Perusahaan Persero</td>
+                    <td class="px-6 py-3 text-xs text-center dark:text-white border-b dark:border-white/40">23/04/18</td>
+                    <td class="px-6 py-3 text-xs text-center dark:text-white border-b dark:border-white/40">
                         <div class="inline-flex space-x-2">
                           <a href="javascript:;" class="inline-flex items-center justify-center w-20 h-8 text-sm font-semibold text-white rounded bg-green-600 hover:bg-green-700 transition-all">
                             Lihat
                           </a>
-                          <a href="javascript:;" class="inline-flex items-center justify-center w-20 h-8 text-sm font-semibold text-white rounded bg-blue-500 hover:bg-blue-600 transition-all">
-                            Unduh
-                          </a>
+                          <!-- Tombol Dropdown -->
+                          <div class="relative inline-block text-left">
+                            <button onclick="toggleDropdown(this)" type="button" class="inline-flex items-center justify-center w-28 h-8 text-sm font-semibold text-white bg-blue-500 rounded hover:bg-blue-600 transition-all">
+                              Pilih Aksi
+                              <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                              </svg>
+                            </button>
+
+                            <!-- Dropdown Menu -->
+                            <div class="hidden absolute right-0 mt-2 w-36 bg-white rounded shadow-lg ring-1 ring-black ring-opacity-5 z-50">
+                              <a href="javascript:;" onclick="document.getElementById('fileInput').click()" class="block px-4 py-2 text-sm text-gray-700 hover:bg-green-100 hover:text-green-700">
+                                Upload Draft
+                              </a>
+                              <a href="file_draft.docx" download class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-100 hover:text-blue-700">
+                                Unduh Draft
+                              </a>
+                            </div>
+                          </div>
+
+                          <!-- Input File Tersembunyi -->
+                          <input type="file" id="fileInput" class="hidden" onchange="handleFileUpload(this)">
+
+                          <!-- Modal Notifikasi Berhasil Upload -->
+                          <div id="successModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
+                            <div class="bg-white rounded-lg p-6 w-full max-w-sm text-center">
+                              <h2 class="text-lg font-semibold text-green-700 mb-2">Berhasil Upload!</h2>
+                              <p class="text-sm text-gray-600 mb-4" id="uploadedFileName">Nama file akan ditampilkan di sini.</p>
+                              <button onclick="closeSuccessModal()" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                                Tutup
+                              </button>
+                            </div>
+                          </div>
+
+                          <!-- Script -->
+                          <script>
+                            function toggleDropdown(button) {
+                              const dropdown = button.nextElementSibling;
+                              dropdown.classList.toggle("hidden");
+                            }
+
+                            function handleFileUpload(input) {
+                              if (input.files.length > 0) {
+                                const fileName = input.files[0].name;
+                                document.getElementById("uploadedFileName").textContent = "File: " + fileName;
+                                document.getElementById("successModal").classList.remove("hidden");
+                              }
+                            }
+
+                            function closeSuccessModal() {
+                              document.getElementById("successModal").classList.add("hidden");
+                            }
+
+                            // Tutup dropdown saat klik di luar
+                            window.addEventListener('click', function (e) {
+                              document.querySelectorAll('.relative.inline-block').forEach(function (el) {
+                                if (!el.contains(e.target)) {
+                                  el.querySelector('div').classList.add('hidden');
+                                }
+                              });
+                            });
+                          </script>
                         </div>
                       </td>
                     </tr>
 
                     <!-- Row 2 -->
-                    <tr>
-                      <td class="px-6 py-3 text-sm dark:text-white border-b dark:border-white/40">0002</td>
-                      <td class="px-6 py-3 text-sm text-center dark:text-white border-b dark:border-white/40">Perusahaan Persero</td>
-                      <td class="px-6 py-3 text-sm text-center dark:text-white border-b dark:border-white/40">11/01/19</td>
-                      <td class="px-6 py-3 text-sm text-center dark:text-white border-b dark:border-white/40">
+                    <tr class="border-b dark:border-slate-700">                    
+                    <td class="px-4 py-3">
+                      <div class="flex flex-col">
+                        <span class="font-medium text-xs text-slate-900 dark:text-white">0002</span>
+                      </div>
+                    </td>
+                    <td class="px-6 py-3 text-xs text-center dark:text-white border-b dark:border-white/40">Perusahaan Persero</td>
+                    <td class="px-6 py-3 text-xs text-center dark:text-white border-b dark:border-white/40">11/01/19</td>
+                    <td class="px-6 py-3 text-xs text-center dark:text-white border-b dark:border-white/40">
                         <div class="inline-flex space-x-2">
                           <a href="javascript:;" class="inline-flex items-center justify-center w-20 h-8 text-sm font-semibold text-white rounded bg-green-600 hover:bg-green-700 transition-all">
                             Lihat
                           </a>
-                          <a href="javascript:;" class="inline-flex items-center justify-center w-20 h-8 text-sm font-semibold text-white rounded bg-blue-500 hover:bg-blue-600 transition-all">
-                            Unduh
-                          </a>
-                        </div>
-                      </td>
+                          <!-- Tombol Dropdown -->
+                          <div class="relative inline-block text-left">
+                            <button onclick="toggleDropdown(this)" type="button" class="inline-flex items-center justify-center w-28 h-8 text-sm font-semibold text-white bg-blue-500 rounded hover:bg-blue-600 transition-all">
+                              Pilih Aksi
+                              <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                              </svg>
+                            </button>
 
+                            <!-- Dropdown Menu -->
+                            <div class="hidden absolute right-0 mt-2 w-36 bg-white rounded shadow-lg ring-1 ring-black ring-opacity-5 z-50">
+                              <a href="javascript:;" onclick="document.getElementById('fileInput').click()" class="block px-4 py-2 text-sm text-gray-700 hover:bg-green-100 hover:text-green-700">
+                                Upload Draft
+                              </a>
+                              <a href="file_draft.docx" download class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-100 hover:text-blue-700">
+                                Unduh Draft
+                              </a>
+                            </div>
+                          </div>
+
+                          <!-- Input File Tersembunyi -->
+                          <input type="file" id="fileInput" class="hidden" onchange="handleFileUpload(this)">
+
+                          <!-- Modal Notifikasi Berhasil Upload -->
+                          <div id="successModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
+                            <div class="bg-white rounded-lg p-6 w-full max-w-sm text-center">
+                              <h2 class="text-lg font-semibold text-green-700 mb-2">Berhasil Upload!</h2>
+                              <p class="text-sm text-gray-600 mb-4" id="uploadedFileName">Nama file akan ditampilkan di sini.</p>
+                              <button onclick="closeSuccessModal()" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                                Tutup
+                              </button>
+                            </div>
+                          </div>
+
+                          <!-- Script -->
+                          <script>
+                            function toggleDropdown(button) {
+                              const dropdown = button.nextElementSibling;
+                              dropdown.classList.toggle("hidden");
+                            }
+
+                            function handleFileUpload(input) {
+                              if (input.files.length > 0) {
+                                const fileName = input.files[0].name;
+                                document.getElementById("uploadedFileName").textContent = "File: " + fileName;
+                                document.getElementById("successModal").classList.remove("hidden");
+                              }
+                            }
+
+                            function closeSuccessModal() {
+                              document.getElementById("successModal").classList.add("hidden");
+                            }
+
+                            // Tutup dropdown saat klik di luar
+                            window.addEventListener('click', function (e) {
+                              document.querySelectorAll('.relative.inline-block').forEach(function (el) {
+                                if (!el.contains(e.target)) {
+                                  el.querySelector('div').classList.add('hidden');
+                                }
+                              });
+                            });
+                          </script>
+                        </div>
+                        </div>
+                    </td>
                     </tr>
 
                     <!-- Row 3 -->
-                    <tr>
-                      <td class="px-6 py-3 text-sm dark:text-white border-b dark:border-white/40">0003</td>
-                      <td class="px-6 py-3 text-sm text-center dark:text-white border-b dark:border-white/40">Perusahaan Persero</td>
-                      <td class="px-6 py-3 text-sm text-center dark:text-white border-b dark:border-white/40">19/09/17</td>
-                      <td class="px-6 py-3 text-sm text-center dark:text-white border-b dark:border-white/40">
+                    <tr class="border-b dark:border-slate-700">                    
+                    <td class="px-4 py-3">
+                      <div class="flex flex-col">
+                        <span class="font-medium text-xs text-slate-900 dark:text-white">0003</span>
+                      </div>
+                    </td>                      
+                    <td class="px-6 py-3 text-xs text-center dark:text-white border-b dark:border-white/40">Perusahaan Persero</td>
+                    <td class="px-6 py-3 text-xs text-center dark:text-white border-b dark:border-white/40">19/09/17</td>
+                    <td class="px-6 py-3 text-xs text-center dark:text-white border-b dark:border-white/40">
                         <div class="inline-flex space-x-2">
                           <a href="javascript:;" class="inline-flex items-center justify-center w-20 h-8 text-sm font-semibold text-white rounded bg-green-600 hover:bg-green-700 transition-all">
                             Lihat
                           </a>
-                          <a href="javascript:;" class="inline-flex items-center justify-center w-20 h-8 text-sm font-semibold text-white rounded bg-blue-500 hover:bg-blue-600 transition-all">
-                            Unduh
-                          </a>
+                          <!-- Tombol Dropdown -->
+                          <div class="relative inline-block text-left">
+                            <button onclick="toggleDropdown(this)" type="button" class="inline-flex items-center justify-center w-28 h-8 text-sm font-semibold text-white bg-blue-500 rounded hover:bg-blue-600 transition-all">
+                              Pilih Aksi
+                              <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                              </svg>
+                            </button>
+
+                            <!-- Dropdown Menu -->
+                            <div class="hidden absolute right-0 mt-2 w-36 bg-white rounded shadow-lg ring-1 ring-black ring-opacity-5 z-50">
+                              <a href="javascript:;" onclick="document.getElementById('fileInput').click()" class="block px-4 py-2 text-sm text-gray-700 hover:bg-green-100 hover:text-green-700">
+                                Upload Draft
+                              </a>
+                              <a href="file_draft.docx" download class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-100 hover:text-blue-700">
+                                Unduh Draft
+                              </a>
+                            </div>
+                          </div>
+
+                          <!-- Input File Tersembunyi -->
+                          <input type="file" id="fileInput" class="hidden" onchange="handleFileUpload(this)">
+
+                          <!-- Modal Notifikasi Berhasil Upload -->
+                          <div id="successModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
+                            <div class="bg-white rounded-lg p-6 w-full max-w-sm text-center">
+                              <h2 class="text-lg font-semibold text-green-700 mb-2">Berhasil Upload!</h2>
+                              <p class="text-sm text-gray-600 mb-4" id="uploadedFileName">Nama file akan ditampilkan di sini.</p>
+                              <button onclick="closeSuccessModal()" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                                Tutup
+                              </button>
+                            </div>
+                          </div>
+
+                          <!-- Script -->
+                          <script>
+                            function toggleDropdown(button) {
+                              const dropdown = button.nextElementSibling;
+                              dropdown.classList.toggle("hidden");
+                            }
+
+                            function handleFileUpload(input) {
+                              if (input.files.length > 0) {
+                                const fileName = input.files[0].name;
+                                document.getElementById("uploadedFileName").textContent = "File: " + fileName;
+                                document.getElementById("successModal").classList.remove("hidden");
+                              }
+                            }
+
+                            function closeSuccessModal() {
+                              document.getElementById("successModal").classList.add("hidden");
+                            }
+
+                            // Tutup dropdown saat klik di luar
+                            window.addEventListener('click', function (e) {
+                              document.querySelectorAll('.relative.inline-block').forEach(function (el) {
+                                if (!el.contains(e.target)) {
+                                  el.querySelector('div').classList.add('hidden');
+                                }
+                              });
+                            });
+                          </script>
                         </div>
-                      </td>
+                    </td>
                     </tr>
 
                     <!-- Row 3 -->
-                    <tr>
-                      <td class="px-6 py-3 text-sm dark:text-white border-b dark:border-white/40">0003</td>
-                      <td class="px-6 py-3 text-sm text-center dark:text-white border-b dark:border-white/40">Perusahaan Persero</td>
-                      <td class="px-6 py-3 text-sm text-center dark:text-white border-b dark:border-white/40">19/09/17</td>
-                      <td class="px-6 py-3 text-sm text-center dark:text-white border-b dark:border-white/40">
+                    <tr class="border-b dark:border-slate-700">                    
+                    <td class="px-4 py-3">
+                      <div class="flex flex-col">
+                        <span class="font-medium text-xs text-slate-900 dark:text-white">0004</span>
+                      </div>
+                    </td>
+                    <td class="px-6 py-3 text-xs text-center dark:text-white border-b dark:border-white/40">Perusahaan Persero</td>
+                    <td class="px-6 py-3 text-xs text-center dark:text-white border-b dark:border-white/40">19/09/17</td>
+                    <td class="px-6 py-3 text-xs text-center dark:text-white border-b dark:border-white/40">
                         <div class="inline-flex space-x-2">
                           <a href="javascript:;" class="inline-flex items-center justify-center w-20 h-8 text-sm font-semibold text-white rounded bg-green-600 hover:bg-green-700 transition-all">
                             Lihat
                           </a>
-                          <a href="javascript:;" class="inline-flex items-center justify-center w-20 h-8 text-sm font-semibold text-white rounded bg-blue-500 hover:bg-blue-600 transition-all">
-                            Unduh
-                          </a>
-                        </div>
-                      </td>
-                    </tr>
+                          <!-- Tombol Dropdown -->
+                          <div class="relative inline-block text-left">
+                            <button onclick="toggleDropdown(this)" type="button" class="inline-flex items-center justify-center w-28 h-8 text-sm font-semibold text-white bg-blue-500 rounded hover:bg-blue-600 transition-all">
+                              Pilih Aksi
+                              <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                              </svg>
+                            </button>
 
-                    <!-- Row 3 -->
-                    <tr>
-                      <td class="px-6 py-3 text-sm dark:text-white border-b dark:border-white/40">0003</td>
-                      <td class="px-6 py-3 text-sm text-center dark:text-white border-b dark:border-white/40">Perusahaan Persero</td>
-                      <td class="px-6 py-3 text-sm text-center dark:text-white border-b dark:border-white/40">19/09/17</td>
-                      <td class="px-6 py-3 text-sm text-center dark:text-white border-b dark:border-white/40">
-                        <div class="inline-flex space-x-2">
-                          <a href="javascript:;" class="inline-flex items-center justify-center w-20 h-8 text-sm font-semibold text-white rounded bg-green-600 hover:bg-green-700 transition-all">
-                            Lihat
-                          </a>
-                          <a href="javascript:;" class="inline-flex items-center justify-center w-20 h-8 text-sm font-semibold text-white rounded bg-blue-500 hover:bg-blue-600 transition-all">
-                            Unduh
-                          </a>
-                        </div>
-                      </td>
-                    </tr>
+                            <!-- Dropdown Menu -->
+                            <div class="hidden absolute right-0 mt-2 w-36 bg-white rounded shadow-lg ring-1 ring-black ring-opacity-5 z-50">
+                              <a href="javascript:;" onclick="document.getElementById('fileInput').click()" class="block px-4 py-2 text-sm text-gray-700 hover:bg-green-100 hover:text-green-700">
+                                Upload Draft
+                              </a>
+                              <a href="file_draft.docx" download class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-100 hover:text-blue-700">
+                                Unduh Draft
+                              </a>
+                            </div>
+                          </div>
 
-                    <!-- Row 3 -->
-                    <tr>
-                      <td class="px-6 py-3 text-sm dark:text-white border-b dark:border-white/40">0003</td>
-                      <td class="px-6 py-3 text-sm text-center dark:text-white border-b dark:border-white/40">Perusahaan Persero</td>
-                      <td class="px-6 py-3 text-sm text-center dark:text-white border-b dark:border-white/40">19/09/17</td>
-                      <td class="px-6 py-3 text-sm text-center dark:text-white border-b dark:border-white/40">
-                        <div class="inline-flex space-x-2">
-                          <a href="javascript:;" class="inline-flex items-center justify-center w-20 h-8 text-sm font-semibold text-white rounded bg-green-600 hover:bg-green-700 transition-all">
-                            Lihat
-                          </a>
-                          <a href="javascript:;" class="inline-flex items-center justify-center w-20 h-8 text-sm font-semibold text-white rounded bg-blue-500 hover:bg-blue-600 transition-all">
-                            Unduh
-                          </a>
+                          <!-- Input File Tersembunyi -->
+                          <input type="file" id="fileInput" class="hidden" onchange="handleFileUpload(this)">
+
+                          <!-- Modal Notifikasi Berhasil Upload -->
+                          <div id="successModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
+                            <div class="bg-white rounded-lg p-6 w-full max-w-sm text-center">
+                              <h2 class="text-lg font-semibold text-green-700 mb-2">Berhasil Upload!</h2>
+                              <p class="text-sm text-gray-600 mb-4" id="uploadedFileName">Nama file akan ditampilkan di sini.</p>
+                              <button onclick="closeSuccessModal()" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                                Tutup
+                              </button>
+                            </div>
+                          </div>
+
+                          <!-- Script -->
+                          <script>
+                            function toggleDropdown(button) {
+                              const dropdown = button.nextElementSibling;
+                              dropdown.classList.toggle("hidden");
+                            }
+
+                            function handleFileUpload(input) {
+                              if (input.files.length > 0) {
+                                const fileName = input.files[0].name;
+                                document.getElementById("uploadedFileName").textContent = "File: " + fileName;
+                                document.getElementById("successModal").classList.remove("hidden");
+                              }
+                            }
+
+                            function closeSuccessModal() {
+                              document.getElementById("successModal").classList.add("hidden");
+                            }
+
+                            // Tutup dropdown saat klik di luar
+                            window.addEventListener('click', function (e) {
+                              document.querySelectorAll('.relative.inline-block').forEach(function (el) {
+                                if (!el.contains(e.target)) {
+                                  el.querySelector('div').classList.add('hidden');
+                                }
+                              });
+                            });
+                          </script>
                         </div>
                     </tr>
                   </tbody>

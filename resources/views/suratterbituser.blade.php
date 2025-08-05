@@ -42,7 +42,6 @@
           <div class="flex items-center md:ml-auto md:pr-4">
             <div class="relative flex flex-wrap items-stretch w-full transition-all rounded-lg ease">
               <span class="text-sm ease leading-5.6 absolute z-50 -ml-px flex h-full items-center whitespace-nowrap rounded-lg rounded-tr-none rounded-br-none border border-r-0 border-transparent bg-transparent py-2 px-2.5 text-center font-normal text-slate-500 transition-all">
-                <i class="fas fa-search"></i>
               </span>
               <!--<input type="text" class="pl-9 text-sm focus:shadow-primary-outline ease w-1/100 leading-5.6 relative -ml-px block min-w-0 flex-auto rounded-lg border border-solid border-gray-300 dark:bg-slate-850 dark:text-white bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none focus:transition-shadow" placeholder="Type here..." />
               -->
@@ -60,7 +59,6 @@
             </li>
             <li class="flex items-center px-4">
               <a href="javascript:;" class="p-0 text-sm text-white transition-all ease-nav-brand">
-                <i fixed-plugin-button-nav class="cursor-pointer fa fa-cog"></i>
                 <!-- fixed-plugin-button-nav  -->
               </a>
             </li>
@@ -70,7 +68,6 @@
             <li class="relative flex items-center pr-2">
               <p class="hidden transform-dropdown-show"></p>
               <a href="javascript:;" class="block p-0 text-sm text-white transition-all ease-nav-brand" dropdown-trigger aria-expanded="false">
-                <i class="cursor-pointer fa fa-bell"></i>
               </a>
 
               <ul dropdown-menu class="text-sm transform-dropdown before:font-awesome before:leading-default dark:shadow-dark-xl before:duration-350 before:ease lg:shadow-3xl duration-250 min-w-44 before:sm:right-8 before:text-5.5 pointer-events-none absolute right-0 top-0 z-50 origin-top list-none rounded-lg border-0 border-solid border-transparent dark:bg-slate-850 bg-white bg-clip-padding px-2 py-4 text-left text-slate-500 opacity-0 transition-all before:absolute before:right-2 before:left-auto before:top-0 before:z-50 before:inline-block before:font-normal before:text-white before:antialiased before:transition-all before:content-['\f0d8'] sm:-mr-6 lg:absolute lg:right-0 lg:left-auto lg:mt-2 lg:block lg:cursor-pointer">
@@ -156,20 +153,24 @@
 
               <!-- Tambahkan overflow-x-auto dan responsive wrapper -->
               <div class="overflow-x-auto w-full">
-                <table class="min-w-full text-left border-collapse text-slate-500 dark:border-white/40">
-                  <thead>
-                    <tr>
-                      <th class="px-4 py-3 w-1/3 text-m text-slate-900 font-semibold whitespace-nowrap dark:text-white uppercase">No Laporan</th>
-                      <th class="px-4 py-3 w-1/3 text-m text-center text-slate-900 font-semibold whitespace-nowrap dark:text-white uppercase">Tanggal disetujui</th>
-                      <th class="px-4 py-3 w-1/3 text-m text-center text-slate-900 font-semibold whitespace-nowrap dark:text-white uppercase">Aksi</th>
-                    </tr>
-                  </thead>
-                  <tbody>
+              <table class="min-w-full text-sm text-left text-slate-600 border">
+              <thead class="bg-green-600 text-white border">                    
+                  <tr>
+                    <th class="px-4 py-3 text-sm font-bold">No</th>
+                    <th class="px-4 py-3 text-sm font-bold text-center">Tanggal Disetujui</th>
+                    <th class="px-4 py-3 text-sm font-bold text-center">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-100">
                     <!-- Row 1 -->
                     <tr>
-                      <td class="px-6 py-3 text-sm dark:text-white border-b dark:border-white/40">0001</td>
-                      <td class="px-6 py-3 text-sm text-center dark:text-white border-b dark:border-white/40">23/04/18</td>
-                      <td class="px-6 py-3 text-sm text-center dark:text-white border-b dark:border-white/40">
+                    <td class="px-4 py-3">
+                      <div class="flex flex-col">
+                        <span class="font-medium text-xs text-slate-900 dark:text-white">0001</span>
+                      </div>
+                    </td>                      
+                    <td class="px-6 py-3 text-xs text-center text-slate-900 text-bold border-b dark:border-white/40">23/04/18</td>
+                      <td class="px-6 py-3 text-xs text-center dark:text-white border-b dark:border-white/40">
                         <a href="javascript:;" class="inline-flex items-center justify-center w-20 h-8 text-xs font-semibold text-white rounded bg-green-600 hover:bg-green-700 transition-all">
                           Lihat
                         </a>
@@ -181,9 +182,13 @@
 
                     <!-- Row 2 -->
                     <tr>
-                      <td class="px-6 py-3 text-sm dark:text-white border-b dark:border-white/40">0002</td>
-                      <td class="px-6 py-3 text-sm text-center dark:text-white border-b dark:border-white/40">11/01/19</td>
-                      <td class="px-6 py-3 text-sm text-center dark:text-white border-b dark:border-white/40">
+                    <td class="px-4 py-3">
+                      <div class="flex flex-col">
+                        <span class="font-medium text-xs text-slate-900 dark:text-white">0001</span>
+                      </div>
+                    </td>                      
+                    <td class="px-6 py-3 text-xs text-center text-slate-900 text-bold border-b dark:border-white/40">11/01/19</td>
+                      <td class="px-6 py-3 text-xs text-center dark:text-white border-b dark:border-white/40">
                         <a href="javascript:;" class="inline-flex items-center justify-center w-20 h-8 text-xs font-semibold text-white rounded bg-green-600 hover:bg-green-700 transition-all">
                           Lihat
                         </a>
@@ -196,9 +201,13 @@
 
                     <!-- Row 3 -->
                     <tr>
-                      <td class="px-6 py-3 text-sm dark:text-white border-b dark:border-white/40">0003</td>
-                      <td class="px-6 py-3 text-sm text-center dark:text-white border-b dark:border-white/40">19/09/17</td>
-                      <td class="px-6 py-3 text-sm text-center dark:text-white border-b dark:border-white/40">
+                    <td class="px-4 py-3">
+                      <div class="flex flex-col">
+                        <span class="font-medium text-xs text-slate-900 dark:text-white">0001</span>
+                      </div>
+                    </td>                      
+                    <td class="px-6 py-3 text-xs text-center text-slate-900 text-bold border-b dark:border-white/40">19/09/17</td>
+                      <td class="px-6 py-3 text-xs text-center dark:text-white border-b dark:border-white/40">
                         <a href="javascript:;" class="inline-flex items-center justify-center w-20 h-8 text-xs font-semibold text-white rounded bg-green-600 hover:bg-green-700 transition-all">
                           Lihat
                         </a>
@@ -210,9 +219,13 @@
 
                     <!-- Row 3 -->
                     <tr>
-                      <td class="px-6 py-3 text-sm dark:text-white border-b dark:border-white/40">0003</td>
-                      <td class="px-6 py-3 text-sm text-center dark:text-white border-b dark:border-white/40">19/09/17</td>
-                      <td class="px-6 py-3 text-sm text-center dark:text-white border-b dark:border-white/40">
+                    <td class="px-4 py-3">
+                      <div class="flex flex-col">
+                        <span class="font-medium text-xs text-slate-900 dark:text-white">0001</span>
+                      </div>
+                    </td>                      
+                    <td class="px-6 py-3 text-xs text-center text-slate-900 text-bold border-b dark:border-white/40">19/09/17</td>
+                      <td class="px-6 py-3 text-xs text-center dark:text-white border-b dark:border-white/40">
                         <a href="javascript:;" class="inline-flex items-center justify-center w-20 h-8 text-xs font-semibold text-white rounded bg-green-600 hover:bg-green-700 transition-all">
                           Lihat
                         </a>
@@ -224,9 +237,13 @@
 
                     <!-- Row 3 -->
                     <tr>
-                      <td class="px-6 py-3 text-sm dark:text-white border-b dark:border-white/40">0003</td>
-                      <td class="px-6 py-3 text-sm text-center dark:text-white border-b dark:border-white/40">19/09/17</td>
-                      <td class="px-6 py-3 text-sm text-center dark:text-white border-b dark:border-white/40">
+                    <td class="px-4 py-3">
+                      <div class="flex flex-col">
+                        <span class="font-medium text-xs text-slate-900 dark:text-white">0001</span>
+                      </div>
+                    </td>                     
+                    <td class="px-6 py-3 text-xs text-center text-slate-900 text-bold border-b dark:border-white/40">19/09/17</td>
+                      <td class="px-6 py-3 text-xs text-center dark:text-white border-b dark:border-white/40">
                         <a href="javascript:;" class="inline-flex items-center justify-center w-20 h-8 text-xs font-semibold text-white rounded bg-green-600 hover:bg-green-700 transition-all">
                           Lihat
                         </a>
@@ -236,11 +253,15 @@
                       </td>
                     </tr>
 
-                    <!-- Row 3 -->
+                    <!-- Row 4 -->
                     <tr>
-                      <td class="px-6 py-3 text-sm dark:text-white border-b dark:border-white/40">0003</td>
-                      <td class="px-6 py-3 text-sm text-center dark:text-white border-b dark:border-white/40">19/09/17</td>
-                      <td class="px-6 py-3 text-sm text-center dark:text-white border-b dark:border-white/40">
+                    <td class="px-4 py-3">
+                      <div class="flex flex-col">
+                        <span class="font-medium text-xs text-slate-900 dark:text-white">0001</span>
+                      </div>
+                    </td>                      
+                    <td class="px-6 py-3 text-xs text-center text-slate-900 text-bold border-b dark:border-white/40">19/09/17</td>
+                      <td class="px-6 py-3 text-xs text-center dark:text-white border-b dark:border-white/40">
                         <a href="javascript:;" class="inline-flex items-center justify-center w-20 h-8 text-xs font-semibold text-white rounded bg-green-600 hover:bg-green-700 transition-all">
                           Lihat
                         </a>
