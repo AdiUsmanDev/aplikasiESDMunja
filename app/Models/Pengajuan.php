@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Pengguna;
+use App\Models\EvaluasiDetail;
 
 class Pengajuan extends Model
 {
@@ -18,4 +20,13 @@ class Pengajuan extends Model
     protected $casts = [
         'data' => 'array',
     ];
+  
+   public function pengguna()
+{
+    return $this->belongsTo(Pengguna::class, 'pengaju_id');
+}
+public function evaluasi()
+{
+    return $this->hasMany(EvaluasiDetail::class, 'id_pengajuan');
+}
 }

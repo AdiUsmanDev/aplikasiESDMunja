@@ -4,7 +4,6 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="icon" type="image/png" href=" {{ asset('assets/img/logo-esdm.svg') }} " />
   <title>Pengajuan Surat</title>
   <!--     Fonts and icons     -->
@@ -76,42 +75,6 @@
       display: block;
     }
   }
-
-    @keyframes slideOutUp {
-        0% { opacity: 1; transform: translateY(0); }
-        100% { opacity: 0; transform: translateY(-30px); }
-    }
-
-    .floating-alert {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        z-index: 9999;
-        padding: 15px 20px;
-        border-left: 5px solid;
-        border-radius: 5px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        transition: opacity 0.5s ease-in-out;
-        font-family: sans-serif;
-    }
-
-    .floating-alert.success {
-        background-color: #d4edda;
-        color: #155724;
-        border-left-color: #28a745;
-    }
-
-    .floating-alert.warning {
-        background-color: #f8d7da;
-        color: #721c24;
-        border-left-color: #f44336;
-    }
-
-    .slide-out {
-        animation: slideOutUp 0.8s forwards;
-    }
-
-
 </style>
 
 <body
@@ -194,23 +157,26 @@
               <div class="w-full max-w-full px-3">
                 <h4 class="text-lg font-bold mb-4 text-gray-700 dark:text-white text-center uppercase">DATA TEKNIS</h4>
 
-                <form id="suratpengajuan" method="POST" action="{{ route('pengajuan.store') }}" onsubmit="return validateForm()"  enctype="multipart/form-data">
-                    @csrf
-                  <p class="leading-normal  dark:text-white dark:opacity-60 text-base font-bold">Data Pembangkit Tenaga Listrik
+                <form id="suratpengajuan" method="POST" action="/submit-url" onsubmit="return validateForm()">
+                  <p class="leading-normal text-lg my-2 text-gray-700 dark:text-white uppercase font-bold">Data Pembangkit Tenaga Listrik
                   </p>
                   <div class="flex flex-wrap -mx-3">
                     <div class="w-full max-w-full px-3 shrink-0 md:w-full md:flex-0">
                       <label class="block text-m font-medium text-gray-700 mb-2">
                         Jenis Pembangkit Tenaga Listrik
                       </label>
-                      <select id="pembangkitSelect" class="w-full border px-4 py-2 rounded mb-4"
+                      <select id="pembangkitSelect" class="w-full border px-4 py-2 rounded mb-4" disabled
                         onchange="showForm(this.value)" data-required>
-                        <option value="" disabled selected hidden>- Pilih Jenis Pembangkit -</option>
-                        <option value="non surya">Pembangkit Listrik Selain Tenaga Surya</option>
-                        <option value="surya">Pembangkit Listrik Tenaga Surya</option>
+                       <option value="" disabled {{ empty($pengajuan->jenis_pembangkit) ? 'selected' : '' }}>Pilih Jenis Pembangkit</option>
+                      <option value="non surya" {{ $pengajuan->jenis_pembangkit === 'non surya' ? 'selected' : '' }}>
+                          Pembangkit Listrik Selain Tenaga Surya
+                      </option>
+                      <option value="surya" {{ $pengajuan->jenis_pembangkit === 'surya' ? 'selected' : '' }}>
+                          Pembangkit Listrik Tenaga Surya
+                      </option>
                       </select>
-                      <!-- FORM NON SURYA -->
-                      <div id="form-nonSurya" class="hidden">
+                      <!-- FORM NON SURYA 
+                      <div id="form-nonSurya" class="">
                         <h3 class="font-semibold mb-2"></h3>
                         <div class="mb-4 flex flex-wrap gap-2">
 
@@ -266,23 +232,26 @@
                                 <td>
                                   <input
                                     type="text"
-                                    name="titikkordinatla_1"
-                                    data-required
-                                    pattern="^-?\d{1,2}\,\d+$"
+                                    name="titikkordinatla_2"
+                                    inputmode="decimal"
+                                    pattern="^-?\d{1,2},\d+$"
                                     placeholder="-1,234567"
-                                    title="Masukkan format desimal, contoh: -1,234567">
+                                    title="Masukkan format desimal dengan koma, contoh: -1,234567"
+                                    required>
                                 </td>
                               </tr>
+
                               <tr>
                                 <td>Titik Koordinat (Longitude)</td>
                                 <td>
                                   <input
                                     type="text"
-                                    name="titikkordinatlo_1"
-                                    data-required
-                                    pattern="^-?\d{1,3}\,\d+$"
+                                    name="titikkordinatlo_2"
+                                    inputmode="decimal"
+                                    pattern="^-?\d{1,3},\d+$"
                                     placeholder="103,456789"
-                                    title="Masukkan format desimal, contoh: 103,456789">
+                                    title="Masukkan format desimal dengan koma, contoh: 103,456789"
+                                    required>
                                 </td>
                               </tr>
                               <tr>
@@ -298,6 +267,101 @@
                                 </td>
                               </tr>
                               <tr>
+                                <td>Foto Unit</td>
+                                <td>
+                                  <input type="file" name="foto_unit_1" accept="application/pdf, image/jpeg, image/png/*" onchange="previewGambar(this, 'preview_unit_1')" class="block" required>
+                                  <img id="preview_unit_1" class="mt-2 w-24 hidden border rounded" />
+                                </td>
+                              </tr>
+
+                              <tr>
+                                <td>Foto Papan Nama (Name Plate) Generator</td>
+                                <td>
+                                  <input type="file" name="foto_generator_1" accept="application/pdf, image/jpeg, image/png/*" onchange="previewGambar(this, 'preview_generator_1')" class="block" required>
+                                  <img id="preview_generator_1" class="mt-2 w-24 hidden border rounded" />
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>Foto Papan Nama (Name Plate) Mesin Penggerak</td>
+                                <td>
+                                  <input type="file" name="foto_mesin_1" accept="application/pdf, image/jpeg, image/png/*" onchange="previewGambar(this, 'preview_mesin_1')" class="block" required>
+                                  <img id="preview_mesin_1" class="mt-2 w-24 hidden border rounded" />
+                                </td>
+                              </tr>
+
+                            </tbody>
+                          </table> -->
+ <div id="2" class="perbaikan-container">
+   @if($pengajuan->jenis_pembangkit === 'non surya')
+  
+  <div id="form-nonSurya" class="{{ $pengajuan->jenis_pembangkit === 'non surya' ? '' : 'hidden' }}">
+  <!--<div class="mb-4 flex flex-wrap gap-2">
+    <button type="button" onclick="tambahKolom('nonSurya')" class="bg-blue-600 hover:bg-blue-500 text-white px-3 py-1 rounded">Tambah Unit</button>
+    <button type="button" onclick="kurangiKolom('nonSurya')" class="bg-red-600 hover:bg-red-500 text-white px-3 py-1 rounded">Kurangi Unit</button>
+  </div>
+                -->
+
+  <div class="overflow-scroll">
+    <table id="table-nonSurya">
+      <thead>
+        <tr id="header-nonSurya">
+          <th>SPESIFIKASI</th>
+          <th>UNIT 1</th>
+        </tr>
+      </thead>
+     
+      <tbody id="body-nonSurya">
+        <!-- Repeat for each unit from database -->
+        @foreach ($units as $i => $unit)
+        <tr>
+          <td>Jenis Penggerak</td>
+          <td><input name="jenis_{{ $i + 1 }}" value="{{ $unit['jenis'] }}" data-required></td>
+        </tr>
+        <tr>
+          <td>Merek</td>
+          <td><input name="merek_{{ $i + 1 }}" value="{{$unit['merek']}}" data-required></td>
+        </tr>
+        <tr>
+          <td>Tipe</td>
+          <td><input name="tipe_{{ $i + 1 }}" value="{{ $unit['tipe'] }}" data-required></td>
+        </tr>
+        <tr>
+          <td>Negara Pembuat</td>
+          <td><input name="negara_{{ $i + 1 }}" value="{{ $unit['negara'] }}" data-required></td>
+        </tr>
+        <tr>
+          <td>Tahun Pembuatan</td>
+          <td><input name="tahun_{{ $i + 1 }}" value="{{ $unit['tahun'] }}" data-required></td>
+        </tr>
+        <tr>
+          <td>Kapasitas (kW)</td>
+          <td><input name="kapasitas_{{ $i + 1 }}" value="{{ $unit['kapasitas'] }}" data-required></td>
+        </tr>
+        <tr>
+          <td>Energi Primer</td>
+          <td><input name="primer_{{ $i + 1 }}" value="{{ $unit['primer'] }}" data-required></td>
+        </tr>
+        <tr>
+          <td>Titik Koordinat (Latitude)</td>
+          <td><input name="titikkordinatla_{{ $i + 1 }}" value="{{ $unit['titikkordinatla']  }}" pattern="^-?\d{1,2},\d+$" required></td>
+        </tr>
+        <tr>
+          <td>Titik Koordinat (Longitude)</td>
+          <td><input name="titikkordinatlo_{{ $i + 1 }}" value="{{ $unit['titikkordinatlo']  }}" pattern="^-?\d{1,3},\d+$" required></td>
+        </tr>
+        <tr>
+          <td>Sifat Penggunaan</td>
+          <td>
+            <select name="sifat_{{ $i + 1 }}" data-required>
+              <option value="" disabled>- Pilih -</option>
+              <option value="Utama" {{ $unit['sifat'] == 'Utama' ? 'selected' : '' }}>Utama</option>
+              <option value="Cadangan" {{ $unit['sifat'] == 'Cadangan' ? 'selected' : '' }}>Cadangan</option>
+              <option value="Darurat" {{ $unit['sifat'] == 'Darurat' ? 'selected' : '' }}>Darurat</option>
+              <option value="Sementara" {{ $unit['sifat'] == 'Sementara' ? 'selected' : '' }}>Sementara</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
                                 <td>Foto Unit</td>
                                 <td>
                                   <input type="file" name="foto_unit_1" accept="application/pdf, image/jpeg, image/png/*" onchange="previewGambar(this, 'preview_unit_1')"data-required>
@@ -319,131 +383,88 @@
                                 </td>
                               </tr>
 
+        @endforeach
+      </tbody>
+    </table>
+  </div>
+</div>
+@else
 
-                            </tbody>
-                          </table>
+
+<!-- Form Surya -->
+<div id="form-surya" class="{{ $pengajuan->jenis_pembangkit === 'surya' ? '' : 'hidden' }}">
+
+  <div class="mb-4 flex flex-wrap gap-2">
+  <!--  <button type="button" onclick="tambahKolom('surya')" class="bg-blue-600 hover:bg-blue-500 text-white px-3 py-1 rounded">Tambah Unit</button>
+    <button type="button" onclick="kurangiKolom('surya')" class="bg-red-600 hover:bg-red-500 text-white px-3 py-1 rounded">Kurangi Unit</button>
+                -->
+  </div>
+  <div class="overflow-scroll">
+    <table id="table-surya">
+      <thead>
+        <tr id="header-surya">
+          <th>SPESIFIKASI</th>
+          <th>UNIT 1</th>
+        </tr>
+      </thead>
+      <tbody id="body-surya">
+        @foreach ($units as $i => $unit)
+        <tr><td>Merek</td><td><input name="smerek_{{ $i + 1 }}" value="{{ $unit['smerek'] }}" data-required></td></tr>
+        <tr><td>Tipe</td><td><input name="stipe_{{ $i + 1 }}" value="{{ $unit['stipe']  }}" data-required></td></tr>
+        <tr><td>Negara Pembuat</td><td><input name="snegara_{{ $i + 1 }}" value="{{ $unit['snegara']  }}" data-required></td></tr>
+        <tr><td>Tahun Pembuatan</td><td><input name="stahun_{{ $i + 1 }}" value="{{ $unit['stahun']  }}" data-required></td></tr>
+        <tr><td>Kapasitas (kilo Watt-peak)</td><td><input name="skapasitas_{{ $i + 1 }}" value="{{ $unit['skapasitas']  }}" data-required></td></tr>
+        <tr><td>Titik Koordinat (Latitude)</td><td><input name="stitikkordinatla_{{ $i + 1 }}" value="{{ $unit['stitikkordinatla']  }}" pattern="^-?\d{1,2},\d+$" required></td></tr>
+        <tr><td>Titik Koordinat (Longitude)</td><td><input name="stitikkordinatlo_{{ $i + 1 }}" value="{{ $unit['stitikkordinatlo'] }}" pattern="^-?\d{1,3},\d+$" required></td></tr>
+        <tr>
+          <td>Sifat Penggunaan</td>
+          <td>
+            <select name="ssifat_{{ $i + 1 }}" data-required>
+              <option value="" disabled>- Pilih -</option>
+              <option value="Utama" {{ $unit['ssifat'] == 'Utama' ? 'selected' : '' }}>Utama</option>
+              <option value="Cadangan" {{ $unit['ssifat'] == 'Cadangan' ? 'selected' : '' }}>Cadangan</option>
+              <option value="Darurat" {{ $unit['ssifat'] == 'Darurat' ? 'selected' : '' }}>Darurat</option>
+              <option value="Sementara" {{ $unit['ssifat'] == 'Sementara' ? 'selected' : '' }}>Sementara</option>
+            </select>
+          </td>
+          <tr>
+          <td>Foto Panel Surya</td>
+          <td>
+            <input type="file" name="foto_panel_{{ $i + 1 }}" onchange="previewGambar(this, 'preview_panel_{{ $i + 1 }}')">
+           
+          </td>
+          </tr>
+        </tr>
+        <tr>
+          <td>Foto Inverter</td>
+          <td>
+            <input type="file" name="foto_inverter_{{ $i + 1 }}" onchange="previewGambar(this, 'preview_inverter_{{ $i + 1 }}')">
+        
+          </td>
+        </tr>
+        @endforeach
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+@endif
+</div>
+
                         </div>
                       </div>
 
-                      <!-- FORM TENAGA SURYA -->
-                      <div id="form-surya" class="hidden">
-
-                        <h3 class="font-semibold mb-2"></h3>
-                        <div class="mb-4 flex flex-wrap gap-2">
-                          <button type="button" onclick="tambahKolom('surya')"
-                            class="bg-blue-600 hover:bg-blue-500 text-white px-3 py-1 rounded">
-                            Tambah Unit
-                          </button>
-                          <button type="button" onclick="kurangiKolom('surya')"
-                            class="bg-red-600 hover:bg-red-500 text-white px-3 py-1 rounded ">
-                            Kurangi Unit
-                          </button>
-                        </div>
-                        <div class="overflow-scroll">
-                          <table id="table-surya">
-                            <thead>
-                              <tr id="header-surya">
-                                <th>SPESIFIKASI</th>
-                                <th>UNIT 1</th>
-                              </tr>
-                            </thead>
-                            <tbody id="body-surya">
-                              <tr>
-                                <td>Merek</td>
-                                <td><input name="smerek_1" data-required></td>
-                              </tr>
-                              <tr>
-                                <td>Tipe</td>
-                                <td><input name="stipe_1" data-required></td>
-                              </tr>
-                              <tr>
-                                <td>Negara Pembuat</td>
-                                <td><input name="snegara_1" data-required></td>
-                              </tr>
-                              <tr>
-                                <td>Tahun Pembuatan</td>
-                                <td><input name="stahun_1" data-required></td>
-                              </tr>
-                              <tr>
-                                <td>Kapasitas (kilo Watt-peak)</td>
-                                <td><input placeholder="Satuan Dalam kilo Watt peak (kWp) " name="skapasitas_1" data-required></td>
-                              </tr>
-                              <tr>
-                                <td>Titik Koordinat (Latitude)</td>
-                                <td>
-                                  <input
-                                    type="text"
-                                    name="stitikkordinatla_1"
-                                    data-required
-                                    pattern="^-?\d{1,2}\,\d+$"
-                                    placeholder="-1,234567"
-                                    title="Masukkan format desimal, contoh: -1,234567">
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>Titik Koordinat (Longitude)</td>
-                                <td>
-                                  <input
-                                    type="text"
-                                    name="stitikkordinatlo_1"
-                                    data-required
-                                    pattern="^-?\d{1,3}\,\d+$"
-                                    placeholder="103,456789"
-                                    title="Masukkan format desimal, contoh: 103,456789">
-                                </td>
-                              </tr>
-
-                              <tr>
-                                <td>Sifat Penggunaan</td>
-                                <td>
-                                  <select name="ssifat_1" data-required>
-                                    <option value="" disabled selected hidden>-- Pilih --</option>
-                                    <option value="Darurat">Utama</option>
-                                    <option value="Permanen">Cadangan</option>
-                                    <option value="Sementara">Darurat</option>
-                                    <option value="Musiman">Sementara</option>
-                                  </select>
-                                </td>
-                              </tr>
-
-                              <tr>
-                                <td>Foto Unit</td>
-                                <td>
-                                  <input type="file" name="sfoto_unit_1" accept="application/pdf, image/jpeg, image/png/*" onchange="previewGambar(this, 'spreview_unit_1')"data-required>
-                                  <img id="spreview_unit_1" class="mt-2 w-24 hidden border rounded" />
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>Foto Papan Nama (Name Plate) Modul PLTS</td>
-                                <td>
-                                  <input type="file" name="sfoto_modul_1" accept="application/pdf, image/jpeg, image/png/*" onchange="previewGambar(this, 'spreview_modul_1')" data-required>
-                                  <img id="spreview_modul_1" class="mt-2 w-24 hidden border rounded" />
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>Foto Papan Nama (Name Plate) Inverter PLTS</td>
-                                <td>
-                                  <input type="file" name="sfoto_inverter_1" accept="application/pdf, image/jpeg, image/png/*" onchange="previewGambar(this, 'spreview_inverter_1')" data-required>
-                                  <img id="spreview_inverter_1" class="mt-2 w-24 hidden border rounded" />
-                                </td>
-                              </tr>
-
-
-
-                            </tbody>
-                          </table>
-                          <br>
-                        </div>
-                      </div>
                       <script>
+                        const MAX_FILE_SIZE_MB = 5;
+                        const MAX_FILE_SIZE = MAX_FILE_SIZE_MB * 1024 * 1024;
+
                         function showForm(val) {
-                          // Sembunyikan semua form terlebih dahulu
                           document.getElementById('form-nonSurya').classList.add('hidden');
                           document.getElementById('form-surya').classList.add('hidden');
                           document.getElementById('alamatForm1').classList.add('hidden');
 
-                          // Tampilkan form sesuai jenis pembangkit
-                          if (val === 'non surya') {
+                          if (val === 'nonSurya') {
                             document.getElementById('form-nonSurya').classList.remove('hidden');
                             document.getElementById('alamatForm1').classList.remove('hidden');
                             tampilkanLampiran('nonSurya');
@@ -465,60 +486,120 @@
                           if (tipe === 'nonSurya') {
                             labelGenerator.innerText = "Foto Papan Nama (Name Plate) Generator";
                             labelMesin.innerText = "Foto Papan Nama (Name Plate) Mesin Penggerak";
-
-                            inputGenerator.setAttribute("name", "foto_generator");
-                            inputMesin.setAttribute("name", "foto_mesin");
-                          } else if (tipe === 'surya') {
+                            inputGenerator.name = "foto_generator";
+                            inputMesin.name = "foto_mesin";
+                          } else {
                             labelGenerator.innerText = "Foto Papan Nama (Name Plate) Modul PLTS";
                             labelMesin.innerText = "Foto Papan Nama (Name Plate) Inverter PLTS";
-
-                            inputGenerator.setAttribute("name", "foto_modul");
-                            inputMesin.setAttribute("name", "foto_inverter");
+                            inputGenerator.name = "foto_modul";
+                            inputMesin.name = "foto_inverter";
                           }
 
                           inputGenerator.required = true;
                           inputMesin.required = true;
                         }
 
+
+                        function previewGambar(input, previewId) {
+                          const file = input.files[0];
+                          if (!file) return;
+
+                          if (file.size > MAX_FILE_SIZE) {
+                            alert(`Ukuran file maksimal ${MAX_FILE_SIZE_MB}MB`);
+                            input.value = "";
+                            return;
+                          }
+
+                          const allowedTypes = ['image/jpeg', 'image/png', 'application/pdf'];
+                          if (!allowedTypes.includes(file.type)) {
+                            alert("File harus berupa JPG, PNG, atau PDF");
+                            input.value = "";
+                            return;
+                          }
+
+                          const reader = new FileReader();
+                          reader.onload = function(e) {
+                            const img = document.getElementById(previewId);
+
+                            if (file.type === "application/pdf") {
+                              img.src = "/assets/img/iconpdf.jpg"; // Gambar ikon PDF
+                              img.setAttribute('data-pdf', e.target.result); // Simpan base64 PDF
+                              img.onclick = () => {
+                                const pdfWindow = window.open();
+                                pdfWindow.document.write(`
+          <html>
+            <head><title>Preview PDF</title></head>
+            <body style="margin:0">
+              <embed src="${e.target.result}" type="application/pdf" width="100%" height="100%"/>
+            </body>
+          </html>
+        `);
+                              };
+                            } else {
+                              img.src = e.target.result;
+                              img.onclick = () => tampilkanModalGambar(e.target.result);
+                            }
+
+                            img.classList.remove('hidden');
+                            img.classList.add('cursor-zoom-in');
+                          };
+                          reader.readAsDataURL(file);
+                        }
+
+
+
+                        function tampilkanModalGambar(src) {
+                          const modal = document.getElementById('imageModal');
+                          const modalImage = document.getElementById('modalImage');
+                          const sidebar = document.getElementById('sidebar');
+
+                          modalImage.src = src;
+                          modal.classList.remove('hidden');
+
+                          if (sidebar) {
+                            sidebar.classList.add('-translate-x-full');
+                            sidebar.classList.remove('translate-x-0', 'lg:translate-x-0');
+                          }
+                        }
+
+                        function closeImageModal() {
+                          const modal = document.getElementById('imageModal');
+                          const sidebar = document.getElementById('sidebar');
+
+                          modal.classList.add('hidden');
+                          if (sidebar) {
+                            sidebar.classList.remove('-translate-x-full');
+                            sidebar.classList.add('translate-x-0', 'lg:translate-x-0');
+                          }
+                        }
+
                         function tambahKolom(tipe) {
                           const prefix = tipe === 'surya' ? 's' : '';
                           const header = document.getElementById('header-' + tipe);
                           const tbody = document.getElementById('body-' + tipe);
-                          const kolomBaru = header.children.length; // kolom ke-N (dimulai dari 2)
+                          const kolomBaru = header.children.length;
 
                           const th = document.createElement('th');
                           th.innerText = 'UNIT ' + kolomBaru;
                           header.appendChild(th);
 
-                          const fieldNames = Array.from(tbody.querySelectorAll('tr')).map(row => {
-                            const firstInput = row.querySelector('input, select');
-                            if (!firstInput) return null;
-                            const baseName = firstInput.name.replace(/_\d+$/, ''); // buang "_1"
-                            return baseName;
-                          });
-
                           const rows = tbody.getElementsByTagName('tr');
                           for (let i = 0; i < rows.length; i++) {
                             const td = document.createElement('td');
-                            const fieldName = fieldNames[i];
+                            const label = rows[i].children[0].innerText.trim().toLowerCase();
 
-                            if (!fieldName) {
-                              td.innerText = '-';
-                              rows[i].appendChild(td);
-                              continue;
-                            }
-                            if (fieldName.includes('sifat')) {
+                            let input, preview;
+
+                            if (label.includes('sifat penggunaan')) {
                               const select = document.createElement('select');
-                              select.name = `${fieldName}_${kolomBaru}`;
-                              //select.required = true;
-                              select.setAttribute('data-required', 'true');
+                              select.name = prefix + 'sifat_' + kolomBaru;
+                              select.required = true;
 
-                              const options = ['-- Pilih --', 'Utama', 'Cadangan', 'Darurat', 'Sementara'];
-                              options.forEach((opt, index) => {
+                              ['-- Pilih --', 'Utama', 'Cadangan', 'Darurat', 'Sementara'].forEach((opt, idx) => {
                                 const option = document.createElement('option');
-                                option.value = index === 0 ? '' : opt;
+                                option.value = idx === 0 ? '' : opt;
                                 option.text = opt;
-                                if (index === 0) {
+                                if (idx === 0) {
                                   option.disabled = true;
                                   option.selected = true;
                                   option.hidden = true;
@@ -526,49 +607,60 @@
                                 select.appendChild(option);
                               });
                               td.appendChild(select);
-                            }
-                          
-                            else if (fieldName.includes('foto')) {
-                              const input = document.createElement('input');
-                              input.type = 'file';
-                              input.accept = 'image/*';
-                              input.name = `${fieldName}_${kolomBaru}`;
-                            // input.required = true;
-                            input.setAttribute('data-required', 'true');
 
-                              const preview = document.createElement('img');
-                              preview.id = `${fieldName.replace('foto', 'preview')}_${kolomBaru}`;
+                            } else if (label.includes('foto unit') || label.includes('modul') || label.includes('generator') || label.includes('inverter') || label.includes('mesin penggerak')) {
+                              input = document.createElement('input');
+                              input.type = 'file';
+                              input.accept = 'application/pdf, image/jpeg, image/png';
+                              input.name = prefix + 'foto_' + kolomBaru + '_' + i;
+                              input.required = true;
+
+                              preview = document.createElement('img');
+                              preview.id = prefix + 'preview_' + kolomBaru + '_' + i;
                               preview.className = 'mt-2 w-24 hidden border rounded';
 
                               input.addEventListener('change', () => previewGambar(input, preview.id));
 
                               td.appendChild(input);
                               td.appendChild(preview);
-                            }
-                    
-                            else {
-                              const input = document.createElement('input');
+
+                            } else if (label.includes('titik koordinat (latitude)')) {
+                              input = document.createElement('input');
                               input.type = 'text';
-                              input.name = `${fieldName}_${kolomBaru}`;
-                              input.setAttribute('data-required', 'true');
-                            // input.required = true;
+                              input.name = prefix + 'titikkordinatla_' + kolomBaru;
+                              input.pattern = "^-?\\d{1,2},\\d+$";
+                              input.title = 'Masukkan format desimal, contoh: -1,234567';
+                              input.placeholder = '-1,234567';
+                              input.required = true;
+                              input.addEventListener('input', () => {
+                                input.value = input.value.replace(/\./g, ',');
+                              });
+                              td.appendChild(input);
 
+                            } else if (label.includes('titik koordinat (longitude)')) {
+                              input = document.createElement('input');
+                              input.type = 'text';
+                              input.name = prefix + 'titikkordinatlo_' + kolomBaru;
+                              input.pattern = "^-?\\d{1,3},\\d+$";
+                              input.title = 'Masukkan format desimal, contoh: 103,456789';
+                              input.placeholder = '103,456789';
+                              input.required = true;
+                              input.addEventListener('input', () => {
+                                input.value = input.value.replace(/\./g, ',');
+                              });
+                              td.appendChild(input);
 
-                              if (fieldName.includes('stitikkordinatla') || fieldName.includes('titikkordinatla')) {
-                              input.pattern = "^-?\\d{1,2}\\,\\d+$"; // Latitude: -90.0 to +90.0 (2 digit + desimal)
-                              input.title = "Masukkan format desimal, contoh: -1,234567";
-                            } else if (fieldName.includes('stitikkordinatlo') || fieldName.includes('titikkordinatlo')) {
-                              input.pattern = "^-?\\d{1,3}\\,\\d+$"; // Longitude: -180.0 to +180.0 (3 digit + desimal)
-                              input.title = "Masukkan format desimal, contoh: 103,456789";
-                                        }
+                            } else {
+                              input = document.createElement('input');
+                              const nameBase = label.replace(/[()]/g, '').replace(/\s+/g, '').toLowerCase();
+                              input.name = prefix + nameBase + '_' + kolomBaru;
+                              input.required = true;
                               td.appendChild(input);
                             }
 
                             rows[i].appendChild(td);
                           }
-                            
-                             }
-                        
+                        }
 
                         function kurangiKolom(tipe) {
                           const header = document.getElementById('header-' + tipe);
@@ -583,88 +675,48 @@
                           }
                         }
 
+                        function formatKoordinatUnitAwal() {
+                          const latitudeInput = document.querySelector('input[name="titikkordinatla_1"]');
+                          const longitudeInput = document.querySelector('input[name="titikkordinatlo_1"]');
 
+                          if (latitudeInput) {
+                            latitudeInput.addEventListener('input', () => {
+                              latitudeInput.value = latitudeInput.value.replace(/\./g, ',');
+                            });
+                          }
 
-                        function tampilkanModalGambar(src) {
-                          const modal = document.getElementById('imageModal');
-                          const modalImage = document.getElementById('modalImage');
-                          const sidebar = document.getElementById('sidebar');
-
-                          modalImage.src = src;
-                          modal.classList.remove('hidden');
-
-                          // Sembunyikan sidebar di semua ukuran
-                          if (sidebar) {
-                            sidebar.classList.remove('translate-x-0');
-                            sidebar.classList.remove('lg:translate-x-0');
-                            sidebar.classList.add('-translate-x-full');
+                          if (longitudeInput) {
+                            longitudeInput.addEventListener('input', () => {
+                              longitudeInput.value = longitudeInput.value.replace(/\./g, ',');
+                            });
                           }
                         }
 
-                        function closeImageModal() {
-                          const modal = document.getElementById('imageModal');
-                          const sidebar = document.getElementById('sidebar');
-
-                          modal.classList.add('hidden');
-
-                          // Tampilkan kembali sidebar di semua ukuran
-                          if (sidebar) {
-                            sidebar.classList.remove('-translate-x-full');
-                            sidebar.classList.add('translate-x-0');
-                            sidebar.classList.add('lg:translate-x-0');
-                          }
-                        }
-
-                        document.addEventListener('DOMContentLoaded', function() {
+                        document.addEventListener('DOMContentLoaded', () => {
                           const closeBtn = document.getElementById('closeModalBtn');
                           if (closeBtn) {
                             closeBtn.addEventListener('click', closeImageModal);
                           }
+
+                          formatKoordinatUnitAwal();
                         });
-
-                        function previewGambar(input, previewId) {
-  const file = input.files[0];
-  if (!file) return;
-
-  const allowedTypes = ['image/jpeg', 'image/png', 'application/pdf'];
-  if (!allowedTypes.includes(file.type)) {
-    alert("File harus berupa JPG, PNG, atau PDF");
-    input.value = "";
-    return;
-  }
-
-  const reader = new FileReader();
-  reader.onload = function (e) {
-    const img = document.getElementById(previewId);
-
-    if (file.type === "application/pdf") {
-      img.src = "/assets/img/iconpdf.jpg"; // Gambar ikon PDF
-      img.setAttribute('data-pdf', e.target.result);
-
-      img.onclick = () => {
-        const pdfWindow = window.open();
-        pdfWindow.document.write(`
-          <html>
-            <head><title>Preview PDF</title></head>
-            <body style="margin:0">
-              <embed src="${e.target.result}" type="application/pdf" width="100%" height="100%"/>
-            </body>
-          </html>
-        `);
-      };
-    } else {
-      img.src = e.target.result;
-      img.onclick = () => tampilkanModalGambar(e.target.result);
-    }
-
-    img.classList.remove('hidden');
-    img.classList.add('cursor-zoom-in');
-  };
-  reader.readAsDataURL(file);
-}
                       </script>
 
+
+                       <div id="catatan-2"></div>
+
+
+                       
+
+                                      @php
+                            $isAdalistrik = !empty($pengajuan->pihak_lain) || !empty($pengajuan->daya_tersambung);
+                            $valdat = json_decode($pengajuan->data);
+                            
+                           // dd($valdat)
+                        @endphp
+
                       <!-- Bagian 2: Jaringan Distribusi -->
+                       <div id="3" class="perbaikan-container">
                       <div class="mb-10">
                         <p class="leading-normal text-lg text-gray-700 dark:text-white uppercase font-bold">Jaringan
                           Distribusi</p>
@@ -674,14 +726,14 @@
                         <select id="jaringanDistribusi"
                           class="w-full px-4 py-2 border rounded-lg dark:bg-slate-700 dark:text-white"
                           onchange="toggleJaringanDistribusi()" data-required>
-                          <option value="" disabled selected hidden>- Pilih -</option>
-                          <option value="ada">Ada</option>
-                          <option value="tidak">Tidak Ada</option>
+                        <option value="" disabled {{ is_null($pengajuan->sambungan_listrik) ? 'selected' : '' }} hidden>Pilih</option>
+                            <option value="ada" {{ $isAdalistrik ? 'selected' : '' }}>Ada</option>
+                            <option value="tidak" {{ !$isAdalistrik ? 'selected' : '' }}>Tidak Ada</option>
                         </select>
 
                         <!-- Form Tambahan Jaringan Distribusi -->
 
-                        <div id="form-jaringan" class="hidden mt-4">
+                        <div id="form-jaringan" class="mt-4" style="{{ $pengajuan->sambungan_listrik == 'ada' ? '' : 'display:none;' }}">
                           <div class="mb-4">
                             <label for="panjangSaluran" class="block text-m my-2 font-medium text-gray-700">Panjang Saluran (Kms)</label>
                             <input type="text" id="panjangSaluran" name="panjang_saluran"
@@ -702,6 +754,9 @@
                               data-required>
                           </div>
                         </div>
+
+                        
+                        
 
                         <script>
                           function formatKomaOnly(event) {
@@ -729,6 +784,13 @@
                           document.getElementById("tegangan").addEventListener("input", formatKomaOnly);
                         </script>
 
+
+
+                        @php
+                            $isAda = !empty($pengajuan->pihak_lain) || !empty($pengajuan->daya_tersambung);
+                           // dd($isAda)
+                        @endphp
+
                         <!-- Bagian 3: Sambungan Listrik dari Pihak Lain -->
                         <div class="mb-6">
                           <p class="leading-normal text-lg my-2 text-gray-700 dark:text-white uppercase font-bold">Sambungan
@@ -738,33 +800,36 @@
                           <select id="sambunganListrik"
                             class="w-full px-4 py-2 border rounded-lg dark:bg-slate-700 dark:text-white"
                             onchange="toggleSambunganForm()" data-required>
-                            <option value="" disabled selected hidden>- Pilih -</option>
-                            <option value="ada">Ada</option>
-                            <option value="tidak">Tidak Ada</option>
+                            <option value="" disabled {{ is_null($pengajuan->sambungan_listrik) ? 'selected' : '' }} hidden>Pilih</option>
+                            <option value="ada" {{ $isAda ? 'selected' : '' }}>Ada</option>
+                            <option value="tidak" {{ !$isAda ? 'selected' : '' }}>Tidak Ada</option>
                           </select>
 
                           <!-- Form Tambahan Jika "Ada" -->
-                          <div id="form-sambungan" class="hidden mt-4">
-                            <div class="mb-4">
-                              <label for="pihakLain" class="block text-m my-2 font-medium text-gray-700">Dari Pihak
-                                Lain</label>
+                          <div id="form-sambungan" class="mt-4" style="{{ $pengajuan->sambungan_listrik == 'ada' ? '' : 'display:none;' }}">
+                          <div class="mb-4">
+                              <label for="pihakLain" class="block text-m my-2 font-medium text-gray-700">Dari Pihak Lain</label>
                               <input type="text" id="pihakLain" name="pihak_lain"
-                                class="mt-1 w-full p-2 border rounded dark:bg-slate-700 dark:text-white"
-                                placeholder="Contoh: PT. PLN" data-required>
-                            </div>
-
-                            <div class="mb-4">
-                              <label for="dayaTersambung" class="block text-m my-2 font-medium text-gray-700">Daya Tersambung
-                                (kVA)</label>
-                              <input type="text" id="dayaTersambung" name="daya_tersambung"
-                                class="mt-1 w-full p-2 border rounded dark:bg-slate-700 dark:text-white"
-                                placeholder="Contoh: 50,00"
-                                pattern="^\d+(,\d{1,2})?$"
-                                title="Gunakan angka bulat atau dengan koma maksimal dua angka desimal, misal: 50, 50,5 atau 50,00"
-                                data-required>
-
-                            </div>
+                                  class="mt-1 w-full p-2 border rounded dark:bg-slate-700 dark:text-white"
+                                  placeholder="Contoh: PT. PLN"
+                                  value="{{ $pengajuan->pihak_lain ?? '' }}"
+                                  data-required>
                           </div>
+
+                          <div class="mb-4">
+                              <label for="dayaTersambung" class="block text-m my-2 font-medium text-gray-700">Daya Tersambung (kVA)</label>
+                              <input type="text" id="dayaTersambung" name="daya_tersambung"
+                                  class="mt-1 w-full p-2 border rounded dark:bg-slate-700 dark:text-white"
+                                  placeholder="Contoh: 50,00"
+                                  pattern="^\d+(,\d{1,2})?$"
+                                  title="Gunakan angka bulat atau dengan koma maksimal dua angka desimal, misal: 50, 50,5 atau 50,00"
+                                  value="{{ $pengajuan->daya_tersambung ?? '' }}"
+                                  data-required>
+                          </div>
+                          </div>
+                        </div>
+
+                         <div id="catatan-3"></div>
                         </div>
 
                         <script>
@@ -787,19 +852,20 @@
 
                           function formatKomaOnly(event) {
                             const input = event.target;
-                        
+                            // hanya izinkan angka dan koma
                             let value = input.value.replace(/[^\d,]/g, '');
 
-                         
+                            // jika ada koma, potong hanya 2 digit setelahnya
                             if (value.includes(',')) {
                               const parts = value.split(',');
-                              const decimal = parts[1].slice(0, 2); 
+                              const decimal = parts[1].slice(0, 2); // maksimal 2 angka di belakang koma
                               value = parts[0] + ',' + decimal;
                             }
 
                             input.value = value;
                           }
 
+                          // Daftar ID input yang butuh format angka + koma maksimal 2 angka
                           const inputIds = ["panjangSaluran", "tegangan", "dayaTersambung"];
                           inputIds.forEach(id => {
                             const el = document.getElementById(id);
@@ -808,30 +874,29 @@
                         </script>
                         <!--Lokasi Instalasi Penyedia Tenaga Listrik-->
 
-
-
+                       <div id="4" class="perbaikan-container">
                         <p class="leading-normal text-lg my-2 text-gray-700 dark:text-white uppercase font-bold">
                           Lokasi Instalasi Penyediaan Tenaga Listrik
                         </p>
 
+                      
+
                         <div class="flex flex-wrap -mx-3">
                           <div class="w-full max-w-full px-3 shrink-0 md:w-full md:flex-0">
                             <div id="alamatForm" class=" mb-4">
-                              
-
                               <div class="mb-2">
                                 <label for="keterangan" class="inline-block mb-2 ml-1 font-bold text-m text-slate-700 dark:text-white/80">Nama Jalan</label>
-                                <input type="text" name="keterangan" id="keterangan" class="focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm block w-full rounded-lg border border-gray-300 bg-white px-3 py-2" data-required>
+                              <textarea name="keterangan" rows="2" id="keterangan" class="w-full px-4 py-2 border rounded-lg dark:bg-slate-700 dark:text-white" data-required>{{ $valdat->keterangan }}</textarea>
                               </div>
 
                               <div class="mb-2">
                                 <label for="addressdes" class="inline-block mb-2 ml-1 font-bold text-m text-slate-700 dark:text-white/80">Desa / Kelurahan</label>
-                                <input type="text" name="addressdes" id="addressdes" class="focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm block w-full rounded-lg border border-gray-300 bg-white px-3 py-2" data-required>
+                                <input type="text" name="addressdes" id="addressdes" class="focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm block w-full rounded-lg border border-gray-300 bg-white px-3 py-2" value="{{ $valdat->addressdes }}" data-required>
                               </div>
 
                               <div class="mb-2">
                                 <label for="addresskec" class="inline-block mb-2 ml-1 font-bold text-m text-slate-700 dark:text-white/80">Kecamatan</label>
-                                <input type="text" name="addresskec" id="addresskec" class="focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm block w-full rounded-lg border border-gray-300 bg-white px-3 py-2" data-required>
+                                <input type="text" name="addresskec" id="addresskec" class="focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm block w-full rounded-lg border border-gray-300 bg-white px-3 py-2" value="{{ $valdat->addresskec }}" data-required>
                               </div>
 
                               <div class="mb-2">
@@ -839,24 +904,22 @@
                                   Kabupaten / Kota
                                 </label>
                                 <select name="addresskab" id="addresskab"
-                                  class="focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm block w-full rounded-lg border border-gray-300 bg-white px-3 py-2"
-                                  data-required>
-                                  <option value="" disabled selected>- Pilih Kabupaten/Kota -</option>
-                                  <option value="Batang Hari">Batang Hari</option>
-                                  <option value="Bungo">Bungo</option>
-                                  <option value="Kerinci">Kerinci</option>
-                                  <option value="Merangin">Merangin</option>
-                                  <option value="Muaro Jambi">Muaro Jambi</option>
-                                  <option value="Sarolangun">Sarolangun</option>
-                                  <option value="Tanjung Jabung Barat">Tanjung Jabung Barat</option>
-                                  <option value="Tanjung Jabung Timur">Tanjung Jabung Timur</option>
-                                  <option value="Tebo">Tebo</option>
-                                  <option value="Kota Jambi">Kota Jambi</option>
-                                  <option value="Kota Sungai Penuh">Kota Sungai Penuh</option>
+                                    class="focus:shadow-primary-outline dark:bg-slate-850 dark:text-white text-sm block w-full rounded-lg border border-gray-300 bg-white px-3 py-2"
+                                    data-required>
+                                    <option value="" disabled {{ empty($valdat->addresskab) ? 'selected' : '' }}>- Pilih Kabupaten/Kota -</option>
+                                    <option value="Batang Hari" {{ $valdat->addresskab == 'Batang Hari' ? 'selected' : '' }}>Batang Hari</option>
+                                    <option value="Bungo" {{ $valdat->addresskab == 'Bungo' ? 'selected' : '' }}>Bungo</option>
+                                    <option value="Kerinci" {{ $valdat->addresskab == 'Kerinci' ? 'selected' : '' }}>Kerinci</option>
+                                    <option value="Merangin" {{ $valdat->addresskab == 'Merangin' ? 'selected' : '' }}>Merangin</option>
+                                    <option value="Muaro Jambi" {{ $valdat->addresskab == 'Muaro Jambi' ? 'selected' : '' }}>Muaro Jambi</option>
+                                    <option value="Sarolangun" {{ $valdat->addresskab == 'Sarolangun' ? 'selected' : '' }}>Sarolangun</option>
+                                    <option value="Tanjung Jabung Barat" {{ $valdat->addresskab == 'Tanjung Jabung Barat' ? 'selected' : '' }}>Tanjung Jabung Barat</option>
+                                    <option value="Tanjung Jabung Timur" {{ $valdat->addresskab == 'Tanjung Jabung Timur' ? 'selected' : '' }}>Tanjung Jabung Timur</option>
+                                    <option value="Tebo" {{ $valdat->addresskab == 'Tebo' ? 'selected' : '' }}>Tebo</option>
+                                    <option value="Kota Jambi" {{ $valdat->addresskab == 'Kota Jambi' ? 'selected' : '' }}>Kota Jambi</option>
+                                    <option value="Kota Sungai Penuh" {{ $valdat->addresskab == 'Kota Sungai Penuh' ? 'selected' : '' }}>Kota Sungai Penuh</option>
                                 </select>
                               </div>
-
-
 
                               <div class="mb-2">
                                 <label for="addressprov" class="inline-block mb-2 ml-1 font-bold text-m text-slate-700 dark:text-white/80">
@@ -870,6 +933,8 @@
                             </div>
                           </div>
                         </div>
+
+                        <div id="catatan-4"></div>
 
                         <!-- Toggle Script -->
                         <script>
@@ -885,6 +950,7 @@
                           });
                         </script>
 
+                      </div>
 
                         <p class="leading-normal text-lg text-gray-700 dark:text-white uppercase font-bold">
                           Lampiran Dokumen
@@ -892,10 +958,6 @@
 
                         <div id="alamatForm1" class="mb-1">
                           <div class="mt-3 space-y-4">
-
-
-
-
 
                             <!-- NIB -->
                             <div>
@@ -929,7 +991,7 @@
                             <!-- Gambar Situasi -->
                             <div>
                               <label class="block text-m font-medium text-gray-700 dark:text-white mb-1">Gambar Situasi / Tata Letak</label>
-                              <input type="file" name="gambar_situasi" id="gambar_situasi" onchange="previewGambar(this, 'preview_situasi')"
+                              <input type="file" name="gambar_situasi" id="gambar_situasi" accept=".jpg,.jpeg,.png,.pdf" onchange="previewGambar(this, 'preview_situasi')"
                                 class="block w-full text-sm text-gray-700 border border-gray-300 rounded-lg cursor-pointer bg-white 
                 focus:outline-none dark:bg-slate-700 dark:text-white dark:border-gray-600" class="block" data-required>
                               <img id="preview_situasi" class="mt-2 w-40 hidden border rounded" />
@@ -948,6 +1010,11 @@
 
                           </div>
                         </div>
+                          
+
+                         <div id="1" class="perbaikan-container">
+                              <div id="catatan-1"></div>
+                         </div>
 
                         <!-- Persetujuan -->
                         <div class="mt-4 flex items-start">
@@ -959,6 +1026,8 @@
                           </label>
                         </div>
 
+
+
                         <!-- JavaScript untuk Preview -->
 
 
@@ -967,54 +1036,12 @@
                       </div>
 
                       <div class="w-full flex justify-center my-4 ">
-                        <button type="submit" id="submitkirim" 
+                        <button type="submit" id="submitkirim"
                           class=" bg-blue-400 from-blue-500 to-violet-500 text-white px-6 py-2 rounded-full shadow hover:opacity-90">
                           Kirim
                         </button>
                       </div>
-
-
-
-
                 </form>
-
-
-<script>
-async function handleSubmitForm(event) {
-  event.preventDefault();
-
-  const form = document.querySelector("form");
-  const formData = new FormData(form);
-  const jsonData = {};
-  const fileFields = [
-    'sfoto_unit_1', 'sfoto_modul_1', 'sfoto_inverter_1',
-    'nib', 'ktp', 'npwp', 'gambar_situasi', 'bukti_tagihan'
-  ];
-
-  for (const field of fileFields) {
-    const file = formData.get(field);
-    if (file && file.name) {
-      const uploadedUrl = await uploadFileDummy(file);
-      jsonData[field] = uploadedUrl;
-    }
-  }
-
-  const inputs = form.querySelectorAll("input, select, textarea");
-  inputs.forEach(input => {
-    if (!fileFields.includes(input.name) && input.type !== "file") {
-      if (input.type === "checkbox") {
-        jsonData[input.name] = input.checked;
-      } else {
-        jsonData[input.name] = input.value;
-      }
-    }
-  });
-
-  // Tampilkan di browser
-  document.getElementById("json-preview").textContent = JSON.stringify(jsonData, null, 2);
-}
-
-</script>
 
               </div>
             </div>
@@ -1043,14 +1070,8 @@ async function handleSubmitForm(event) {
       <img id="modalImage" class="max-w-screen-md max-h-screen border-4 border-white rounded shadow-lg" />
     </div>
   </div>
-
-
-
-
-
   <script>
-
-    document.getElementById("suratpengajuan").addEventListener("submit", async function(e) {
+    document.getElementById("suratpengajuan").addEventListener("submit", function(e) {
       e.preventDefault();
 
       const alamatForm1 = document.getElementById("alamatForm1");
@@ -1074,101 +1095,14 @@ async function handleSubmitForm(event) {
       const isValid = validateForm();
 
       if (isValid) {
-       // form.submit();
-  const form = e.target;
-  const formData = new FormData(form);
-  const fileOnlyFormData = new FormData();
-  const jsonData = {};
-  let jenis ='';
-
-  const jenisPembangkit = document.getElementById('pembangkitSelect')?.value;
-  if (jenisPembangkit) {
-    jsonData['jenis_pembangkit'] = jenisPembangkit;
-    jenis =jenisPembangkit;
-  }
-  const url = jenis === "surya" 
-      ? "/pengajuan/surya" 
-      : "/pengajuan/non-surya";
-
-  for (const [key, value] of formData.entries()) {
-    // Jika file kosong (tidak dipilih), skip
-    if (value instanceof File && value.name === '') continue;
-
-    // Jika string kosong, skip
-    if (typeof value === 'string' && value.trim() === '') continue;
-
-    jsonData[key] = value instanceof File ? value.name : value;
-  }
-
-  console.log("Form Data JSON:", JSON.stringify(jsonData, null, 2));
-
-
-
-const response = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-    },
-      credentials: "include",
-    body: JSON.stringify(jsonData)
-  });
-
-  const result = await response.json();
-  
-  if (response.ok) {
-    showFloatingAlert('success', 'Pengajuan berhasil dikirim dengan nomor pengajuan ' + (result.data.nomor_pengajuan || 'terjadi kesalahan'));
-   // console.log("Response dari server:", result);
-
-
-   
-
-  } else {
-
-    showFloatingAlert('warning', "Gagal: " + (result.message || 'Terjadi kesalahan'));
-  }
-
-
-  for (const [key, value] of formData.entries()) {
-    if (value instanceof File && value.name !== '') {
-      fileOnlyFormData.append(key, value);
-    
-    }
-  }
-  
-
-  try {
-    fileOnlyFormData.append('nomor_pengajuan', result.data.nomor_pengajuan);
-     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-    const upload = await fetch('/upload/files', {
-      method: 'POST',
-       headers: {
-      'X-CSRF-TOKEN': csrfToken, // Masukkan CSRF token di sini
-    },
-      body: fileOnlyFormData,
-      credentials: 'include',
-    })
-    
-
-    const resul = await upload.json();
-    console.log('Upload sukses:', resul);
-      setTimeout(() => {
-      location.reload();
-   }, 2000);
-  } catch (err) {
-    console.error('Upload gagal:', err);
-  }
-
-
-
+        form.submit();
       }
     });
 
     function validateForm() {
       const form = document.getElementById("suratpengajuan");
       const checkbox = document.getElementById("persetujuan");
-      const requiredFields = Array.from(form.querySelectorAll("input[data-required], select[data-required], textarea[data-required]"))
+      const requiredFields = Array.from(form.querySelectorAll("input[required], select[required], textarea[required]"))
         .filter(field => field.offsetParent !== null); // hanya ambil yang terlihat
 
       let isValid = true;
@@ -1188,13 +1122,7 @@ const response = await fetch(url, {
           icon: 'warning',
           title: 'Formulir Belum Lengkap',
           text: 'Harap isi semua kolom wajib yang kosong.',
-           confirmButtonText: 'OK',
-          didOpen: () => {
-            const btn = Swal.getConfirmButton();
-            btn.style.backgroundColor = '#f59e0b';
-            btn.style.color = 'white';
-            btn.style.border = 'none';
-  }
+          confirmButtonColor: '#f59e0b'
         });
         return false;
       }
@@ -1203,51 +1131,88 @@ const response = await fetch(url, {
           icon: 'warning',
           title: 'Persetujuan Belum Dicentang',
           text: 'Anda harus menyetujui pernyataan tanggung jawab sebelum melanjutkan.',
-          confirmButtonText: 'OK',
-          didOpen: () => {
-            const btn = Swal.getConfirmButton();
-            btn.style.backgroundColor = '#f59e0b';
-            btn.style.color = 'white';
-            btn.style.border = 'none';
-  }
+          confirmButtonColor: '#f97316'
         });
         checkbox.classList.add("ring", "ring-red-500");
         return false;
-    
       } else {
         checkbox.classList.remove("ring", "ring-red-500");
       }
 
 
       return true;
+
     }
 
-
-    function showFloatingAlert(type, message) {
-   
-    const existingAlert = document.getElementById('ajax-alert');
-    if (existingAlert) {
-        existingAlert.remove();
-    }
-
-    const alertDiv = document.createElement('div');
-    alertDiv.id = 'ajax-alert';
-    alertDiv.className = 'floating-alert ' + type;
-    alertDiv.innerText = message;
-    document.body.appendChild(alertDiv);
-
-    setTimeout(() => {
-        alertDiv.classList.add('slide-out');
-    }, 3000);
-
-    setTimeout(() => {
-        alertDiv.remove();
-    }, 3800);
-}
-
-
-    
   </script>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", async function () {
+    const id_laporan = "{{ $pengajuan->id }}";
+
+    try {
+      const response = await fetch(`/evaluasi-detail/${id_laporan}`);
+      if (!response.ok) throw new Error("Gagal mengambil data");
+
+      const data = await response.json();
+      const perbaikans = data.evaluasi;
+
+      // Dapatkan semua container yang bisa diperbaiki (misalnya elemen dengan class tertentu)
+      document.querySelectorAll('.perbaikan-container').forEach(container => {
+  const containerId = container.id;
+
+  // Cari perbaikan yang cocok dengan id container
+  const perbaikan = perbaikans.find(p => String(p.id_perbaikan) === containerId);
+
+  const isActive = !!perbaikan;
+
+  container.querySelectorAll('input, select, textarea, button').forEach(el => {
+    if (el.id === 'persetujuan') return;
+    if (isActive) {
+      el.removeAttribute('disabled');
+    } else {
+      el.setAttribute('disabled', true);
+    }
+  });
+
+  function getJudulCatatan(id) {
+  if (id === '1') return '*Catatan Perbaikan Administrasi';
+  if (id === '2') return '*Catatan Perbaikan Data Teknis ';
+  if (id === '3') return '*Catatan Perbaikan Distribusi ';
+  
+  return '*Catatan Perbaikan Data Pendukung';
+}
+const catatanTitle = getJudulCatatan(containerId);
+  // Jika aktif dan ada catatan, tampilkan catatan di div khusus
+  const catatanContainer = document.getElementById('catatan-' + containerId);
+  if (catatanContainer) {
+    if (isActive && perbaikan.catatan?.trim()) {
+      catatanContainer.innerHTML = `
+        <div class="my-4">
+          <label class="w-full leading-normal text-red-500 italic text-sm text-gray-700 dark:text-white uppercase font-bold">
+          ${catatanTitle}
+          </label>
+          <label class="border px-4 py-2 border rounded-lg dark:bg-slate-700 dark:text-white leading-normal text-sm italic text-red-500">
+            ${perbaikan.catatan}
+          </label>
+        </div>
+      `;
+    } else {
+      catatanContainer.innerHTML = ''; 
+    }
+  }
+});
+
+
+    } catch (error) {
+      console.error("Gagal memuat data evaluasi:", error);
+      alert("Gagal memuat data evaluasi");
+    }
+  });
+</script>
+
+
 
 
 </body>

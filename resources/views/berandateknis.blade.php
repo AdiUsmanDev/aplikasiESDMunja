@@ -82,14 +82,15 @@
 
     <!-- end Navbar -->
     <!-- Beranda - Semua Aktivitas -->
+    <!-- Beranda - Semua Aktivitas -->
     <div class="w-full px-4 sm:px-6 lg:px-10 py-5 mx-auto">
       <!-- Grid Cards -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-6">
 
         <!-- Card 1 -->
         <div class="bg-white rounded-3xl shadow-xl p-5 flex justify-between items-start">
           <div>
-            <p class="text-m font-semibold uppercase text-gray-600">Surat Permohonan</p>
+            <p class="text-m font-semibold uppercase text-gray-600">Permohonan</p>
             <h5 class="text-xl font-bold text-gray-900 mb-1">100</h5>
             <p class="text-m text-gray-500">Juli 2025</p>
           </div>
@@ -97,7 +98,31 @@
             <i class="ni ni-money-coins text-white text-lg"></i>
           </div>
         </div>
+        
+        <div class="bg-white rounded-3xl shadow-xl p-5 flex justify-between items-start">
+          <div>
+            <p class="text-m font-semibold uppercase text-gray-600">Dievaluasi</p>
+            <h5 class="text-xl font-bold text-gray-900 mb-1">23</h5>
+            <p class="text-m text-gray-500">Juli 2025</p>
+          </div>
+          <div class="w-14 h-14 flex items-center justify-center rounded-full bg-gradient-to-tl from-green-400 to-green-200">
+            <i class="ni ni-time-alarm text-white text-lg"></i>
+          </div>
+        </div>
+      
+                <div class="bg-white rounded-3xl shadow-xl p-5 flex justify-between items-start">
+          <div>
+            <p class="text-m font-semibold uppercase text-gray-600">Diverifikasi</p>
+            <h5 class="text-xl font-bold text-gray-900 mb-1">23</h5>
+            <p class="text-m text-gray-500">Juli 2025</p>
+          </div>
+          <div class="w-14 h-14 flex items-center justify-center rounded-full bg-gradient-to-tl from-orange-400 to-yellow-400">
+          <i class="ni ni-check-bold text-white text-lg"></i>
+          </div>
+        </div>
 
+
+      
         <!-- Card 2 -->
         <div class="bg-white rounded-3xl shadow-xl p-5 flex justify-between items-start">
           <div>
@@ -106,11 +131,12 @@
             <p class="text-m text-gray-500">Juli 2025</p>
           </div>
           <div class="w-14 h-14 flex items-center justify-center rounded-full bg-gradient-to-tl from-red-600 to-orange-600">
-            <i class="ni ni-world text-white text-lg"></i>
+            <i class="ni ni-single-copy-04 text-white text-lg"></i>
+
           </div>
         </div>
 
-        <!-- Card 3 -->
+        <!-- Card 3 
         <div class="bg-white rounded-3xl shadow-xl p-5 flex justify-between items-start">
           <div>
             <p class="text-m font-semibold uppercase text-gray-600">Badan Usaha</p>
@@ -120,30 +146,22 @@
           <div class="w-14 h-14 flex items-center justify-center rounded-full bg-gradient-to-tl from-emerald-500 to-teal-400">
             <i class="ni ni-paper-diploma text-white text-lg"></i>
           </div>
-        </div>
+        </div>-->
 
 
-        <div class="bg-white rounded-3xl shadow-xl p-5 flex justify-between items-start">
-          <div>
-            <p class="text-m font-semibold uppercase text-gray-600">Untuk Dievaluasi</p>
-            <h5 class="text-xl font-bold text-gray-900 mb-1">23</h5>
-            <p class="text-m text-gray-500">Juli 2025</p>
-          </div>
-          <div class="w-14 h-14 flex items-center justify-center rounded-full bg-gradient-to-tl from-orange-400 to-yellow-400">
-            <i class="ni ni-check-bold text-white text-lg"></i>
-          </div>
-        </div>
+
 
       </div>
     </div>
+    
     <div class="w-full px-4 sm:px-6 lg:px-10  mx-auto">
       <!-- Row 2: Grafik Ringkasan dan Daftar Evaluator -->
       <div class="flex flex-wrap mt-6 -mx-3">
         <!-- Ringkasan Jumlah Surat -->
-        <div class="w-full max-w-full px-3 mb-6 lg:w-5/12">
+        <div class="w-full max-w-full px-3 mb-6 lg:w-6/12">
           <div class="flex flex-col h-full bg-white dark:bg-slate-850 shadow-xl dark:shadow-dark-xl rounded-2xl">
             <div class="p-6 pb-0">
-              <h6 class="text-lg font-bold mb-4 text-gray-800 dark:text-white uppercase">Ringkasan Jumlah Surat</h6>
+              <h6 class="text-lg font-bold mb-4 text-gray-800 dark:text-white uppercase">Semua Surat Yang Masuk</h6>
               <p class="text-m dark:text-white dark:opacity-60">2025</p>
             </div>
             <div class="p-4 grow flex items-center">
@@ -152,8 +170,21 @@
           </div>
         </div>
 
+        <!-- Grafik Badan Usaha -->
+        <div class="w-full max-w-full px-3 mb-6 lg:w-6/12">
+          <div class="flex flex-col h-full bg-white dark:bg-slate-850 shadow-xl dark:shadow-dark-xl rounded-2xl">
+            <div class="p-6 pb-0">
+              <h6 class="text-lg font-bold mb-4 text-gray-800 dark:text-white uppercase">Grafik Badan Usaha</h6>
+              <p class="text-m dark:text-white dark:opacity-60">2025</p>
+            </div>
+            <div class="p-4 grow flex items-center">
+              <canvas id="chart-badan-usaha" height="300"></canvas>
+            </div>
+          </div>
+        </div>
+
         <!-- Daftar Evaluator -->
-        <div class="w-full max-w-full px-3 mb-6 lg:w-7/12">
+        <div class="w-full max-w-full px-3 mb-6 "> <!--lg:w-6/12-->
           <div class="flex flex-col h-full bg-white dark:bg-slate-850 shadow-xl dark:shadow-dark-xl rounded-2xl p-6 overflow-x-auto">
             <h6 class="text-lg font-bold mb-4 text-gray-800 dark:text-white uppercase">Daftar Evaluator</h6>
             <table class="min-w-full text-sm text-left border border-gray-200 dark:border-gray-700">
@@ -186,7 +217,6 @@
         </div>
       </div>
     </div>
-
 
 
     <!-- slide 1 

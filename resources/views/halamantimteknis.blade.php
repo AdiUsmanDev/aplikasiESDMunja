@@ -4,8 +4,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="icon" type="image/png" href=" {{ asset('assets/img/logo-esdm.svg') }} " />
-  <title>Daftar Pengajuan</title>
+  <title>Daftar Permohonan</title>
   <!--     Fonts and icons     -->
 
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -60,9 +61,10 @@
   }
 </style>
 
-<body class="m-0 font-sans text-base antialiased font-normal dark:bg-slate-900 leading-default bg-gray-50 text-slate-500">
-    <div class="absolute w-full bg-blue-500 dark:hidden min-h-75"></div>
-    
+<body
+  class="m-0 font-sans text-base antialiased font-normal dark:bg-slate-900 leading-default bg-gray-50 text-slate-500">
+  <div class="absolute w-full bg-blue-500 dark:hidden min-h-75"></div>
+
 
   <main class="relative h-full max-h-screen transition-all duration-200 ease-in-out xl:ml-90 rounded-xl">
     <!-- Navbar -->
@@ -135,8 +137,8 @@
                           class="inline-flex items-center justify-center mr-4 text-sm text-white h-9 w-9 max-w-none rounded-xl" />
                       </div>
                       <div class="flex flex-col justify-center">
-                        <h6 class="mb-1 text-sm font-normal leading-normal dark:text-white"><span
-                            class="font-semibold"> New message</span> from Laur</h6>
+                        <h6 class="mb-1 text-sm font-normal leading-normal dark:text-white"><span class="font-semibold">
+                            New message</span> from Laur</h6>
                         <p class="mb-0 text-xs leading-tight text-slate-400 dark:text-white/80">
                           <i class="mr-1 fa fa-clock"></i>
                           13 minutes ago
@@ -211,726 +213,1015 @@
 
     <!-- end Navbar -->
 
+
     <!-- Card Form Pengajuan Surat -->
     <div class="flex justify-center px-3 mb-6">
       <div class="w-full max-w-full px-3 mb-6 sm:w-full sm:flex-none xl:mb-0 xl:w-full">
-        <div class="relative flex flex-col min-w-0 break-words bg-white shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
-        <div class="flex-auto p-4">
+        <div
+          class="relative flex flex-col min-w-0 break-words bg-white shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
+          <div class="flex-auto p-4">
             <div class="flex flex-col -mx-3">
-            <div class="w-full max-w-full px-3">
-                <h4 class="text-lg font-bold mb-4 text-gray-700 dark:text-white text-center uppercase">Data Teknis</h4>
+              <div class="w-full max-w-full px-3">
+
 
                 <!-- Halaman 1: Data Administrasi -->
                 <div id="page1">
-                <p class="text-lg font-bold uppercase dark:text-white dark:opacity-90 mb-4">DATA ADMINISTRASI</p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                    <label class="block mb-2 text-m font-bold text-slate-700 dark:text-white/80">Nama Badan Usaha / Instansi / Perseorangan</label>
-                    <input type="text" value="Perseroan Terbatas (PT)" readonly class="w-full px-3 py-2 text-sm bg-white-100 border border-gray-300 rounded-lg text-gray-700 focus:outline-none dark:bg-slate-700 dark:text-white">
-                    </div>
-                    <div>
-                    <label class="block mb-2 text-m font-bold text-slate-700 dark:text-white/80">Nama Pengguna</label>
-                    <input type="text" value="Fahrul Uron" readonly class="w-full px-3 py-2 text-sm bg-white-100 border border-gray-300 rounded-lg text-gray-700 focus:outline-none dark:bg-slate-700 dark:text-white">
-                    </div>
-                    <div>
-                    <label class="block mb-2 text-m font-bold text-slate-700 dark:text-white/80">Kode KBLI</label>
-                    <input type="text" value="55311" readonly class="w-full px-3 py-2 text-sm bg-white-100 border border-gray-300 rounded-lg text-gray-700 focus:outline-none dark:bg-slate-700 dark:text-white">
-                    </div>
-                    <div>
-                    <label class="block mb-2 text-m font-bold text-slate-700 dark:text-white/80">Judul KBLI</label>
-                    <input type="text" value="Pertambangan dan Penggalian" readonly class="w-full px-3 py-2 text-sm bg-white-100 border border-gray-300 rounded-lg text-gray-700 focus:outline-none dark:bg-slate-700 dark:text-white">
-                    </div>
-                    <div>
-                    <label class="block mb-2 text-m font-bold text-slate-700 dark:text-white/80">No Tlp. / Hp</label>
-                    <input type="text" value="0812345678" readonly class="w-full px-3 py-2 text-sm bg-white-100 border border-gray-300 rounded-lg text-gray-700 focus:outline-none dark:bg-slate-700 dark:text-white">
-                    </div>
-                    <div>
-                    <label class="block mb-2 text-m font-bold text-slate-700 dark:text-white/80">Email Perusahaan</label>
-                    <input type="text" value="ptabcd@Ggmail.com" readonly class="w-full px-3 py-2 text-sm bg-white-100 border border-gray-300 rounded-lg text-gray-700 focus:outline-none dark:bg-slate-700 dark:text-white">
-                    </div>
-                </div>
-                <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                    <label class="block mb-2 text-m font-bold text-slate-700 dark:text-white/80">Alamat Badan Usaha</label>
-                    <input type="text" value="Jl. Arid Rahman Hakim No.30 A, Simpang IV Sipin, Kec.Telanaipura, Kota Jambi" readonly class="w-full px-3 py-2 text-sm bg-white-100 border border-gray-300 rounded-lg text-gray-700 focus:outline-none dark:bg-slate-700 dark:text-white">
-                    </div>
-                    <div>
-                    <label class="block mb-2 text-m font-bold text-slate-700 dark:text-white/80">NIB</label>
-                    <input type="text" value="1234567890123" readonly class="w-full px-3 py-2 text-sm bg-white-100 border border-gray-300 rounded-lg text-gray-700 focus:outline-none dark:bg-slate-700 dark:text-white">
-                    </div>
-                    <div>
-                    <label class="block mb-2 text-m font-bold text-slate-700 dark:text-white/80">NPWP</label>
-                    <input type="text" value="61.318.029.8-723.000" readonly class="w-full px-3 py-2 text-sm bg-white-100 border border-gray-300 rounded-lg text-gray-700 focus:outline-none dark:bg-slate-700 dark:text-white">
-                    </div>
-                </div>
-                <div class="mt-6 text-right">
-                    <button onclick="nextPage()" type="button" class="inline-block px-5 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition">
-                    Next
-                    </button>
-                </div>
-                </div>
+                  <h2 class="text-center font-bold text-lg bg-gray-100 p-3 rounded-t border-b border-gray-300">DATA
+                    ADMINISTRASI</h2>
+                  <!-- Container 3 Kolom -->
+                  <div
+                    class="grid grid-cols-1 md:grid-cols-3 border border-gray-200 rounded-b shadow-sm overflow-hidden">
 
-        <!-- Halaman 2: Data Teknis -->
-        <div id="page2" class="hidden">
-          <!-- Anda bisa meletakkan isi dari HALAMAN DATA TEKNIS DI SINI sesuai yang sudah Anda sediakan -->
-          <p class="text-lg font-bold uppercase dark:text-white dark:opacity-60 mb-4">DATA TEKNIS</p>
-                  <div class="flex flex-wrap -mx-3">
-                    <div class="w-full max-w-full px-3 shrink-0 md:w-full md:flex-0">
-
-                      <label class="block text-m font-medium text-gray-700 mb-2">
-                        Data Pembangkit Tenaga Listrik
-                      </label>
-                      <p class="w-full border px-4 py-2 rounded mb-4 bg-gray-100">
-                        Pembangkit Listrik Selain Tenaga Surya
-                      </p>
-                      <!-- FORM NON SURYA -->
-                      <div id="form-nonSurya" class="">
-                        <h3 class="font-semibold mb-2"></h3>
-                        <div class="overflow-scroll">
-                          <table id="table-nonSurya"  class="block text-m font-medium text-gray-700 mb-2">
-                            <thead>
-                              <tr id="header-nonSurya">
-                                <th>Spesifikasi</th>
-                                <th>Unit 1</th>
-                                <th>Unit 2</th>
-                              </tr>
-                            </thead>
-
-                            <tbody id="body-nonSurya">
-                              <tr>
-                                <td class="text-middle align-middle">Jenis Penggerak</td>
-                                <td class="text-middle align-middle">
-                                  Turbin Uap
-                                  <input type="hidden" name="jenis_1" value="nonSurya" readonly>
-                                </td>
-                                <td class="text-middle align-middle">
-                                  Mesin Diesel
-                                  <input type="hidden" name="jenis_2" value="nonSurya" readonly>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>Merek</td>
-                                <td class="text-center align-middle">
-                                  Elliott
-                                  <input type="hidden" name="merek_1" value="nonSurya" readonly>
-                                </td>
-                                <td class="text-center align-middle">
-                                  FG WILSON
-                                  <input type="hidden" name="merek_2" value="nonSurya" readonly>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>Tipe</td>
-                                <td class="text-center align-middle">
-                                  DYRUG III
-                                  <input type="hidden" name="tipe_1" value="nonSurya" readonly>
-                                </td>
-                                <td class="text-center align-middle">
-                                  D2840LE201
-                                  <input type="hidden" name="tipe_2" value="nonSurya" readonly>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>Negara Pembuat</td>
-                                <td class="text-center align-middle">
-                                  USA
-                                  <input type="hidden" name="negara_1" value="nonSurya" readonly>
-                                </td>
-                                <td class="text-center align-middle">
-                                  GERMANY
-                                  <input type="hidden" name="negara_2" value="nonSurya" readonly>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>Tahun Pembuatan</td>
-                                <td class="text-center align-middle">
-                                  2010
-                                  <input type="hidden" name="tahun_1" value="nonSurya" readonly>
-                                </td>
-                                <td class="text-center align-middle">
-                                  2009
-                                  <input type="hidden" name="tahun_2" value="nonSurya" readonly>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>Kapasitas (kW)</td>
-                                <td class="text-center align-middle">
-                                  1488
-                                  <input type="hidden" name="kapasitas_1" value="nonSurya" readonly>
-                                </td>
-                                <td class="text-center align-middle">
-                                  496
-                                  <input type="hidden" name="kapasitas_2" value="nonSurya" readonly>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>Energi Primer</td>
-                                <td class="text-center align-middle">
-                                  <input type="hidden" name="primer_1" value="nonSurya" readonly>
-                                </td>
-                                <td class="text-center align-middle">
-                                  <input type="hidden" name="primer_2" value="nonSurya" readonly>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>Titik Kordinat (Latitude)</td>
-                                <td class="text-center align-middle">
-                                  -1.234567
-                                  <input type="hidden" name="titikkoordinat_1" value="nonSurya" readonly>
-                                </td>
-                                <td class="text-center align-middle">
-                                  -1.234567
-                                  <input type="hidden" name="titikkoordinat_2" value="nonSurya" readonly>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>Titik Kordinat (Longitude)</td>
-                                <td class="text-center align-middle">
-                                  103.456789
-                                  <input type="hidden" name="titikkoordinat_1" value="nonSurya" readonly>
-                                </td>
-                                <td class="text-center align-middle">
-                                  103.456789
-                                  <input type="hidden" name="titikkoordinat_2" value="nonSurya" readonly>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>Sifat Penggunaan</td>
-                                <td class="text-center align-middle">
-                                  Darurat
-                                  <input type="hidden" name="sifatpenggunaan_1" value="nonSurya" readonly>
-                                </td>
-                                <td class="text-center align-middle">
-                                  Sementara
-                                  <input type="hidden" name="sifatpenggunaan_2" value="nonSurya" readonly>
-                                </td>
-                              </tr>
-                            </tbody>
-
-                          </table>
+                    <!-- Kolom 1: Data Administrasi -->
+                     
+                    <div class="bg-white rounded shadow p-4 space-y-3">
+                      <h2 class="text-lg text-center font-bold border-b pb-2 mb-2">Profil Badan Usaha</h2>
+                      <div class="text-sm space-y-2">
+                        <div class="flex">
+                          <div class="w-48 font-semibold">Nama Badan Usaha</div>
+                          <div>: {{ $pengajuan->pengguna->identitas->nama_perusahaan ?? 'tidak ada' }}</div>
+                        </div>
+                        <div class="flex">
+                          <div class="w-48 font-semibold">Nama Pengguna</div>
+                          <div>: {{ $pengajuan->pengguna->identitas->nama ?? 'tidak ada' }}</div>
+                        </div>
+                        <div class="flex">
+                          <div class="w-48 font-semibold">Kode KBLI</div>
+                          <div>: {{ $pengajuan->pengguna->identitas->kode_kbli ?? 'tidak ada' }}</div>
+                        </div>
+                        <div class="flex">
+                          <div class="w-48 font-semibold">Judul KBLI</div>
+                          <div>: {{ $pengajuan->pengguna->identitas->judul_kbli ?? 'tidak ada' }}</div>
+                        </div>
+                        <div class="flex">
+                          <div class="w-48 font-semibold">No Tlp / HP</div>
+                          <div>: {{ $pengajuan->pengguna->identitas->nomorhp ?? 'tidak ada' }}</div>
+                        </div>
+                        <div class="flex">
+                          <div class="w-48 font-semibold">Email Perusahaan</div>
+                          <div>: {{ $pengajuan->pengguna->identitas->email_perusahaan ?? 'tidak ada' }}</div>
+                        </div>
+                        <div class="flex">
+                          <div class="w-48 font-semibold">Alamat Badan Usaha</div>
+                          <div>: {{ $pengajuan->pengguna->identitas->alamatusaha ?? 'tidak ada' }}</div>
+                        </div>
+                        <div class="flex">
+                          <div class="w-48 font-semibold">NIB</div>
+                          <div>: {{ $pengajuan->pengguna->identitas->nomor_induk_berusaha ?? 'tidak ada' }}<br></div>
+                        </div>
+                        <div class="flex">
+                          <div class="w-48 font-semibold">NPWP</div>
+                          <div>: {{ $pengajuan->pengguna->identitas->nomor_pokok_wajib_pajak ?? 'tidak ada' }}</div>
                         </div>
                       </div>
-
-                      <!-- Bagian 2: Jaringan Distribusi -->
-                      <div class="mb-4">
-
-                        <!-- Form Tambahan Jaringan Distribusi -->
-
-                        <div id="form-jaringan" class="">
-                          <div class="mb-4">
-                            <label for="panjangSaluran" class="block text-m font-medium text-gray-700">Panjang Saluran (Kms)</label>
-                            <input type="text" id="panjangSaluran" name="panjang_saluran"
-                              class="mt-1 w-full p-2 border rounded dark:bg-slate-700 dark:text-white"
-                              placeholder="13,00"
-                              pattern="^\d+(,\d{1,2})?$"
-                              title="Gunakan angka bulat atau dengan koma maksimal dua angka desimal, misal: 220, 220,5 atau 220,50"
-                              readonly>
-                          </div>
-
-                          <div class="mb-4">
-                            <label for="tegangan" class="block text-m font-medium text-gray-700">Tegangan (Volt)</label>
-                            <input type="text" id="tegangan" name="tegangan"
-                              class="mt-1 w-full p-2 border rounded dark:bg-slate-700 dark:text-white"
-                              placeholder="220,00"
-                              pattern="^\d+(,\d{1,2})?$"
-                              title="Gunakan angka bulat atau dengan koma maksimal dua angka desimal, misal: 220, 220,5 atau 220,50"
-                              readonly>
-                          </div>
-                        </div>
-
-                        <script>
-                          function formatKomaOnly(event) {
-                            let input = event.target.value;
-
-                            // Hapus semua karakter kecuali angka dan koma
-                            input = input.replace(/[^0-9,]/g, '');
-
-                            // Izinkan hanya satu koma
-                            const parts = input.split(',');
-                            if (parts.length > 2) {
-                              input = parts[0] + ',' + parts[1]; // hapus koma tambahan
-                            }
-
-                            // Batasi 2 angka setelah koma jika ada
-                            if (parts.length === 2) {
-                              parts[1] = parts[1].substring(0, 2);
-                              input = parts[0] + ',' + parts[1];
-                            }
-
-                            event.target.value = input;
-                          }
-
-                          document.getElementById("panjangSaluran").addEventListener("input", formatKomaOnly);
-                          document.getElementById("tegangan").addEventListener("input", formatKomaOnly);
-                        </script>
-
-                        <!-- Bagian 3: Sambungan Listrik dari Pihak Lain -->
-                        <div class="mb-4">
-                          
-                          <!-- Form Tambahan Jika "Ada" -->
-                          <div id="form-sambungan" class="">
-                            <div class="mb-4">
-                              <label for="pihakLain" class="block text-m font-medium text-gray-700">Dari Pihak
-                                Lain</label>
-                              <input type="text" id="pihakLain" name="pihak_lain"
-                                class="mt-1 w-full p-2 border rounded dark:bg-slate-700 dark:text-white"
-                                placeholder="PT. PLN" readonly>
-                            </div>
-
-                            <div class="mb-4">
-                              <label for="dayaTersambung" class="block text-m font-medium text-gray-700">Daya Tersambung
-                                (kVA)</label>
-                              <input type="text" id="dayaTersambung" name="daya_tersambung"
-                                class="mt-1 w-full p-2 border rounded dark:bg-slate-700 dark:text-white"
-                                placeholder="50,00"
-                                pattern="^\d+(,\d{1,2})?$"
-                                title="Gunakan angka bulat atau dengan koma maksimal dua angka desimal, misal: 50, 50,5 atau 50,00"
-                                readonly>
-                            </div>
-                          </div>
-                        </div>
-
-                        <script>
-                          function toggleJaringanDistribusi() {
-                            const value = document.getElementById("jaringanDistribusi").value;
-                            const form = document.getElementById("form-jaringan");
-                            form.classList.toggle("hidden", value !== "ada");
-                          }
-
-                          function toggleSambunganForm() {
-                            const value = document.getElementById("sambunganListrik").value;
-                            const form = document.getElementById("form-sambungan");
-                            form.classList.toggle("hidden", value !== "ada");
-                          }
-
-                          function formatKomaOnly(event) {
-                            const input = event.target;
-                            // hanya izinkan angka dan koma
-                            let value = input.value.replace(/[^\d,]/g, '');
-
-                            // jika ada koma, potong hanya 2 digit setelahnya
-                            if (value.includes(',')) {
-                              const parts = value.split(',');
-                              const decimal = parts[1].slice(0, 2); // maksimal 2 angka di belakang koma
-                              value = parts[0] + ',' + decimal;
-                            }
-
-                            input.value = value;
-                          }
-
-                          // Daftar ID input yang butuh format angka + koma maksimal 2 angka
-                          const inputIds = ["panjangSaluran", "tegangan", "dayaTersambung"];
-                          inputIds.forEach(id => {
-                            const el = document.getElementById(id);
-                            if (el) el.addEventListener("input", formatKomaOnly);
-                          });
-                        </script>
-
-
-                        <!--Lokasi Instalasi Penyedia Tenaga Listrik-->
-
-                        <div class="flex flex-wrap -mx-3">
-                          <div class="w-full max-w-full px-3 shrink-0 md:w-full md:flex-0">
-                            <div id="alamatForm" class="mb-4">
-
-                              <div class="mb-4">
-                              <label for="addressjl" class="block text-sm font-medium text-gray-700 mb-1">Nama Jalan</label>
-                              <input type="text" id="addressjl" name="addressjl"
-                                value="JL. Tanah Tumbuh"
-                                class="mt-1 w-full px-3 py-2 border rounded text-sm dark:bg-slate-700 dark:text-white"
-                                readonly>
-                            </div>
-
-
-                            <div class="mb-4">
-                              <label for="addressjl" class="block text-sm font-medium text-gray-700 mb-1">Desa / Kelurahan </label>
-                              <input type="text" id="addressjl" name="addressjl"
-                                value="Sungai Gambir"
-                                class="mt-1 w-full px-3 py-2 border rounded text-sm dark:bg-slate-700 dark:text-white"
-                                readonly>
-                            </div>
-
-
-                            <div class="mb-4">
-                              <label for="addressjl" class="block text-sm font-medium text-gray-700 mb-1">Kecamatan</label>
-                              <input type="text" id="addressjl" name="addressjl"
-                                value="Tanah Sepenggal"
-                                class="mt-1 w-full px-3 py-2 border rounded text-sm dark:bg-slate-700 dark:text-white"
-                                readonly>
-                            </div>
-
-                            <div class="mb-4">
-                              <label for="addressjl" class="block text-sm font-medium text-gray-700 mb-1">Kota / Kabupatan </label>
-                              <input type="text" id="addressjl" name="addressjl"
-                                value="Bungo"
-                                class="mt-1 w-full px-3 py-2 border rounded text-sm dark:bg-slate-700 dark:text-white"
-                                readonly>
-                            </div>
-                            <div class="mb-4">
-                              <label for="addressjl" class="block text-sm font-medium text-gray-700 mb-1">Provinsi</label>
-                              <input type="text" id="addressjl" name="addressjl"
-                                value="Jambi"
-                                class="mt-1 w-full px-3 py-2 border rounded text-sm dark:bg-slate-700 dark:text-white"
-                                readonly>
-                            </div>
-                              <div class="mt-6 flex justify-between">
-                                <button onclick="prevPage()" type="button" class="inline-block px-5 py-2 bg-green-400 text-white font-semibold rounded-lg hover:bg-green-500 transition">
-                                    Kembali
-                                </button>
-                                <button type="button" onclick="nextToPage3()" class="inline-block px-5 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition">
-                                    Berikutnya
-                                </button>
-                            </div>
-                            </div>
-                          </div>
-                        </div>
                     </div>
-                </div>
-                </div>
-            </div>
-            </div>
-            <script>
-                function nextPage() {
-                    // Dari Halaman 1 ke Halaman 2
-                    document.getElementById("page1").classList.add("hidden");
-                    document.getElementById("page2").classList.remove("hidden");
 
-                    // Scroll ke atas halaman
-                    window.scrollTo({ top: 0, behavior: "auto" });
-                }
 
-                function prevPage() {
-                    // Dari Halaman 2 ke Halaman 1
-                    document.getElementById("page2").classList.add("hidden");
-                    document.getElementById("page1").classList.remove("hidden");
+@php
+    function tampilkanLampiran($label, $fileUrl) {
+   
+       $fileroute = route('private.file', ['path' => $fileUrl]);
+    $ext = pathinfo($fileUrl, PATHINFO_EXTENSION);
 
-                    // Scroll ke atas halaman
-                    requestAnimationFrame(() => {
-                        document.getElementById("page1").scrollIntoView({ behavior: "auto", block: "start" });
-                    });
-                }
+    echo '<div class="mb-4">';
+    echo "<p class='text-base font-semibold mb-1'>{$label}</p>";
 
-                function nextToPage3() {
-                    // Dari Halaman 2 ke Halaman 3
-                    document.getElementById("page2").classList.add("hidden");
-                    document.getElementById("page3").classList.remove("hidden");
+    if (in_array(strtolower($ext), ['jpg', 'jpeg', 'png'])) {
+        echo "<img src='{$fileroute}' alt='{$label}' class='w-full max-w-md rounded shadow' />";
+    } elseif (strtolower($ext) === 'pdf') {
+        echo "<div class='w-full h-[300px] rounded overflow-hidden border'>";
+        echo "<iframe src='{$fileroute}' class='w-full h-full border-none'></iframe>";
+        echo "</div>";
+    } else {
+        echo "<p class='text-sm text-red-500'>Format file tidak didukung: {$ext}</p>";
+    }
+    echo '</div>';
+    }
 
-                    window.scrollTo({ top: 0, behavior: "auto" });
-                }
 
-                function backToPage2() {
-                    // Dari Halaman 3 ke Halaman 2
-                    document.getElementById("page3").classList.add("hidden");
-                    document.getElementById("page2").classList.remove("hidden");
 
-                    requestAnimationFrame(() => {
-                        document.getElementById("page2").scrollIntoView({ behavior: "auto", block: "start" });
-                    });
-                }
-            </script>
+     function tampilkanLampiran1($label, $fileUrl, $unitCounter = null)
+{
+    if (!$fileUrl) return; // Tidak tampilkan jika file kosong
 
-                <!-- LAMPIRAN DOKUMEN -->
-                
-                <div id="page3" class="hidden px-6 py-8">
-                  <p class="text-lg font-bold uppercase dark:text-white dark:opacity-60 mb-4">LAPORAN DOKUMEN</p>
-                  <div class="overflow-x-auto">
-                    <table class="min-w-full table-auto border border-gray-300 dark:border-white">
-                      <thead class="bg-gray-100 dark:bg-gray-800">
-                        <tr>
-                          <th class="border px-4 py-2 text-center text-lg font-semibold text-gray-700 dark:text-white">Dokumen Persyaratan</th>
-                        </tr>
-                      </thead>
-                      <tbody class="text-sm text-gray-800 dark:text-white">
+    $fileroute = route('private.file', ['path' => $fileUrl]);
+    $ext = strtolower(pathinfo($fileUrl, PATHINFO_EXTENSION));
 
-                        <!-- Dokumen 1 -->
-                        <tr>
-                          <td class="border px-4 py-2 text-m text-left">
-                            Print Out NIB via OSS RBA (Untuk Badan Usaha)<br>
-                            <img src="../assets/img/NIB.jpg" class="max-h-32 rounded border mt-2" />
-                          </td>
-                        </tr>
+    // Jika label mengandung "unit", tambahkan keterangan unit
+    if (strpos(strtolower($label), 'unit') !== false && $unitCounter !== null) {
+        echo "<p class='text-sm font-bold mb-2'>Unit {$unitCounter} (Gambar)</p>";
+    } else {
+        echo "<p class='text-sm font-semibold mb-1'>{$label}</p>";
+    }
 
-                        <!-- Dokumen 2 -->
-                        <tr>
-                          <td class="border px-4 py-2 text-m text-left">
-                            KTP Penanggung Jawab<br>
-                            <img src="../assets/img/KTP.jpg" class="max-h-32 rounded border mt-2" />
-                          </td>
-                        </tr>
+    // Tampilkan file sesuai ekstensi
+    if (in_array($ext, ['jpg', 'jpeg', 'png'])) {
+        echo "<img src='{$fileroute}' alt='{$label}' class='w-full rounded border mt-2' />";
+    } elseif ($ext === 'pdf') {
+        echo "<div class='w-full h-[300px] rounded overflow-hidden border mt-2'>";
+        echo "<iframe src='{$fileroute}' class='w-full h-full border-none'></iframe>";
+        echo "</div>";
+    } else {
+        echo "<p class='text-sm text-red-500'>Format file tidak didukung: {$ext}</p>";
+    }
+}
 
-                        <!-- Dokumen 3 -->
-                        <tr>
-                          <td class="border px-4 py-2 text-m text-left">
-                            NPWP<br>
-                            <img src="../assets/img/NPWP.jpg" class="max-h-32 rounded border mt-2" />
-                          </td>
-                        </tr>
 
-                        <!-- Dokumen 4 -->
-                        <tr>
-                          <td class="border px-4 py-2 text-m text-left">
-                            Gambar Situasi / Tata Letak<br>
-                            <img src="../assets/img/situasi.png" class="max-h-32 rounded border mt-2" />
-                          </td>
-                        </tr>
 
-                        <!-- Dokumen 5 -->
-                        <tr>
-                          <td class="border px-4 py-2 text-m text-left">
-                            Bukti Pembayaran Tagihan Listrik Bulan Terakhir<br>
-                            <img src="../assets/img/buktitagihan.png" class="max-h-32 rounded border mt-2" />
-                            
-                          </td>
-                        </tr>
+@endphp
 
-                        <!-- Dokumen 6 -->
-                        <tr>
-                          <td class="border px-4 py-2 text-m text-left">
-                            Unit 1<br>
-                            <img src="../assets/img/generator.jpg" class="max-h-32 rounded border mt-2" />
-                            <img src="../assets/img/generator.jpg" class="max-h-32 rounded border mt-2" />
-                            <img src="../assets/img/generator.jpg" class="max-h-32 rounded border mt-2" />
-                          </td>
-                        </tr>
 
-                        <!-- Dokumen 7 -->
-                        <tr>
-                          <td class="border px-4 py-2 text-m text-left">
-                            Unit 2<br>
-                            <img src="../assets/img/mesin.jpg" class="max-h-32 rounded border mt-2" />
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
+                    <!-- Kolom 2: Lampiran -->
+                    <!-- Kolom 2: Lampiran -->
+                    <div class="bg-white rounded shadow p-4 flex flex-col space-y-4">
+                      <h2 class="text-lg text-center font-bold border-b pb-2 mb-2">Lampiran</h2>
+
+                      <!-- Area Scrollable -->
+                      <div class="overflow-y-scroll max-h-[480px] pr-2 rounded-md border border-gray-200">
+                        <div class="p-2 space-y-5">
+                       
+                        
+
+                       @php
+                            $data = is_string($pengajuan->data) ? json_decode($pengajuan->data, true) : $pengajuan->data;
+                           // dd($units);
+                          $jenisPembangkit = strtolower($pengajuan->jenis_pembangkit ?? $data['jenis_pembangkit'] ?? '');
+                        @endphp
+                        @php
+                              $nib = str_replace('\\', '', $data['nib']);
+                               $ktp = str_replace('\\', '', $data['ktp']);
+                                $npwp = str_replace('\\', '', $data['npwp']);
+                                $situasi = str_replace('\\', '', $data['gambar_situasi']);
+                          @endphp
+                           
+                          <!-- Gambar NIB -->
+                         @if (!empty($nib))
+                              @php
+                                  tampilkanLampiran('NIB', $nib);
+                              @endphp
+                          @endif
+
+                          {{-- NPWP --}}
+                          @if (!empty($npwp))
+                              @php
+                                  tampilkanLampiran('NPWP', $npwp);
+                              @endphp
+                          @endif
+
+                          {{-- KTP Penanggung Jawab --}}
+                          @if (!empty($ktp))
+                              @php
+                                  tampilkanLampiran('KTP Penanggung Jawab', $ktp);
+                              @endphp
+                          @endif
+
+
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Kolom 3: Evaluasi -->
+                    <div class="bg-white rounded shadow p-4 space-y-4">
+                      <h2 class="text-lg text-center font-bold border-b pb-2 mb-2">Evaluasi</h2>
+
+                      <label class="text-sm font-semibold">Catatan Perbaikan :</label>
+                      <div class="evaluasi-item" data-id="1">
+                      <textarea id="catatan1" rows="8" class="w-full p-2 border rounded text-sm"
+                        placeholder="Tulis catatan perbaikan..."></textarea>
+
+                      <label class="text-sm font-semibold">Status Permohonan :</label>
+                      <select id="status1"  class="w-full border p-2 rounded text-sm">
+                        <option value="" disabled selected hidden>-- Status --</option>
+                        <option>Disetujui</option>
+                        <option>Ditolak</option>
+                      </select>
+
+                      <div class="pt-2">
+                        <button onclick="simpanDraf(1)"
+                          class="bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded w-full">
+                          Simpan Evaluasi
+                        </button>
+                      </div>
+                      </div>
+                    </div>
                   </div>
-                  
 
-                <!-- Tombol Navigasi -->
-                <div class="w-full flex justify-between mt-6 ">
-                <!-- Tombol Kembali -->
-                <div class="w-full flex justify-end gap-3 mt-6 flex-wrap">
-                <!-- Tombol Kembali -->
-                <button onclick="backToPage2()" type="button" class="px-5 py-2 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transition">
-                    Kembali
-                </button>
 
-                <!-- Tombol Ditolak -->
-                <button onclick="openModal('Nama Dokumen')" type="button" class="px-5 py-2 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 transition">
-                    Ditolak
-                </button>
+                  <!-- Tombol navigasi: Keluar di kiri, Selanjutnya di kanan -->
+                  <div class="mt-6 flex justify-between">
 
-                <!-- Tombol Kirim ke Evaluator -->
-                <button onclick="openEvaluatorModal()" type="button" class="px-5 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition">
-                    Kirim ke Evaluator
-                </button>
+                    <!-- Tombol Keluar -->
+                    <a href="/daftarpengajuanteknis"
+                      class="inline-block px-5 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition">
+                      Keluar
+                    </a>
+
+                    <!-- Tombol Selanjutnya -->
+                    <button onclick="nextPage()" type="button"
+                      class="inline-block px-5 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition">
+                      Selanjutnya
+                    </button>
+                  </div>
                 </div>
-            </div>
 
 
-            <!-- Modal Evaluasi Ditolak  -->
-                <div id="modal-evaluasi" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
-                <div class="bg-white dark:bg-slate-800 rounded-xl p-6 w-full max-w-lg shadow-lg relative">
-                    <h2 id="nama-dokumen" class="text-xl font-bold mb-4 text-gray-800 dark:text-white">Dokumen: </h2>
+                <!-- Halaman 2: Data Teknis -->
+                <div id="page2" class="hidden">
+                  <h2 class="text-center font-bold text-lg bg-gray-100 p-3 rounded-t border-b border-gray-300">DATA
+                    TEKNIS</h2>
 
-                    <!-- Catatan -->
-                    <label for="catatan-evaluasi" class="block text-m text-gray-700 dark:text-gray-300 mb-1">Catatan Kenapa Ditolak:</label>
-                    <textarea id="catatan-evaluasi" class="w-full border rounded p-2 mb-4 dark:bg-gray-700 dark:text-white" rows="4" placeholder="Tulis alasan penolakan..."></textarea>
-
-                    <!-- Status -->
-                    <label for="status-evaluasi" class="block text-m text-gray-700 dark:text-gray-300 mb-2">Status Evaluasi:</label>
-                    <select id="status-evaluasi" class="w-full px-4 py-2 mb-4 border rounded-lg dark:bg-slate-700 dark:text-white">
-                    <option value="Setuju">Setuju</option>
-                    <option value="Perlu Perbaikan" selected>Perlu Perbaikan</option>
-                    </select>
-
-                    <!-- Tombol Aksi -->
-                    <div class="flex justify-end gap-3 mt-4">
-                    <button onclick="closeModal()" class="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400">
-                        Batal
-                    </button>
-                    <button onclick="simpanEvaluasi()" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
-                        Simpan
-                    </button>
+                  <!-- Container 1: FORM NON SURYA | LAMPIRAN | EVALUASI -->
+                  <div
+                    class="grid grid-cols-1 md:grid-cols-3 gap-4 border border-gray-200 rounded shadow-sm overflow-hidden p-4">
+                    <!-- KOLOM 1: FORM SURYA -->
+            @if($jenisPembangkit == 'surya')
+                     <div class="bg-white rounded shadow p-4 space-y-4">
+                      <h2 class="text-lg  text-center font-bold border-b pb-2 mb-2">Pembangkit Listrik Tenaga Surya</h2>
+                      <div class="overflow-x-auto">
+                        <table class="w-full table-auto border text-sm text-left">
+                          <thead class="bg-gray-200">
+                            <tr>
+                              <th class="px-4 py-2 border">Spesifikasi</th>
+                             @foreach ($units as $index => $unit)
+                                <th class="px-4 py-2 border text-center">Unit {{ $index }}</th>
+                              @endforeach
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td class="border px-4 py-2">Merek</td>
+                               @foreach ($units as $unit)
+                  <td class="border px-4 py-2 text-center">{{ $unit['smerek'] ?? 'tidak ada' }}</td>
+                @endforeach
+                            </tr>
+                            <tr>
+                              <td class="border px-4 py-2">Tipe</td>
+                              @foreach ($units as $unit)
+                  <td class="border px-4 py-2 text-center">{{ $unit['stipe'] ?? 'tidak ada' }}</td>
+                @endforeach
+                            </tr>
+                            <tr>
+                              <td class="border px-4 py-2">Negara Pembuat</td>
+                               @foreach ($units as $unit)
+                  <td class="border px-4 py-2 text-center">{{ $unit['snegara'] ?? 'tidak ada' }}</td>
+                @endforeach
+                            </tr>
+                            <tr>
+                              <td class="border px-4 py-2">Tahun Pembuatan</td>
+                               @foreach ($units as $unit)
+                  <td class="border px-4 py-2 text-center">{{ $unit['stahun'] ?? 'tidak ada' }}</td>
+                @endforeach
+                            </tr>
+                            <tr>
+                              <td class="border px-4 py-2">Kapasitas (kilo waatt-peak)</td>
+                               @foreach ($units as $unit)
+                  <td class="border px-4 py-2 text-center">{{ $unit['skapasitas'] ?? 'tidak ada' }}</td>
+                @endforeach
+                            </tr>
+                            <tr>
+                              <td class="border px-4 py-2">Titik Koordinat (Latitude)</td>
+                               @foreach ($units as $unit)
+                  <td class="border px-4 py-2 text-center">{{ $unit['stitikkordinatla'] ?? 'tidak ada' }}</td>
+                @endforeach
+                            </tr>
+                            <tr>
+                              <td class="border px-4 py-2">Titik Koordinat (Longitude)</td>
+                                @foreach ($units as $unit)
+                  <td class="border px-4 py-2 text-center">{{ $unit['stitikkordinatlo'] ?? 'tidak ada' }}</td>
+                @endforeach
+                            </tr>
+                            <tr>
+                              <td class="border px-4 py-2">Sifat Penggunaan</td>
+                               @foreach ($units as $unit)
+                  <td class="border px-4 py-2 text-center">{{ $unit['ssifat'] ?? 'tidak ada' }}</td>
+                @endforeach
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
-                </div>
-                </div>
-                <script>
-                function openModal(docName) {
-                    document.getElementById('modal-evaluasi').classList.remove('hidden');
-                    document.body.classList.add('overflow-hidden');
-                    document.getElementById('nama-dokumen').textContent = `Dokumen: ${docName}`;
-                    document.getElementById('catatan-evaluasi').value = '';
-                    document.getElementById('status-evaluasi').value = 'Perlu Perbaikan';
-                }
 
-                function closeModal() {
-                    document.getElementById('modal-evaluasi').classList.add('hidden');
-                    document.body.classList.remove('overflow-hidden');
-                }
+                    <!-- KOLOM 2: LAMPIRAN -->
+                    <div class="bg-white rounded shadow p-4 space-y-4">
+                      <h2 class="text-lg text-center font-bold border-b pb-2 mb-2">Lampiran</h2>
+                      <div class="space-y-4 overflow-y-auto max-h-[500px] pr-2">
+   @foreach ($units as $index => $unit)
+    <div class="mb-4 border p-3 rounded bg-gray-50">
+        <h3 class="text-lg font-bold mb-2">UNIT {{ $index  }}</h3>
 
-                function simpanEvaluasi() {
-                    const doc = document.getElementById('nama-dokumen').textContent;
-                    const catatan = document.getElementById('catatan-evaluasi').value;
-                    const status = document.getElementById('status-evaluasi').value;
+        {{-- Panggil fungsi untuk menampilkan lampiran --}}
+        {!! tampilkanLampiran1('Foto Unit', $unit['sfoto_unit'] ?? '', $index ) !!}
+        {!! tampilkanLampiran1('Foto Papan Nama Modul PLTS', $unit['sfoto_modul'] ?? '', $index ) !!}
+        {!! tampilkanLampiran1('Foto Papan Nama Inverter PLTS', $unit['sfoto_inverter'] ?? '', $index ) !!}
+    </div>
+@endforeach
+                            
+                      </div>
+                    </div>
 
-                    if (!catatan.trim()) {
-                    alert("Catatan tidak boleh kosong.");
-                    return;
+@else
+  {{-- table nonsurya --}}
+
+                    <div class="bg-white rounded shadow p-4 space-y-4">
+                      <h2 class="text-lg font-bold border-b pb-2 mb-2">Pembangkit Listrik Selain Tenaga Surya</h2>
+                      <div class="overflow-x-auto">
+                        <table class="w-full table-auto border text-sm text-left">
+
+                          <thead class="bg-gray-200">
+                            <tr>
+                              <th class="px-4 py-2 border">Spesifikasi</th>
+                              @foreach ($units as $index => $unit)
+                  <th class="px-4 py-2 border text-center">Unit {{ $index }}</th>
+                @endforeach
+
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td class="border px-4 py-2">Jenis Penggerak</td>
+                              @foreach ($units as $unit)
+                  <td class="border px-4 py-2 text-center">{{ $unit['jenis'] ?? 'tidak ada' }}</td>
+                @endforeach
+                            </tr>
+                            <tr>
+                              <td class="border px-4 py-2">Merek</td>
+                              @foreach ($units as $unit)
+                  <td class="border px-4 py-2 text-center">{{ $unit['merek'] ?? 'tidak ada'}}</td>
+                @endforeach
+                            </tr>
+                            <tr>
+                              <td class="border px-4 py-2">Tipe</td>
+                              @foreach ($units as $unit)
+                  <td class="border px-4 py-2 text-center">{{ $unit['tipe'] ?? 'tidak ada' }}</td>
+                @endforeach
+                            </tr>
+                            <tr>
+                              <td class="border px-4 py-2">Negara Pembuat</td>
+                              @foreach ($units as $unit)
+                  <td class="border px-4 py-2 text-center">{{ $unit['negara'] ?? 'tidak ada' }}</td>
+                @endforeach
+                            </tr>
+                            <tr>
+                              <td class="border px-4 py-2">Tahun Pembuatan</td>
+                              @foreach ($units as $unit)
+                  <td class="border px-4 py-2 text-center">{{ $unit['tahun'] ?? 'tidak ada'}}</td>
+                @endforeach
+                            </tr>
+                            <tr>
+                              <td class="border px-4 py-2">Kapasitas (kW)</td>
+                              @foreach ($units as $unit)
+                  <td class="border px-4 py-2 text-center">{{ $unit['kapasitas'] ?? 'tidak ada'}}</td>
+                @endforeach
+                            </tr>
+                            <tr>
+                              <td class="border px-4 py-2">Energi Primer</td>
+                               <td class="border px-4 py-2 text-center">{{ $unit['primer'] ?? 'tidak ada'}}</td>
+                            </tr>
+                            <tr>
+                              <td class="border px-4 py-2">Titik Koordinat (Latitude)</td>
+                              @foreach ($units as $unit)
+                  <td class="border px-4 py-2 text-center">{{ $unit['titikkordinatla'] ?? 'tidak ada' }}</td>
+                @endforeach
+                            </tr>
+                            <tr>
+                              <td class="border px-4 py-2">Titik Koordinat (Longitude)</td>
+                              @foreach ($units as $unit)
+                  <td class="border px-4 py-2 text-center">{{ $unit['titikkordinatlo'] ?? 'tidak ada' }}</td>
+                @endforeach
+                            </tr>
+                            <tr>
+                              <td class="border px-4 py-2">Sifat Penggunaan</td>
+                              @foreach ($units as $unit)
+                  <td class="border px-4 py-2 text-center">{{ $unit['sifat'] ?? 'tidak ada' }}</td>
+                @endforeach
+                            </tr>
+
+                          </tbody>
+
+                        </table>
+                      </div>
+                    </div>
+
+                    <!-- KOLOM 2: LAMPIRAN -->
+                    <div class="bg-white rounded shadow p-4 space-y-4">
+                      <h2 class="text-lg text-center font-bold border-b pb-2 mb-2">Lampiran</h2>
+                      <div class="space-y-4 overflow-y-auto max-h-[500px] pr-2">
+                        @foreach ($units as $index => $unit)
+    <div class="mb-4 border p-3 rounded bg-gray-50">
+        <h3 class="text-lg font-bold mb-2">UNIT {{ $index  }}</h3>
+
+        {{-- Panggil fungsi untuk menampilkan lampiran --}}
+        {!! tampilkanLampiran1('Foto Unit', $unit['foto_unit'] ?? '', $index ) !!}
+        {!! tampilkanLampiran1('Nameplate Mesin Penggerak', $unit['foto_mesin'] ?? '', $index ) !!}
+        {!! tampilkanLampiran1('Nameplate Generator', $unit['foto_generator'] ?? '', $index ) !!}
+    </div>
+@endforeach
+                        
+                       
+                      </div>
+                    </div>
+@endif
+                    <!-- KOLOM 3: EVALUASI -->
+                    <div class="bg-white rounded shadow p-4 space-y-4">
+                      <h2 class="text-lg text-center font-bold border-b pb-2 mb-2">Evaluasi</h2>
+                      <label class="text-sm font-semibold">Catatan Perbaikan :</label>
+                      <div class="evaluasi-item" data-id="2">
+                      <textarea id="catatan2" rows="8" class="w-full p-2 border rounded text-sm"
+                        placeholder="Tulis catatan perbaikan..."></textarea>
+                      <label class="text-sm font-semibold">Status Permohonan :</label>
+                      <select id="status2"  class="w-full border p-2 rounded text-sm">
+                        <option value="" disabled selected hidden>-- Status --</option>
+                        <option>Disetujui</option>
+                        <option>Ditolak</option>
+                      </select>
+                      <div class="pt-2">
+                        <button onclick="simpanDraf(2)"
+                          class="bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded w-full">Simpan
+                          Evaluasi</button>
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+
+                  <!-- Container 2: LOKASI DAN DATA TAMBAHAN | LAMPIRAN | EVALUASI -->
+                  <div
+                    class="grid grid-cols-1 md:grid-cols-3 gap-4 border border-gray-200 rounded shadow-sm overflow-hidden p-4">
+                    <!-- KOLOM 1: Lokasi dan Data Tambahan -->
+                    <div class="bg-white rounded shadow p-4 space-y-4">
+                      <h2 class="text-lg text-center font-bold border-b pb-2 mb-2">Jaringan Distribusi & Sambungan
+                        Listrik</h2>
+                      <div class="grid grid-cols-2 text-sm border border-gray-200 rounded overflow-hidden">
+                        <div class="p-3 font-semibold border-b">Panjang Saluran (Kms)</div>
+                        <div class="p-3 border-b">: {{  $data['panjang_saluran'] ?? 'tidak ada'}} </div>
+                        <div class="p-3 font-semibold border-b">Tegangan (Volt)</div>
+                        <div class="p-3 border-b">: {{  $data['tegangan'] ?? 'tidak ada'}}</div>
+                        <div class="p-3 font-semibold border-b">Dari Pihak Lain</div>
+                        <div class="p-3 border-b">: {{  $data['pihak_lain'] ?? 'tidak ada'}}</div>
+                        <div class="p-3 font-semibold border-b">Daya Tersambung (kVA)</div>
+                        <div class="p-3 border-b">: {{  $data['daya_tersambung'] ?? 'tidak ada'}}</div>
+                      </div>
+                    </div>
+
+                    <!-- KOLOM 2: LAMPIRAN -->
+                    <div class="bg-white rounded shadow p-4 space-y-4">
+                      <h2 class="text-lg text-center font-bold border-b pb-2 mb-2">Lampiran</h2>
+
+                      <div class="space-y-4 overflow-y-auto max-h-[500px] pr-2">
+                        <div>
+                          <p class="text-sm font-semibold mb-1">Bukti Tagihan Listrik (Gambar)</p><img
+                            src="../assets/img/tagihan.jpg" class="w-full rounded border mt-2" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- KOLOM 3: Evaluasi (copy) -->
+                    <div class="bg-white rounded shadow p-4 space-y-4">
+                      <h2 class="text-lg text-center font-bold border-b pb-2 mb-2">Evaluasi</h2>
+                      <label class="text-sm font-semibold">Catatan Perbaikan :</label>
+                      <div class="evaluasi-item" data-id="3">
+                      <textarea id="catatan3" rows="8" class="w-full p-2 border rounded text-sm"
+                        placeholder="Tulis catatan perbaikan..."></textarea>
+                      <label class="text-sm font-semibold">Status Permohonan :</label>
+                      <select id="status3" class="w-full border p-2 rounded text-sm">
+                        <option  value="" disabled selected hidden>-- Status --</option>
+                        <option>Disetujui</option>
+                        <option>Ditolak</option>
+                      </select>
+                      <div class="pt-2">
+                        <button onclick="simpanDraf(3)"
+                          class="bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded w-full">Simpan
+                          Evaluasi</button>
+                      </div>
+</div>
+                    </div>
+                  </div>
+
+                  <!-- Container 3: LOKASI DAN DATA TAMBAHAN | LAMPIRAN | EVALUASI -->
+                  <div
+                    class="grid grid-cols-1 md:grid-cols-3 gap-4 border border-gray-200 rounded shadow-sm overflow-hidden p-4">
+                    <!-- KOLOM 1: Lokasi dan Data Tambahan -->
+                    <div class="bg-white rounded shadow p-4 space-y-4">
+                      <h2 class="text-lg text-center font-bold border-b pb-2 mb-2">Lokasi Instalasi</h2>
+                      <div class="grid grid-cols-2 text-sm border border-gray-200 rounded overflow-hidden">
+                        <div class="p-3 font-semibold border-b">Nama Jalan</div>
+                        <div class="p-3 border-b">: {{  $data['keterangan'] ?? 'tidak ada'}}</div>
+                        <div class="p-3 font-semibold border-b">Desa / Kelurahan</div>
+                        <div class="p-3 border-b">: {{  $data['addressdes'] ?? 'tidak ada'}}</div>
+                        <div class="p-3 font-semibold border-b">Kecamatan</div>
+                        <div class="p-3 border-b">: {{  $data['addresskec'] ?? 'tidak ada'}}</div>
+                        <div class="p-3 font-semibold border-b">Kota / Kabupaten</div>
+                        <div class="p-3 border-b">: {{  $data['addresskab'] ?? 'tidak ada'}}</div>
+                        <div class="p-3 font-semibold">Provinsi</div>
+                        <div class="p-3">: {{  $data['addressprov'] ?? 'tidak ada'}}</div>
+                      </div>
+                    </div>
+
+                    <!-- KOLOM 2: LAMPIRAN -->
+                    <div class="bg-white rounded shadow p-4 space-y-4">
+                      <h2 class="text-lg text-center font-bold border-b pb-2 mb-2">Lampiran</h2>
+                      <div class="space-y-4 overflow-y-auto max-h-[500px] pr-2">
+                        <div>
+                          @php
+                            tampilkanLampiran('Situasi / Tata letak', $situasi);
+                              @endphp
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- KOLOM 3: Evaluasi (copy) -->
+                    <div class="bg-white rounded shadow p-4 space-y-4">
+                      <h2 class="text-lg text-center font-bold border-b pb-2 mb-2">Evaluasi</h2>
+                      <label class="text-sm font-semibold">Catatan Perbaikan :</label>
+                       <div class="evaluasi-item" data-id="4">
+                      <textarea id="catatan4" rows="8" class="w-full p-2 border rounded text-sm"
+                        placeholder="Tulis catatan perbaikan..."></textarea>
+                      <label class="text-sm font-semibold">Status Permohonan :</label>
+                      <select id="status4" class="w-full border p-2 rounded text-sm">
+                        <option value="" disabled selected hidden>-- Status --</option>
+                        <option>Disetujui</option>
+                        <option>Ditolak</option>
+                      </select>
+                      <div class="pt-2">
+                        <button onclick="simpanDraf(4)"
+                          class="bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded w-full">Simpan
+                          Evaluasi</button>
+                      </div>
+                    </div>
+                    </div>
+
+                  </div>
+                  <div class="w-full flex justify-between mt-6">
+                    <button onclick="prevPage()"
+                      class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition">
+                      Kembali
+                    </button>
+
+
+                    <!-- Tombol Aksi di kanan -->
+
+                    <!-- Tombol Kirim Hasil Evaluasi -->
+                    <div class="relative inline-block">
+                      <button onclick="toggleDropdown()"
+                        class="px-5 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition">
+                        Kirim Hasil
+                      </button>
+                    </div>
+                    <script>
+                      function showPage(hideId, showId) {
+                        const hidePage = document.getElementById(hideId);
+                        const showPage = document.getElementById(showId);
+
+                        if (!hidePage) {
+                          console.error("Element not found to hide:", hideId);
+                          return;
+                        }
+                        if (!showPage) {
+                          console.error("Element not found to show:", showId);
+                          return;
+                        }
+
+                        hidePage.classList.add("hidden");
+                        showPage.classList.remove("hidden");
+
+                        // Scroll ke atas halaman baru
+                        requestAnimationFrame(() => {
+                          showPage.scrollIntoView({
+                            behavior: "auto",
+                            block: "start"
+                          });
+                        });
+                      }
+
+                      function nextPage() {
+                        showPage("page1", "page2");
+                      }
+
+                      function prevPage() {
+                        showPage("page2", "page1");
+                      }
+                    </script>
+
+                    <script>
+                      function openModal(docName) {
+                        document.getElementById('modal-evaluasi').classList.remove('hidden');
+                        document.body.classList.add('overflow-hidden');
+                        document.getElementById('nama-dokumen').textContent = Dokumen: $ {
+                          docName
+                        };
+                        document.getElementById('catatan-evaluasi').value = '';
+                        document.getElementById('status-evaluasi').value = 'Setuju';
+                      }
+
+                      function closeModal() {
+                        document.getElementById('modal-evaluasi').classList.add('hidden');
+                        document.body.classList.remove('overflow-hidden');
+                      }
+
+
+                      function simpanEvaluasi() {
+                        const doc = document.getElementById('nama-dokumen').textContent;
+                        const catatan = document.getElementById('catatan-evaluasi').value;
+                        const status = document.getElementById('status-evaluasi').value;
+                        console.log(Evaluasi disimpan untuk $ {
+                          doc
+                        }: $ {
+                          status
+                        }, Catatan: $ {
+                          catatan
+                        });
+                        closeModal();
+                      }
+                    </script>
+
+                    <!-- Dropdown -->
+                    <div id="dropdown-aksi"
+                      class="absolute right-0 mt-2 w-64 bg-white dark:bg-slate-800 rounded-lg shadow-lg hidden z-50 p-4 space-y-4">
+                      <button onclick="closeDropdown()"
+                        class="absolute top-2 right-2 text-gray-600 hover:text-gray-900 dark:hover:text-white font-bold text-xl leading-none">
+                        &times;
+                      </button>
+                      <!-- Kirim Langsung -->
+                      <button onclick="kirimLangsung()"
+                        class="w-full text-left px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition">
+                        Kirim Validator
+                      </button>
+
+
+                      <button onclick="openEvaluatorModal()" type="button"
+                        class="w-full text-left px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 transition">
+                        Kirim Evaluator
+                      </button>
+                      <!-- Perbaiki -->
+                      <button onclick="openModal('Nama Dokumen')"
+                        class="w-full text-left px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition">
+                        Perbaiki
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Modal Perbaikan -->
+                  <div id="modal-evaluasi"
+                    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+                    <div class="bg-white dark:bg-slate-800 rounded-xl p-6 w-full max-w-md shadow-lg relative">
+                      <h2 class="text-xl font-bold mb-4 text-gray-800 dark:text-white">
+                        Catatan Perbaikan
+                      </h2>
+                      <textarea id="catatan-evaluasi" class="w-full p-2 border rounded mb-4" rows="4"
+                        placeholder="Tulis catatan perbaikan..."></textarea>
+
+                      <div class="flex justify-end gap-2">
+                        <button onclick="closeModal()"
+                          class="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400">
+                          Batal
+                        </button>
+                        <button onclick="simpanEvaluasi()"
+                          class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                          Kirim Perbaikan
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <script>
+                    const dropdown = document.getElementById('dropdown-aksi');
+                    const dropdownContainer = document.getElementById('dropdown-container');
+
+                    function toggleDropdown() {
+                      dropdown.classList.toggle('hidden');
+                    }
+                    function closeDropdown() {
+                      dropdown.classList.add('hidden');
                     }
 
-                    console.log(`Evaluasi disimpan untuk ${doc}: ${status}, Catatan: ${catatan}`);
-                    closeModal();
-                }
-                </script>
+                    // Tutup dropdown jika klik di luar dropdown dan tombol
+                    window.addEventListener('click', function (event) {
+                      if (!dropdownContainer.contains(event.target)) {
+                        dropdown.classList.add('hidden');
+                      }
+                    });
 
-                <!-- Modal Pilih Evaluator -->
-                <div id="modal-evaluator" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
-                <div class="bg-white dark:bg-slate-800 rounded-xl p-6 w-full max-w-2xl shadow-lg relative max-h-[90vh] overflow-y-auto">
-                    <h2 class="text-xl font-bold mb-4 text-gray-800 dark:text-white">Pilih Evaluator</h2>
-
-                    <div class="space-y-4">
-                    <!-- Contoh Card Evaluator -->
-                    <label class="flex items-center gap-4 border p-3 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-slate-700">
-                        <input type="radio" name="evaluator" value="evaluator1" class="hidden peer" />
-                        <img src="https://img.freepik.com/vektor-premium/ilustrasi-datar-vektor-dalam-skala-abu-abu-ikon-orang-profil-pengguna-avatar-gambar-profil-siluet-netral-gender-cocok-untuk-ikon-profil-media-sosial-screensaver-dan-sebagai-templatx9xa_719432-1096.jpg" alt="Foto Evaluator" class="w-12 h-12 rounded-full object-cover" />
-                        <div>
-                        <p class="font-semibold text-gray-800 dark:text-white">Ahmad Yusuf</p>
-                        <p class="text-sm text-gray-500 dark:text-gray-300">NIP: 1987654321</p>
-                        </div>
-                        <div class="ml-auto peer-checked:block hidden text-blue-500 font-bold">✓</div>
-                    </label>
-
-                    <!-- Tambahkan lebih banyak evaluator -->
-                    <label class="flex items-center gap-4 border p-3 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-slate-700">
-                        <input type="radio" name="evaluator" value="evaluator2" class="hidden peer" />
-                        <img src="https://img.freepik.com/vektor-premium/ilustrasi-datar-vektor-dalam-skala-abu-abu-ikon-orang-profil-pengguna-avatar-gambar-profil-siluet-netral-gender-cocok-untuk-ikon-profil-media-sosial-screensaver-dan-sebagai-templatx9xa_719432-1096.jpg" alt="Foto Evaluator" class="w-12 h-12 rounded-full object-cover" />
-                        <div>
-                        <p class="font-semibold text-gray-800 dark:text-white">Siti Rahmawati</p>
-                        <p class="text-sm text-gray-500 dark:text-gray-300">NIP: 1990123456</p>
-                        </div>
-                        <div class="ml-auto peer-checked:block hidden text-blue-500 font-bold">✓</div>
-                    </label>
-                    </div>
-
-                    <!-- Tambahkan lebih banyak evaluator -->
-                    <label class="flex items-center gap-4 border p-3 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-slate-700">
-                        <input type="radio" name="evaluator" value="evaluator2" class="hidden peer" />
-                        <img src="https://img.freepik.com/vektor-premium/ilustrasi-datar-vektor-dalam-skala-abu-abu-ikon-orang-profil-pengguna-avatar-gambar-profil-siluet-netral-gender-cocok-untuk-ikon-profil-media-sosial-screensaver-dan-sebagai-templatx9xa_719432-1096.jpg" alt="Foto Evaluator" class="w-12 h-12 rounded-full object-cover" />
-                        <div>
-                        <p class="font-semibold text-gray-800 dark:text-white">Rizki Monika</p>
-                        <p class="text-sm text-gray-500 dark:text-gray-300">NIP: 19901234587</p>
-                        </div>
-                        <div class="ml-auto peer-checked:block hidden text-blue-500 font-bold">✓</div>
-                    </label>
-                    </div>
-
-                    <!-- Tombol Aksi -->
-                    <div class="mt-6 space-y-3">
-                    <button onclick="kirimKeEvaluator()" class="w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-                        Kirim
-                    </button>
-                    <button onclick="closeEvaluatorModal()" class="w-full px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400">
-                        Batal
-                    </button>
-                    </div>
-
-                </div>
-                </div>
-                <script>
-                function openEvaluatorModal() {
-                    document.getElementById('modal-evaluator').classList.remove('hidden');
-                    document.body.classList.add('overflow-hidden');
-                }
-
-                function closeEvaluatorModal() {
-                    document.getElementById('modal-evaluator').classList.add('hidden');
-                    document.body.classList.remove('overflow-hidden');
-                }
-
-                function kirimKeEvaluator() {
-                    const selected = document.querySelector('input[name="evaluator"]:checked');
-                    if (!selected) {
-                    alert("Pilih salah satu evaluator terlebih dahulu.");
-                    return;
+                    function kirimLangsung() {
+                      window.location.href = "/daftarpengajuanevaluator";
                     }
 
-                    const evaluatorID = selected.value;
-                    console.log("Evaluator yang dipilih:", evaluatorID);
+                    function openModal() {
+                      closeDropdown();
+                      document.getElementById('modal-evaluasi').classList.remove('hidden');
+                      document.body.classList.add('overflow-hidden');
+                      document.getElementById('catatan-evaluasi').value = '';
+                    }
 
-                    // Tambahkan AJAX / pengiriman data ke server di sini jika perlu
+                    function closeModal() {
+                      document.getElementById('modal-evaluasi').classList.add('hidden');
+                      document.body.classList.remove('overflow-hidden');
+                    }
 
-                    closeEvaluatorModal();
-                    alert("Dokumen berhasil dikirim ke evaluator.");
-                }
-                </script>
+                   async function simpanEvaluasi() {
+                      const catatan = document.getElementById('catatan-evaluasi').value.trim();
 
+                      if (!catatan) {
+                        alert("Catatan perbaikan wajib diisi.");
+                        return;
+                      }
 
+                   
+                      const items = document.querySelectorAll('.evaluasi-item');
+                      const hasilEvaluasi = [];
+                      let idPengajuan = {{ $pengajuan->id }};
+                        const catatanval = document.getElementById('catatan-evaluasi').value;
 
-      <!--<script>
-        function showPage(hideId, showId) {
-          const hidePage = document.getElementById(hideId);
-          const showPage = document.getElementById(showId);
+                      items.forEach(item => {
+                        const id = item.dataset.id;
+                        const catatan = document.getElementById(`catatan${id}`).value;
+                        const status = document.getElementById(`status${id}`).value;
+                        
+                      
 
-          if (!hidePage) {
-            console.error("Element not found to hide:", hideId);
-            return;
-          }
-          if (!showPage) {
-            console.error("Element not found to show:", showId);
-            return;
-          }
-
-          hidePage.classList.add("hidden");
-          showPage.classList.remove("hidden");
-
-          // Scroll ke atas halaman baru
-          requestAnimationFrame(() => {
-            showPage.scrollIntoView({ behavior: "auto", block: "start" });
-          });
-        }
-
-        function nextPage() {
-          showPage("page1", "page2");
-        }
-
-        function prevPage() {
-          showPage("page2", "page1");
-        }
-
-        function nextToPage3() {
-          showPage("page2", "page3");
-        }
-
-        function backToPage2() {
-          showPage("page3", "page2");
-        }
-      </script>
-
-      <script>
-        function openModal(docName) {
-          document.getElementById('modal-evaluasi').classList.remove('hidden');
-          document.body.classList.add('overflow-hidden');
-          document.getElementById('nama-dokumen').textContent = `Dokumen: ${docName}`;
-          document.getElementById('catatan-evaluasi').value = '';
-          document.getElementById('status-evaluasi').value = 'Setuju';
-        }
-
-        function closeModal() {
-          document.getElementById('modal-evaluasi').classList.add('hidden');
-          document.body.classList.remove('overflow-hidden');
-        }
+                        if (status === 'Ditolak') {
+                          hasilEvaluasi.push({
+                            id_perbaikan: id,
+                            catatan: catatan,
+                            status: status
+                          });
+                        }
+                      });
 
 
-        function simpanEvaluasi() {
-          const doc = document.getElementById('nama-dokumen').textContent;
-          const catatan = document.getElementById('catatan-evaluasi').value;
-          const status = document.getElementById('status-evaluasi').value;
-          console.log(`Evaluasi disimpan untuk ${doc}: ${status}, Catatan: ${catatan}`);
-          closeModal();
-        }
-      </script>
+                      const dataKirim = {
+                           id_pengajuan: idPengajuan,
+                            evaluasi: hasilEvaluasi,
+                            catatan: catatanval
+                        };
+
+                      if (hasilEvaluasi.length === 0) {
+                        alert("Tidak ada evaluasi yang perlu perbaikan.");
+                        return;
+                      }
+
+                      console.log('Hasil evaluasi sekarang:', dataKirim);
+
+                      try {
+                        const response = await fetch('/evaluasi/simpan', {
+                          method: 'POST',
+                          headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                          },
+                          credentials: 'include',
+                          body: JSON.stringify(dataKirim)
+                        });
+
+                        if (!response.ok) {
+                          throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+
+                        const data = await response.json();
+                        alert("Evaluasi berhasil dikirim!");
+                        console.log(data);
+
+                      } catch (error) {
+                        console.error('Gagal:', error);
+                        alert("Terjadi kesalahan saat mengirim evaluasi.");
+                      }
+
+                    
+
+                    /*  closeModal();
+                      window.location.href = "/halaman-perbaikan";
+                     */
+                      
+                    }
+
+                    function openEvaluatorModal() {
+                      closeDropdown();
+                      document.getElementById('modal-evaluator').classList.remove('hidden');
+                      document.body.classList.add('overflow-hidden');
+                    }
+
+                    function closeEvaluatorModal() {
+                      document.getElementById('modal-evaluator').classList.add('hidden');
+                      document.body.classList.remove('overflow-hidden');
+                    }
+                  </script>
+
+
+
+
+                  <!-- Modal Pilih Evaluator -->
+                  <div id="modal-evaluator"
+                    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+                    <div
+                      class="bg-white dark:bg-slate-800 rounded-xl p-6 w-full max-w-2xl shadow-lg relative max-h-[90vh] flex flex-col">
+
+                      <h2 class="text-xl font-bold mb-4 text-gray-800 dark:text-white">Pilih Evaluator</h2>
+
+                      <!-- Scrollable Evaluator List -->
+                      <div class="space-y-4 overflow-y-auto pr-2" style="max-height: 60vh;">
+                        <!-- Evaluator 1 -->
+                        <label
+                          class="flex items-center gap-4 border p-3 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-slate-700 transition-all">
+                          <input type="radio" name="evaluator" value="evaluator1" class="hidden peer" />
+                          <img
+                            src="https://img.freepik.com/vektor-premium/ilustrasi-datar-vektor-dalam-skala-abu-abu-ikon-orang-profil-pengguna-avatar-gambar-profil-siluet-netral-gender-cocok-untuk-ikon-profil-media-sosial-screensaver-dan-sebagai-templatx9xa_719432-1096.jpg"
+                            alt="Foto Evaluator" class="w-12 h-12 rounded-full object-cover" />
+                          <div>
+                            <p class="font-semibold text-gray-800 dark:text-white">Ahmad Yusuf</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-300">NIP: 1987654321</p>
+                          </div>
+                          <div
+                            class="ml-auto hidden peer-checked:flex items-center justify-center w-6 h-6 rounded-full bg-blue-500 text-white font-bold transition-all duration-200">
+                            ✓
+                          </div>
+                        </label>
+
+                        <!-- Evaluator 2 -->
+                        <label
+                          class="flex items-center gap-4 border p-3 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-slate-700 transition-all">
+                          <input type="radio" name="evaluator" value="evaluator2" class="hidden peer" />
+                          <img
+                            src="https://img.freepik.com/vektor-premium/ilustrasi-datar-vektor-dalam-skala-abu-abu-ikon-orang-profil-pengguna-avatar-gambar-profil-siluet-netral-gender-cocok-untuk-ikon-profil-media-sosial-screensaver-dan-sebagai-templatx9xa_719432-1096.jpg"
+                            alt="Foto Evaluator" class="w-12 h-12 rounded-full object-cover" />
+                          <div>
+                            <p class="font-semibold text-gray-800 dark:text-white">Siti Rahmawati</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-300">NIP: 1990123456</p>
+                          </div>
+                          <div
+                            class="ml-auto hidden peer-checked:flex items-center justify-center w-6 h-6 rounded-full bg-blue-500 text-white font-bold transition-all duration-200">
+                            ✓
+                          </div>
+                        </label>
+
+                        <!-- Evaluator 3 -->
+                        <label
+                          class="flex items-center gap-4 border p-3 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-slate-700 transition-all">
+                          <input type="radio" name="evaluator" value="evaluator3" class="hidden peer" />
+                          <img
+                            src="https://img.freepik.com/vektor-premium/ilustrasi-datar-vektor-dalam-skala-abu-abu-ikon-orang-profil-pengguna-avatar-gambar-profil-siluet-netral-gender-cocok-untuk-ikon-profil-media-sosial-screensaver-dan-sebagai-templatx9xa_719432-1096.jpg"
+                            alt="Foto Evaluator" class="w-12 h-12 rounded-full object-cover" />
+                          <div>
+                            <p class="font-semibold text-gray-800 dark:text-white">Rizki Monika</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-300">NIP: 19901234587</p>
+                          </div>
+                          <div
+                            class="ml-auto hidden peer-checked:flex items-center justify-center w-6 h-6 rounded-full bg-blue-500 text-white font-bold transition-all duration-200">
+                            ✓
+                          </div>
+                        </label>
+
+                        <!-- Tambahkan evaluator baru sebanyak yang kamu mau disini -->
+                        <!-- Contoh evaluator tambahan -->
+                        <label
+                          class="flex items-center gap-4 border p-3 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-slate-700 transition-all">
+                          <input type="radio" name="evaluator" value="evaluator4" class="hidden peer" />
+                          <img
+                            src="https://img.freepik.com/vektor-premium/ilustrasi-datar-vektor-dalam-skala-abu-abu-ikon-orang-profil-pengguna-avatar-gambar-profil-siluet-netral-gender-cocok-untuk-ikon-profil-media-sosial-screensaver-dan-sebagai-templatx9xa_719432-1096.jpg"
+                            alt="Foto Evaluator" class="w-12 h-12 rounded-full object-cover" />
+                          <div>
+                            <p class="font-semibold text-gray-800 dark:text-white">Budi Santoso</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-300">NIP: 1990112233</p>
+                          </div>
+                          <div
+                            class="ml-auto hidden peer-checked:flex items-center justify-center w-6 h-6 rounded-full bg-blue-500 text-white font-bold transition-all duration-200">
+                            ✓
+                          </div>
+                        </label>
+
+                        <label
+                          class="flex items-center gap-4 border p-3 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-slate-700 transition-all">
+                          <input type="radio" name="evaluator" value="evaluator4" class="hidden peer" />
+                          <img
+                            src="https://img.freepik.com/vektor-premium/ilustrasi-datar-vektor-dalam-skala-abu-abu-ikon-orang-profil-pengguna-avatar-gambar-profil-siluet-netral-gender-cocok-untuk-ikon-profil-media-sosial-screensaver-dan-sebagai-templatx9xa_719432-1096.jpg"
+                            alt="Foto Evaluator" class="w-12 h-12 rounded-full object-cover" />
+                          <div>
+                            <p class="font-semibold text-gray-800 dark:text-white">Budi Santoso</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-300">NIP: 1990112233</p>
+                          </div>
+                          <div
+                            class="ml-auto hidden peer-checked:flex items-center justify-center w-6 h-6 rounded-full bg-blue-500 text-white font-bold transition-all duration-200">
+                            ✓
+                          </div>
+                        </label>
+
+                        <label
+                          class="flex items-center gap-4 border p-3 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-slate-700 transition-all">
+                          <input type="radio" name="evaluator" value="evaluator4" class="hidden peer" />
+                          <img
+                            src="https://img.freepik.com/vektor-premium/ilustrasi-datar-vektor-dalam-skala-abu-abu-ikon-orang-profil-pengguna-avatar-gambar-profil-siluet-netral-gender-cocok-untuk-ikon-profil-media-sosial-screensaver-dan-sebagai-templatx9xa_719432-1096.jpg"
+                            alt="Foto Evaluator" class="w-12 h-12 rounded-full object-cover" />
+                          <div>
+                            <p class="font-semibold text-gray-800 dark:text-white">Budi Santoso</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-300">NIP: 1990112233</p>
+                          </div>
+                          <div
+                            class="ml-auto hidden peer-checked:flex items-center justify-center w-6 h-6 rounded-full bg-blue-500 text-white font-bold transition-all duration-200">
+                            ✓
+                          </div>
+                        </label>
+
+                        <!-- dst... -->
+                      </div>
+
+                      <!-- Tombol Aksi di Bawah -->
+                      <div class="mt-6 space-y-3">
+                        <button onclick="kirimKeEvaluator()"
+                          class="w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
+                          Kirim
+                        </button>
+                        <button onclick="closeEvaluatorModal()"
+                          class="w-full px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400 transition">
+                          Batal
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <!-- Popup Notifikasi -->
+                  <div id="popup-notif"
+                    class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 hidden z-60">
+                    <div class="bg-white dark:bg-slate-800 rounded-lg p-6 max-w-sm w-full shadow-lg text-center">
+                      <p class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Dokumen berhasil dikirim ke
+                        evaluator.</p>
+                      <button onclick="closePopupNotif()"
+                        class="px-5 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
+                        Tutup
+                      </button>
+                    </div>
+                  </div>
+
+                  <script>
+                    function openEvaluatorModal() {
+                      document.getElementById('modal-evaluator').classList.remove('hidden');
+                      document.body.classList.add('overflow-hidden');
+                    }
+
+                    function closeEvaluatorModal() {
+                      document.getElementById('modal-evaluator').classList.add('hidden');
+                      document.body.classList.remove('overflow-hidden');
+                    }
+
+                    function showPopupNotif() {
+                      document.getElementById('popup-notif').classList.remove('hidden');
+                      document.body.classList.add('overflow-hidden');
+                    }
+
+                    function closePopupNotif() {
+                      document.getElementById('popup-notif').classList.add('hidden');
+                      document.body.classList.remove('overflow-hidden');
+                    }
+
+                    function kirimKeEvaluator() {
+                      const selected = document.querySelector('input[name="evaluator"]:checked');
+                      if (!selected) {
+                        alert("Pilih salah satu evaluator terlebih dahulu.");
+                        return;
+                      }
+
+                      const evaluatorID = selected.value;
+                      console.log("Evaluator yang dipilih:", evaluatorID);
+
+                      // TODO: Tambahkan AJAX / pengiriman data ke server jika perlu
+
+                      closeEvaluatorModal();
+                      showPopupNotif();
+                    }
+
+                 
+                    // Ambil data yang sudah ada
+                    function simpanDraf(nomor) {
+                        const catatanInput = document.getElementById(`catatan${nomor}`);
+                        const statusSelect = document.getElementById(`status${nomor}`);
+
+                        if (!catatanInput || !statusSelect) {
+                          alert('Elemen tidak ditemukan!');
+                          return;
+                        }
+
+                        const catatan = catatanInput.value;
+                        const status = statusSelect.value;
+
+                        // Ambil draf sebelumnya dari sessionStorage
+                        let draf = JSON.parse(sessionStorage.getItem('evaluasi_draf')) || {};
+
+                        // Simpan/Update nilai evaluasi ke objek draf
+                        draf[`evaluasi${nomor}`] = {
+                          catatan: catatan,
+                          status: status
+                        };
+
+                        // Simpan kembali ke sessionStorage
+                        sessionStorage.setItem('evaluasi_draf', JSON.stringify(draf));
+
+                        alert(`Evaluasi ${nomor} berhasil disimpan ke draf!`);
+                        
+                  }
+                
+
+                  </script>
 
 </body>
+
 <!-- plugin for charts  -->
 <script src="../assets/js/plugins/chartjs.min.js" async></script>
 <!-- plugin for scrollbar  -->

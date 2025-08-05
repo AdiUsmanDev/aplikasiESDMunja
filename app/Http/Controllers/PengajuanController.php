@@ -11,9 +11,8 @@ class PengajuanController extends Controller
     // Auto generate nomor pengajuan
     private function generateNomorPengajuan()
     {
-        $prefix = 'PNJ-' . date('Ymd');
-        $count = Pengajuan::whereDate('created_at', today())->count() + 1;
-        return $prefix . '-' . str_pad($count, 4, '0', STR_PAD_LEFT);
+       
+       return 'PNJ-' . now()->format('YmdHis') . '-' . rand(1000, 9999);
     }
 
     // Menyimpan data Surya
@@ -29,6 +28,15 @@ class PengajuanController extends Controller
             
         ]);
 
+         $data =  $request->except(['pengaju_id', '_token']);
+         
+        foreach ($request->files as $key => $file) {
+        if ($file->isValid()) {
+            $path = $file->store('file-pengajuan', 'public'); 
+            $data[$key] = $path; 
+        }
+    }
+
         $pengajuId = auth()->id();
         $pengajuan = Pengajuan::create([
             'nomor_pengajuan' => $this->generateNomorPengajuan(),
@@ -36,8 +44,10 @@ class PengajuanController extends Controller
             'jenis_pembangkit' => 'surya',
             'nama_lokasi' => $request->input('addressdes') ?? 'lokasi tidak ditentukan',
             'status' => 'menunggu',
-            'data' => $request->except(['pengaju_id', '_token']),
+            'data' => $data,
         ]);
+         
+        
 
         return response()->json(['message' => 'Pengajuan Surya disimpan', 'data' => $pengajuan]);
     }
@@ -99,11 +109,74 @@ class PengajuanController extends Controller
 
    public function getHistori()
         {
-            $pengajuan = Pengajuan::where('pengaju_id', auth()->id())
+           $pengajuan = Pengajuan::with(['evaluasi']) // ini akan ikut menyertakan semua evaluasi
+                ->where('pengaju_id', auth()->id())
                 ->orderBy('created_at', 'desc')
                 ->get();
 
             return response()->json($pengajuan);
         }
+
+
+            public function daftarPengajuanMasuk()
+            {  
+$pengajuan = Pengajuan::with(['pengguna.identitas'])
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+
+    return response()->json($pengajuan, 200, [], JSON_PRETTY_PRINT);
+            }
+
+public function uploadFile(Request $request){ 
+     $nomor = $request->input('nomor_pengajuan');
+$pengajuId = auth()->id();
+$pengajuan = Pengajuan::where('pengaju_id', auth()->id())
+                      ->where('nomor_pengajuan', $nomor)
+                      ->firstOrFail();
+
+$dataLama = $pengajuan->data;
+
+// Jika datanya sudah array, langsung pakai
+if (!is_array($dataLama)) {
+    $dataLama = json_decode($dataLama ?? '{}', true);
+}
+
+// Jika decode gagal atau hasilnya bukan array, fallback ke array kosong
+$dataLama = is_array($dataLama) ? $dataLama : [];
+
+$uploaded = [];
+
+foreach ($request->allFiles() as $field => $file) {
+    if (is_array($file)) {
+        $uploaded[$field] = [];
+        foreach ($file as $index => $singleFile) {
+            $path = $singleFile->store('uploads');
+            $uploaded[$field][$index] = $path;
+        }
+        if (\Schema::hasColumn('pengajuans', $field)) {
+            $pengajuan->{$field} = json_encode($uploaded[$field]);
+        }
+    } else {
+        $path = $file->store('uploads');
+        $uploaded[$field] = $path;
+        if (\Schema::hasColumn('pengajuans', $field)) {
+            $pengajuan->{$field} = $path;
+        }
+    }
+
+    $dataLama[$field] = $uploaded[$field];
+}
+
+$pengajuan->data = json_encode($dataLama);
+$pengajuan->save();
+
+return response()->json([
+    'message' => 'Semua file berhasil diupload',
+    'files' => $uploaded,
+]);
+
+}
+
+
 
 }

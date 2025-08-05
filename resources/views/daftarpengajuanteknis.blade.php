@@ -34,9 +34,9 @@
             <li class="text-sm leading-normal">
               <a class="text-white opacity-50" href="javascript:;">Halaman</a>
             </li>
-            <li class="text-sm pl-2 capitalize leading-normal text-white before:float-left before:pr-2 before:text-white before:content-['/']" aria-current="page">Daftar Pengajuan</li>
+            <li class="text-sm pl-2 capitalize leading-normal text-white before:float-left before:pr-2 before:text-white before:content-['/']" aria-current="page">Daftar Permohonan</li>
           </ol>
-          <h6 class="mb-0 font-bold text-white capitalize">Daftar pengajuan</h6>
+          <h6 class="mb-0 font-bold text-white capitalize">Daftar Permohonan</h6>
         </nav>
 
         <div class="flex items-center mt-2 grow sm:mt-0 sm:mr-6 md:mr-0 lg:flex lg:basis-auto">
@@ -169,121 +169,22 @@
         <div class="flex-none w-full max-w-full px-3">
           <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl">
             <div class="p-4 pb-0 mb-0 border-b border-b-transparent rounded-t-2xl">
-              <h6 class="leading-normal text-lg font-bold mb-4 text-gray-700 dark:text-white uppercase">Daftar Surat Permohonan Keterangan</h6>
+              <h6 class="leading-normal text-lg font-bold mb-4 text-gray-700 dark:text-white uppercase">Daftar Permohonan Surat Keterangan</h6>
             </div>
             <div class="flex-auto pt-0 pb-2 overflow-x-auto">
               <table class="min-w-full text-sm text-left text-slate-500 dark:text-slate-200">
                 <thead class="text-xs uppercase text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-700">
                   <tr>
-                    <th class="px-4 py-3 text-slate-900 font-bold whitespace-nowrap">No Laporan</th>
-                    <th class="px-4 py-3 text-slate-900 font-bold text-center whitespace-nowrap">Nama Badan Usaha</th>
-                    <th class="px-4 py-3 text-slate-900 font-bold text-center whitespace-nowrap">Tanggal Laporan</th>
-                    <th class="px-4 py-3 text-slate-900 font-bold text-center whitespace-nowrap">Keterangan / Catatan Perbaikan</th>
-                    <th class="px-4 py-3 text-slate-900 font-bold text-center whitespace-nowrap">Status</th>
-                    <th class="px-4 py-3 text-slate-900 font-bold text-center whitespace-nowrap">Aksi</th>
-                    <th class="px-4 py-3 text-slate-900 font-bold text-center whitespace-nowrap">Jadwal Evaluasi</th>
+                    <th class="px-4 py-3 text-sm font-bold whitespace-nowrap">Nomor</th>
+                    <th class="px-4 py-3 text-sm font-bold text-center whitespace-nowrap">Tanggal Laporan</th>
+                    <th class="px-4 py-3 text-sm font-bold text-center whitespace-nowrap">Badan Usaha</th>
+                    <th class="px-4 py-3 text-sm font-bold text-center whitespace-nowrap">Catatan</th>
+                    <th class="px-4 py-3 text-sm font-bold text-center whitespace-nowrap">Status</th>
+                    <th class="px-4 py-3 text-sm font-bold text-center whitespace-nowrap">Aksi</th>
                   </tr>
                 </thead>
                 <tbody class="bg-white dark:bg-slate-800">
-                  <tr class="border-b dark:border-slate-700">
-                    <td class="px-4 py-3">
-                      <div class="flex flex-col">
-                        <span class="font-medium text-slate-900 dark:text-white">0001</span>
-                      </div>
-                    </td>
-                    <td class="px-4 py-3 text-center text-xs">Perseroan Terbatas (PT)</td>
-                    <td class="px-4 py-3 text-center text-xs">23/04/18</td>
-                    <td class="px-4 py-3 text-sm">Perbaikan pada lampiran</td>
-                    <td class="px-4 py-3 text-center">
-                      <span class="inline-flex items-center justify-center w-40 h-8 text-xs font-semibold text-white rounded-full bg-yellow-400">
-                        PROSES EVALUASI
-                      </span>
-                    </td>
-                    <td class="px-4 py-3 text-center">
-                      <a href="/halamantimteknis" class="text-blue-600 hover:underline text-xs">lihat </a>
-                    </td>
-                    <td class="px-4 py-3 text-center text-xs">25 juli 2025</td>
-                  </tr>
-
-                  <tr class="border-b dark:border-slate-700">
-                    <td class="px-4 py-3">
-                      <div class="flex flex-col">
-                        <span class="font-medium text-slate-900 dark:text-white">0002</span>
-                      </div>
-                    </td>
-                    <td class="px-4 py-3 text-center text-xs">Perseroan Terbatas (PT)</td>
-                    <td class="px-4 py-3 text-center text-xs">11/01/19</td>
-                    <td class="px-4 py-3 text-sm">Kapasitas total tidak sesuai dengan data</td>
-                    <td class="px-4 py-3 text-center">
-                      <span class="inline-flex items-center justify-center w-40 h-8 text-xs font-semibold text-white rounded-full bg-red-500">
-                        PERBAIKAN
-                      </span>
-                    </td>
-                    <td class="px-4 py-3 text-center">
-                      <a href="/halamantimteknis" class="text-blue-600 hover:underline text-xs">lihat</a>
-                    </td>
-                    <td class="px-4 py-3 text-center text-xs">25 juli 2025</td>
-                  </tr>
-
-                  <tr class="border-b dark:border-slate-700">
-                    <td class="px-4 py-3">
-                      <div class="flex flex-col">
-                        <span class="font-medium text-slate-900 dark:text-white">0003</span>
-                      </div>
-                    </td>
-                    <td class="px-4 py-3 text-center text-xs">Perseroan Terbatas (PT)</td>
-                    <td class="px-4 py-3 text-center text-xs">12/05/2025</td>
-                    <td class="px-4 py-3 text-sm">-</td>
-                    <td class="px-4 py-3 text-center">
-                      <span class="inline-flex items-center justify-center w-40 h-8 text-xs font-semibold text-white rounded-full bg-green-600" >
-                        TELAH DIEVALUASI
-                      </span>
-                    </td>
-                    <td class="px-4 py-3 text-center">
-                      <a href="/halamantimteknis" class="text-blue-600 hover:underline text-xs">Lihat</a>
-                    </td>
-                    <td class="px-4 py-3 text-center text-xs">25 juli 2025</td>
-                  </tr>
-
-                  <tr class="border-b dark:border-slate-700">
-                    <td class="px-4 py-3">
-                      <div class="flex flex-col">
-                        <span class="font-medium text-slate-900 dark:text-white">0004</span>
-                      </div>
-                    </td>
-                    <td class="px-4 py-3 text-center text-xs">Perseroan Terbatas (PT)</td>
-                    <td class="px-4 py-3 text-center text-xs">19/09/17</td>
-                    <td class="px-4 py-3 text-sm">-</td>
-                    <td class="px-4 py-3 text-center">
-                      <span class="inline-flex items-center justify-center w-40 h-8 text-xs font-semibold text-white rounded-full bg-green-600">
-                        DISETUJUI
-                      </span>
-                    </td>
-                    <td class="px-4 py-3 text-center">
-                      <a href="/suketteknis" class="text-blue-600 hover:underline text-xs">Lihat</a>
-                    </td>
-                    <td class="px-4 py-3 text-center text-xs">25 juli 2025</td>
-                  </tr>
-
-                  <tr class="border-b dark:border-slate-700">
-                    <td class="px-4 py-3">
-                      <div class="flex flex-col">
-                        <span class="font-medium text-slate-900 dark:text-white">0005</span>
-                      </div>
-                    </td>
-                    <td class="px-4 py-3 text-center text-xs">Perseroan Terbatas (PT)</td>
-                    <td class="px-4 py-3 text-center text-xs">19/09/17</td>
-                    <td class="px-4 py-3 text-sm">-</td>
-                    <td class="px-4 py-3 text-center">
-                      <span class="inline-flex items-center justify-center w-40 h-8 text-xs font-semibold text-white rounded-full bg-yellow-400">
-                        PROSES VALIDASI
-                      </span>
-                    </td>
-                    <td class="px-4 py-3 text-center">
-                      <a href="/halamantimteknis" class="text-blue-600 hover:underline text-xs">Lihat</a>
-                    </td>
-                    <td class="px-4 py-3 text-center text-xs">25 juli 2025</td>
-                  </tr>
+                 
                 </tbody>
               </table>
             </div>
@@ -621,6 +522,87 @@
   </div>
   </div>
 </body>
+
+
+<script>
+  async function loadPengajuan() {
+    try {
+      const response = await fetch('/admin/pengajuan-masuk');
+      const data = await response.json();
+
+      const tbody = document.querySelector('tbody.bg-white');
+      tbody.innerHTML = "";
+
+      for (const item of data) {
+        const namaPerusahaan = item.pengguna?.identitas?.nama_perusahaan || "-";
+        const tanggal = new Date(item.created_at).toLocaleDateString('id-ID');
+        const keterangan = item.keterangan || "-";
+        const url = await getSignedUrl(item.id);
+
+        let statusClass = "";
+        switch (item.status.toLowerCase()) {
+          case "menunggu":
+            statusClass = "bg-yellow-400";
+            break;
+          case "perbaikan":
+            statusClass = "bg-red-500";
+            break;
+          case "disetujui":
+          case "telah dievaluasi":
+            statusClass = "bg-green-600";
+            break;
+            case "Proses Validasi":
+            statusClass = "bg-yellow-600";
+            break;
+          default:
+            statusClass = "bg-gray-400";
+        }
+
+        const tr = document.createElement("tr");
+        tr.classList.add("border-b", "dark:border-slate-700");
+
+        tr.innerHTML = `
+          <td class="px-4 py-3">
+            <div class="flex flex-col">
+              <span class=" text-xs text-slate-900 dark:text-white">${item.nomor_pengajuan}</span>
+            </div>
+          </td>
+           <td class="px-4 py-3 text-center text-xs">${tanggal}</td>
+          <td class="px-4 py-3 text-center text-xs">${namaPerusahaan}</td>
+          <td class="px-4 py-3 text-xs">${keterangan}</td>
+          <td class="px-4 py-3 text-center">
+            <span class="inline-flex items-center justify-center w-40 h-8 text-xs font-semibold text-white rounded-full ${statusClass}">
+              ${item.status.toUpperCase()}
+            </span>
+          </td>
+          <td class="px-4 py-3 text-center">
+            <a href="${url}" class="text-blue-600 hover:underline text-xs">Lihat</a>
+          </td>
+        `;
+
+        tbody.appendChild(tr);
+      }
+
+    } catch (error) {
+      console.error("Terjadi kesalahan saat memuat data pengajuan:", error);
+    }
+  }
+
+  const getSignedUrl = async (id) => {
+    try {
+      const response = await fetch(`/generate-signed-url/${id}`);
+      const result = await response.json();
+      return result.url;
+    } catch (error) {
+      console.error('Gagal mengambil signed URL:', error);
+      return '#';
+    }
+  };
+
+  document.addEventListener("DOMContentLoaded", loadPengajuan);
+</script>
+
+
 <!-- plugin for scrollbar  -->
 <script src="../assets/js/plugins/perfect-scrollbar.min.js" async></script>
 <!-- main script file  -->

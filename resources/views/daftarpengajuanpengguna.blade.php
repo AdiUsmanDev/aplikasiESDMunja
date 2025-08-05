@@ -91,11 +91,11 @@
               <table class="min-w-full text-sm text-left text-slate-500 dark:text-slate-200">
                 <thead class="text-xs uppercase text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-700">
                   <tr>
-                    <th class="px-4 py-3  text-m text-slate-900 font-bold whitespace-nowrap dark:text-white uppercase">No Laporan</th>
-                    <th class="px-4 py-3  text-m text-slate-900 font-bold text-center whitespace-nowrap dark:text-white uppercase">Tanggal Laporan</th>
-                    <th class="px-4 py-3  text-m text-slate-900 font-bold whitespace-nowrap dark:text-white uppercase">Keterangan / Catatan Perbaikan</th>
-                    <th class="px-4 py-3 text-m text-slate-900 font-bold text-center whitespace-nowrap dark:text-white uppercase">Status</th>
-                    <th class="px-4 py-3 text-m text-slate-900 font-bold text-center whitespace-nowrap uppercase">Aksi</th>
+                    <th class="px-4 py-3  text-sm text-slate-900 font-bold whitespace-nowrap dark:text-white uppercase">No</th>
+                    <th class="px-4 py-3  text-sm text-slate-900 font-bold text-center whitespace-nowrap dark:text-white uppercase">Tanggal Laporan</th>
+                    <th class="px-4 py-3  text-sm text-slate-900 font-bold whitespace-nowrap dark:text-white uppercase">Catatan</th>
+                    <th class="px-4 py-3 text-sm text-slate-900 font-bold text-center whitespace-nowrap dark:text-white uppercase">Status</th>
+                    <th class="px-4 py-3 text-sm text-slate-900 font-bold text-center whitespace-nowrap uppercase">Aksi</th>
                   </tr>
                 </thead>
 
@@ -450,36 +450,35 @@ async function loadHistoriPengajuan() {
     const response = await fetch('/pengajuan/histori');
     const data = await response.json();
 
-
-
     const tbody = document.getElementById("historiBody");
     tbody.innerHTML = "";
 
-    data.forEach(item => {
+    for (const item of data) {
+      const url = await getSignedUrlpengguna(item.id); // gunakan fungsi yang benar
       const badgeClass = item.status === 'menunggu'
         ? 'bg-orange-400'
         : item.status_pengajuan === 'perbaikan'
-        ? 'bg-orange-700'
-        : 'bg-green-600';
+        ? 'bg-red-700'
+        : 'bg-red-600';
 
-      const catatan = item.data?.catatan_perbaikan || '-';
-      const aksiLink = item.status== 'perbaikan'
-        ? `<a href="/perbaikan/${item.id}" class="text-blue-600 hover:underline text-sm font-semibold">Perbaiki</a>`
+      const catatan = item.evaluasi?.[0]?.catatan || '-';
+      const aksiLink = item.status === 'perbaikan'
+        ? `<a href=" ${url}" class="text-blue-600 hover:underline text-xs font-semibold">Perbaiki</a>`
         : item.status === 'disetujui'
-        ? `<a href="/suratterbituser" class="text-blue-600 hover:underline text-sm font-semibold">Lihat</a>`
+        ? `<a href="/suratterbituser" class="text-blue-600 hover:underline text-xs font-semibold">Lihat</a>`
         : '';
 
       const row = `
         <tr class="border-b dark:border-slate-700">
           <td class="px-4 py-3">
             <div class="flex flex-col">
-              <span class="font-medium text-slate-900 dark:text-white">${item.nomor_pengajuan}</span>
+              <span class="font-xs text-slate-900 dark:text-white">${item.nomor_pengajuan}</span>
             </div>
           </td>
-          <td class="px-4 py-3 text-center text-sm font-semibold text-slate-900 dark:text-white">
+          <td class="px-4 py-3 text-center text-xs font-semibold text-slate-900 dark:text-white">
             ${new Date(item.created_at).toLocaleDateString('id-ID')}
           </td>
-          <td class="px-4 py-3 text-sm text-slate-900 dark:text-white">
+          <td class="px-4 py-3 text-xs text-slate-900 dark:text-white">
             ${catatan}
           </td>
           <td class="px-4 py-3 text-center">
@@ -493,12 +492,25 @@ async function loadHistoriPengajuan() {
         </tr>
       `;
       tbody.innerHTML += row;
-    });
+    }
 
   } catch (error) {
     console.error("Gagal memuat histori:", error);
   }
 }
+
+
+const getSignedUrlpengguna = async (id) => {
+    try {
+      const response = await fetch(`/generate-signed-url-pengguna/${id}`);
+      const result = await response.json();
+      return result.url;
+    } catch (error) {
+      console.error('Gagal mengambil signed URL:', error);
+      return '#';
+    }
+  };
+
 
 function formatStatus(status) {
     if (!status) return 'TIDAK DIKETAHUI';

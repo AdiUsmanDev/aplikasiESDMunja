@@ -2,6 +2,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Pengguna;
 
 class IdentitasPengguna extends Model
 {

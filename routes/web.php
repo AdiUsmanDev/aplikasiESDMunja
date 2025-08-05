@@ -9,6 +9,14 @@ use App\Http\Middleware\Authenticate;
 use App\Http\Controllers\PengajuanController;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\IdentitasTimAdminController;
+use Laravel\Pail\ValueObjects\Origin\Console;
+use App\Http\Controllers\HalamanTimTeknisController;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\URL;
+use App\Http\Controllers\EvaluasiDetailController;
+use App\Http\Controllers\HalamanPenggunaController;
+
+use Illuminate\Support\Facades\Response;
 
 Route::get('/tes-email', function () {
     Mail::raw('Ini email uji coba dari Laravel.', function ($message) {
@@ -30,6 +38,27 @@ Route::middleware('auth')->group(function () {
     Route::get('/profileteknis', [IdentitasTimAdminController::class, 'showProfile'])->name('profileteknis');
     Route::get('/tim-admin/edit', [IdentitasTimAdminController::class, 'edit'])->name('tim_admin.edit');
     Route::post('/tim-admin/update', [IdentitasTimAdminController::class, 'update'])->name('tim_admin.update');
+    Route::get('/admin/pengajuan-masuk', [PengajuanController::class, 'daftarPengajuanMasuk']);
+    Route::post('/evaluasi/simpan', [EvaluasiDetailController::class, 'store']);
+    Route::get('/evaluasi-detail/{id_laporan}', [EvaluasiDetailController::class, 'show']);
+    Route::get('/generate-signed-url/{id}', function ($id) {
+        $encryptedId = Crypt::encryptString($id); 
+        return response()->json([
+            'url' => URL::signedRoute('view.show', ['id' => $encryptedId]),
+        ]);
+    })->name('generate.signed.url');
+
+    //pengguna
+
+    Route::get('/generate-signed-url-pengguna/{id}', function ($id) {
+        $encryptedId = Crypt::encryptString($id); 
+        return response()->json([
+            'url' => URL::signedRoute('perbaikan.show', ['id' => $encryptedId]),
+        ]);
+    })->name('generate.signed.url.pengguna');
+
+ 
+
    
     Route::get('/berandateknis', function () {
     return view('berandateknis');
@@ -45,17 +74,39 @@ Route::middleware('auth')->group(function () {
     return view('suketteknis');
     })->name('suketteknis');
 
-   
 
+
+
+
+Route::get('/view/{id}', [HalamanTimTeknisController::class, 'show'])
+    ->name('view.show')
+    ->middleware('signed');
+    Route::get('/perbaikan/{id}', [HalamanPenggunaController::class, 'show'])
+    ->name('perbaikan.show')
+    ->middleware('signed');
 
     Route::post('/pengajuan/surya', [PengajuanController::class, 'storeSurya']);
     Route::post('/pengajuan/non-surya', [PengajuanController::class, 'storeNonSurya']);
     Route::get('/pengajuan/{id}', [PengajuanController::class, 'show']);
     Route::put('/pengajuan/{id}/status', [PengajuanController::class, 'updateStatus']);
+    Route::post('/upload/files', [PengajuanController::class, 'uploadFile']);
+
+
 
 
 });
 
+Route::get('/file/{path}', function ($path) {
+    $fullPath = storage_path('app/private/' . $path);
+
+    if (!file_exists($fullPath)) {
+        abort(404, 'File tidak ditemukan.');
+    }
+
+    return Response::file($fullPath, [
+        'Content-Type' => mime_content_type($fullPath),
+    ]);
+})->where('path', '.*')->name('private.file');
 
 Route::get('/cek-auth', function () {
     return response()->json(Auth::user());
@@ -122,9 +173,7 @@ Route::get('/validator', function () {
 })->name('validator');
 
 
-Route::get('/halamantimteknis', function () {
-    return view('halamantimteknis');
-})->name('halamantimteknis');
+
 
 Route::get('/suratterbituser', function () {
     return view('suratterbituser');
